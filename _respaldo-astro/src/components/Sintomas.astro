@@ -1,0 +1,26 @@
+---
+const sintomas = [
+  'Su equipo contesta los mismos mensajes de WhatsApp todo el día.',
+  'Pierde pedidos y reservas porque nadie contestó a las nueve de la noche.',
+  'Alguien pasa horas pasando datos de una plataforma a otra.',
+  'La información vive en cuadernos y chats, no en un sistema.',
+];
+---
+
+<section class="seccion bg-perla">
+  <div class="lienzo">
+    <h2 class="text-d2">¿Le suena esto?</h2>
+
+    <ul class="mt-10 max-w-[780px]">
+      {
+        sintomas.map((s) => (
+          <li class="filete py-5 text-d4 leading-[1.4]">{s}</li>
+        ))
+      }
+      <li class="filete py-5 text-d4 leading-[1.4]">
+        Usted trabaja <em>en</em> el negocio en vez de trabajar{' '}
+        <em>para hacerlo crecer</em>.
+      </li>
+    </ul>
+  </div>
+</section>

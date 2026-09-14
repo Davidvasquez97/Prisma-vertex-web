@@ -1,0 +1,94 @@
+---
+const fases = [
+  {
+    n: 'Fase 1',
+    titulo: 'Diagnóstico',
+    texto:
+      'Recorremos su operación real, no la del organigrama. Salimos con las tres fugas más caras, medidas en horas y en pesos.',
+  },
+  {
+    n: 'Fase 2',
+    titulo: 'Diseño',
+    texto:
+      'Definimos qué se automatiza, qué se simplifica y qué se deja igual. Recibe una propuesta con alcance, tiempos y precio cerrado.',
+  },
+  {
+    n: 'Fase 3',
+    titulo: 'Implementación',
+    texto:
+      'Construimos, integramos y capacitamos a su gente. Lo acompañamos los primeros 60 días.',
+  },
+];
+---
+
+<section class="seccion" id="metodo">
+  <div class="lienzo">
+    <h2 class="text-d2 max-w-[16ch]">Un prisma no crea la luz. La ordena.</h2>
+
+    <ol class="secuencia mt-12 md:mt-16">
+      {
+        fases.map((f) => (
+          <li class="fase">
+            <p class="text-menudo font-semibold text-azul">{f.n}</p>
+            <h3 class="mt-1 text-d3">{f.titulo}</h3>
+            <p class="mt-3 text-cuerpo text-gris">{f.texto}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .secuencia {
+    display: grid;
+    gap: 0;
+  }
+
+  .fase {
+    position: relative;
+    padding-top: 1.75rem;
+  }
+
+  /* La línea que avanza: horizontal en escritorio, vertical en móvil */
+  .fase::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: var(--color-linea);
+  }
+
+  .fase::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--color-azul);
+  }
+
+  .fase + .fase {
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .secuencia {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 3.5rem;
+    }
+    .fase + .fase {
+      margin-top: 0;
+    }
+    /* La línea cruza el espacio entre columnas para leerse como una sola. */
+    .fase::before {
+      width: calc(100% + 3.5rem);
+    }
+    .fase:last-child::before {
+      width: 100%;
+    }
+  }
+</style>

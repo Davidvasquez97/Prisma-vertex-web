@@ -1,0 +1,76 @@
+---
+const hoy = [
+  'Tres horas diarias respondiendo lo mismo',
+  'Clientes que se van porque nadie contestó',
+  'Nadie sabe cuánto se está perdiendo',
+];
+const conPrisma = [
+  'Un asistente responde solo, las 24 horas',
+  'Cada cliente atendido en segundos',
+  'Los números a la vista en una sola pantalla',
+];
+---
+
+<section class="seccion">
+  <div class="lienzo">
+    <h2 class="text-d2">Lo que cambia</h2>
+
+    <!-- Orden del DOM en columnas: en móvil se apila "Hoy" completo y
+         debajo "Con Prisma"; en escritorio el grid los reparte en dos
+         columnas con las filas alineadas. -->
+    <div class="tabla relative mt-10">
+      <span class="divisor" aria-hidden="true"></span>
+
+      <p class="rotulo">Hoy</p>
+      {hoy.map((t) => <p class="celda text-gris">{t}</p>)}
+
+      <p class="rotulo mt-12 md:mt-0">Con Prisma</p>
+      {conPrisma.map((t) => <p class="celda celda-der">{t}</p>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .rotulo {
+    font-size: var(--text-cuerpo);
+    font-weight: 600;
+    padding-bottom: 0.75rem;
+  }
+
+  .celda {
+    border-top: 1px solid var(--color-linea);
+    padding-block: 1.25rem;
+    font-size: var(--text-d4);
+    line-height: 1.35;
+    display: flex;
+    align-items: center;
+  }
+
+  .celda-der {
+    border-top-color: color-mix(in srgb, var(--color-azul) 22%, var(--color-linea));
+  }
+
+  .divisor {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .tabla {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto repeat(3, 1fr);
+      grid-auto-flow: column;
+      column-gap: 4rem;
+    }
+
+    .divisor {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--color-linea);
+    }
+  }
+</style>

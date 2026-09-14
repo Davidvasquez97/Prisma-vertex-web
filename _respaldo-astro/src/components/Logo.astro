@@ -1,0 +1,39 @@
+---
+/**
+ * Marca Prisma Vertex, redibujada en vector para que quede nítida a 24px.
+ * Monocroma a propósito: el espectro aparece una sola vez en toda la página
+ * y ese lugar es el hero. Aquí el prisma va en un solo color.
+ */
+interface Props {
+  conTexto?: boolean;
+  clase?: string;
+}
+const { conTexto = true, clase = '' } = Astro.props;
+---
+
+<span class={`inline-flex items-center gap-2.5 ${clase}`}>
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 120 120"
+    fill="none"
+    aria-hidden="true"
+    class="shrink-0"
+  >
+    <g stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M60 12 L14 88 L60 110 L106 88 Z" />
+      <path d="M60 12 L60 110" />
+      <path d="M14 88 L60 78 L106 88" opacity="0.45" />
+    </g>
+  </svg>
+  {
+    conTexto && (
+      <span
+        class="text-[0.875rem] leading-none font-semibold whitespace-nowrap uppercase sm:text-[0.9375rem]"
+        style="font-variation-settings:'wdth' 115; letter-spacing:0.13em;"
+      >
+        Prisma Vertex
+      </span>
+    )
+  }
+</span>

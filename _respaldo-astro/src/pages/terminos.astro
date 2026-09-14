@@ -1,0 +1,119 @@
+---
+// BORRADOR LEGAL — pendiente de revisión por David Vásquez antes de publicar.
+import Base from '../layouts/Base.astro';
+import { CONTACTO, SITE } from '../config';
+
+const actualizado = '13 de septiembre de 2026';
+---
+
+<Base
+  titulo="Términos y condiciones — Prisma Vertex"
+  descripcion="Términos y condiciones de los servicios de consultoría y desarrollo de Prisma Vertex."
+>
+  <section class="seccion">
+    <div class="lienzo max-w-[68ch]">
+      <h1 class="text-d2">Términos y condiciones</h1>
+      <p class="mt-4 text-menudo text-gris">
+        Última actualización: {actualizado}
+      </p>
+
+      <div class="mt-10 space-y-8 text-cuerpo">
+        <div>
+          <h2 class="text-d4">1. Quiénes somos</h2>
+          <p class="mt-3 text-gris">
+            {SITE.nombre} presta servicios de consultoría en optimización de
+            procesos, desarrollo de software a la medida, automatizaciones e
+            implementación de agentes de inteligencia artificial, con domicilio
+            en {CONTACTO.ciudad}, {CONTACTO.departamento}, {CONTACTO.pais}.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">2. Alcance de la consultoría</h2>
+          <p class="mt-3 text-gris">
+            Las horas indicadas en cada plan corresponden al tiempo de sesión
+            con el cliente. El análisis posterior y la elaboración de los
+            documentos están incluidos en el precio del plan y se entregan entre
+            una y dos semanas después de la sesión, según el tamaño de la
+            operación. La implementación de las soluciones se cotiza por
+            separado y se rige por un contrato independiente.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">3. Precios y pagos</h2>
+          <p class="mt-3 text-gris">
+            Los precios publicados están expresados en dólares de los Estados
+            Unidos y se facturan según la tasa de cambio vigente al momento del
+            pago. El pago de la consultoría se realiza antes de la sesión, salvo
+            acuerdo escrito distinto.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">4. Garantías</h2>
+          <p class="mt-3 text-gris">
+            Si del diagnóstico no resulta ninguna oportunidad de ahorro de
+            tiempo o dinero para el cliente, no se cobra la consultoría. Si una
+            solución implementada por {SITE.nombre} no resulta rentable para el
+            cliente en los términos acordados por escrito antes de la
+            implementación, tampoco se cobra dicha implementación. Estas
+            garantías no cubren costos de terceros, licencias ni servicios
+            contratados directamente por el cliente.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">5. Propiedad de los entregables</h2>
+          <p class="mt-3 text-gris">
+            Los documentos entregados al finalizar la consultoría son del
+            cliente, quien puede ejecutarlos con {SITE.nombre}, con otro
+            proveedor o con su propio equipo. La titularidad del software
+            desarrollado se define en el contrato de implementación
+            correspondiente.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">6. Confidencialidad</h2>
+          <p class="mt-3 text-gris">
+            Toda la información del negocio a la que {SITE.nombre} acceda
+            durante el diagnóstico o la implementación es confidencial. Los
+            nombres de los clientes solo se divulgan con autorización previa y
+            expresa.
+          </p>
+        </div>
+
+        <div id="aviso">
+          <h2 class="text-d4">7. Aviso legal</h2>
+          <p class="mt-3 text-gris">
+            El contenido de este sitio es informativo y no constituye una oferta
+            comercial vinculante ni asesoría jurídica, contable o financiera.
+            Los resultados descritos en los ejemplos corresponden a casos
+            concretos y no garantizan resultados equivalentes en otras
+            operaciones.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">8. Ley aplicable</h2>
+          <p class="mt-3 text-gris">
+            Estos términos se rigen por la legislación de la República de
+            Colombia. Cualquier controversia se someterá a los jueces
+            competentes de {CONTACTO.ciudad}, {CONTACTO.departamento}.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">9. Contacto</h2>
+          <p class="mt-3 text-gris">
+            Para cualquier consulta sobre estos términos, escríbanos a{' '}
+            <a href={`mailto:${CONTACTO.correo}`} class="text-azul">
+              {CONTACTO.correo}
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

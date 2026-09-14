@@ -1,0 +1,151 @@
+---
+import { SECTORES } from '../config';
+const TRAZO = 'M-24.0 62.0 L84.3 62.0 Q93.3 62.0 102.3 62.0 L122.3 62.0 Q131.3 62.0 131.3 53.0 L131.3 45.0 Q131.3 36.0 140.3 36.0 L233.0 36.0 Q242.0 36.0 242.0 45.0 L242.0 53.0 Q242.0 62.0 251.0 62.0 L271.0 62.0 Q280.0 62.0 289.0 62.0 L309.0 62.0 Q318.0 62.0 318.0 71.0 L318.0 79.0 Q318.0 88.0 327.0 88.0 L419.7 88.0 Q428.7 88.0 428.7 79.0 L428.7 71.0 Q428.7 62.0 437.7 62.0 L457.7 62.0 Q466.7 62.0 475.7 62.0 L495.7 62.0 Q504.7 62.0 504.7 53.0 L504.7 45.0 Q504.7 36.0 513.7 36.0 L606.3 36.0 Q615.3 36.0 615.3 45.0 L615.3 53.0 Q615.3 62.0 624.3 62.0 L644.3 62.0 Q653.3 62.0 662.3 62.0 L682.3 62.0 Q691.3 62.0 691.3 71.0 L691.3 79.0 Q691.3 88.0 700.3 88.0 L793.0 88.0 Q802.0 88.0 802.0 79.0 L802.0 71.0 Q802.0 62.0 811.0 62.0 L831.0 62.0 Q840.0 62.0 849.0 62.0 L869.0 62.0 Q878.0 62.0 878.0 53.0 L878.0 45.0 Q878.0 36.0 887.0 36.0 L979.7 36.0 Q988.7 36.0 988.7 45.0 L988.7 53.0 Q988.7 62.0 997.7 62.0 L1017.7 62.0 Q1026.7 62.0 1035.7 62.0 L1144.0 62.0';
+---
+
+<section class="seccion bg-perla" id="sectores">
+  <div class="lienzo">
+    <h2 class="text-d2">Seis sectores. Un mismo método.</h2>
+
+    <div class="circuito mt-12 md:mt-16">
+      <!-- Escritorio: pista de circuito horizontal -->
+      <div class="hidden md:block">
+        <svg
+          viewBox="0 0 1120 124"
+          class="block w-full"
+          role="img"
+          aria-label="Pista de circuito que conecta seis sectores: restaurantes, salud y diagnóstico, odontología, marketing digital, retail deportivo y documentación legal."
+        >
+          <path
+            d={TRAZO}
+            fill="none"
+            stroke="#C9D3E0"
+            stroke-width="1.5"
+            stroke-linecap="square"
+          />
+          <path
+            class="pulso"
+            d={TRAZO}
+            pathLength="1000"
+            fill="none"
+            stroke="#1E5BD6"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-dasharray="64 2000"
+            stroke-dashoffset="64"
+          />
+          <g><rect x="88.3" y="57.0" width="10" height="10" fill="#1E5BD6" />
+        <rect x="275.0" y="57.0" width="10" height="10" fill="#1E5BD6" />
+        <rect x="461.7" y="57.0" width="10" height="10" fill="#1E5BD6" />
+        <rect x="648.3" y="57.0" width="10" height="10" fill="#1E5BD6" />
+        <rect x="835.0" y="57.0" width="10" height="10" fill="#1E5BD6" />
+        <rect x="1021.7" y="57.0" width="10" height="10" fill="#1E5BD6" /></g>
+        </svg>
+
+        <ul class="grid grid-cols-6">
+          {
+            SECTORES.map((s) => (
+              <li class="px-2 text-center text-menudo text-gris">{s}</li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Móvil: el circuito se voltea a vertical -->
+      <ul class="rail md:hidden">
+        {
+          SECTORES.map((s) => (
+            <li class="relative flex items-center gap-4 py-3.5 pl-6">
+              <span class="nodo" aria-hidden="true" />
+              <span class="text-cuerpo">{s}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* El pulso recorre la pista una sola vez al entrar en pantalla. */
+  .circuito.visible .pulso {
+    animation: recorre 1.45s cubic-bezier(0.45, 0.05, 0.4, 1) forwards;
+  }
+
+  @keyframes recorre {
+    from { stroke-dashoffset: 64; }
+    to { stroke-dashoffset: -1000; }
+  }
+
+  .rail {
+    position: relative;
+    padding-left: 5px;
+  }
+
+  /* Riel vertical: la versión móvil de la pista */
+  .rail::before {
+    content: '';
+    position: absolute;
+    top: 1.1rem;
+    bottom: 1.1rem;
+    left: 5px;
+    width: 1.5px;
+    background: var(--color-circuito);
+  }
+
+  /* Pulso descendente, también una sola vez */
+  .rail::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    width: 1.5px;
+    height: 54px;
+    top: 0;
+    background: linear-gradient(180deg, transparent, var(--color-azul), transparent);
+    opacity: 0;
+  }
+
+  .circuito.visible .rail::after {
+    animation: baja 1.45s cubic-bezier(0.45, 0.05, 0.4, 1) forwards;
+  }
+
+  @keyframes baja {
+    0% { top: 0; opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { top: calc(100% - 54px); opacity: 0; }
+  }
+
+  .nodo {
+    position: absolute;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--color-azul);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .circuito.visible .pulso,
+    .circuito.visible .rail::after {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // El pulso recorre la pista una sola vez, cuando la sección entra en pantalla.
+  // Un oyente de scroll que se da de baja al primer acierto: ~230 bytes,
+  // diferido, fuera del primer render. Es el único JavaScript del sitio.
+  const circuito = document.querySelector('.circuito');
+  if (circuito) {
+    const mira = () => {
+      const r = circuito.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
+        circuito.classList.add('visible');
+        window.removeEventListener('scroll', mira);
+      }
+    };
+    window.addEventListener('scroll', mira, { passive: true });
+    mira();
+  }
+</script>

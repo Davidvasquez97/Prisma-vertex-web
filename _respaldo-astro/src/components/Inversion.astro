@@ -1,0 +1,149 @@
+---
+import { wa, MENSAJES } from '../config';
+
+const planes = [
+  {
+    nombre: 'Plan Básico',
+    precio: 'USD 65',
+    destacado: false,
+    items: [
+      '1 hora de consultoría',
+      'Revisamos un área o proceso de su negocio',
+      'Resumen escrito con lo encontrado y su costo mensual',
+      'Informe de cuellos de botella',
+      'Solución paso a paso en lenguaje simple',
+      'Arquitectura técnica para cualquier desarrollador',
+      'Cotización cerrada de la implementación',
+    ],
+    boton: 'Agendar por WhatsApp',
+    mensaje: MENSAJES.basico,
+  },
+  {
+    nombre: 'Plan Pro',
+    precio: 'USD 120',
+    destacado: true,
+    etiqueta: 'El más pedido',
+    items: [
+      '2 horas de consultoría',
+      'Revisamos toda su operación',
+      'Resumen escrito con lo encontrado y su costo mensual',
+      'Informe de cuellos de botella, priorizados',
+      'Solución paso a paso en lenguaje simple',
+      'Arquitectura técnica para cualquier desarrollador',
+      'Cotización cerrada de la implementación',
+    ],
+    boton: 'Agendar por WhatsApp',
+    mensaje: MENSAJES.pro,
+  },
+  {
+    nombre: 'Plan Empresa',
+    precio: 'Hablemos',
+    destacado: false,
+    items: [
+      'Más de dos horas de consultoría',
+      'Para varias áreas, sedes o equipos',
+      'Todos los entregables anteriores',
+      'Acompañamiento continuo',
+    ],
+    boton: 'Escribir por WhatsApp',
+    mensaje: MENSAJES.empresa,
+  },
+];
+
+const pasos = [
+  {
+    titulo: '1. Consultoría.',
+    texto:
+      'Nos sentamos con usted y encontramos los problemas. Precio fijo según el plan.',
+  },
+  {
+    titulo: '2. Entregables.',
+    texto:
+      'Recibe los documentos con todo lo encontrado, la solución paso a paso y la arquitectura técnica.',
+  },
+  {
+    titulo: '3. Implementación.',
+    texto:
+      'Si decide que lo construyamos nosotros, le pasamos una cotización cerrada. Puede ser un software a la medida, un agente de inteligencia artificial o una automatización, según lo que su negocio necesite.',
+  },
+];
+---
+
+<section class="seccion bg-perla" id="planes">
+  <div class="lienzo">
+    <h2 class="text-d2">Elija cómo empezar</h2>
+
+    <div class="mt-10 grid gap-6 md:mt-12 md:grid-cols-3 md:gap-7">
+      {
+        planes.map((p) => (
+          <article
+            class:list={[
+              'relative flex flex-col border bg-base px-6 py-8 md:px-7',
+              p.destacado
+                ? 'border-azul order-first md:order-none'
+                : 'border-linea',
+            ]}
+          >
+            {p.etiqueta && (
+              <span class="absolute -top-[11px] left-6 bg-base px-3 py-[3px] text-[0.8125rem] font-semibold text-azul ring-1 ring-azul md:left-1/2 md:-translate-x-1/2">
+                {p.etiqueta}
+              </span>
+            )}
+
+            <p class="text-cuerpo font-semibold">{p.nombre}</p>
+            <p class="mt-1 text-d2 leading-none">{p.precio}</p>
+
+            <ul class="mt-7 mb-8">
+              {p.items.map((i) => (
+                <li class="filete py-3 text-cuerpo text-gris">{i}</li>
+              ))}
+            </ul>
+
+            <a
+              href={wa(p.mensaje)}
+              target="_blank"
+              rel="noopener"
+              class:list={[
+                'boton mt-auto w-full',
+                p.destacado ? 'boton-solido' : 'boton-linea',
+              ]}
+            >
+              {p.boton}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mt-7 max-w-[76ch] text-menudo text-gris">
+      Las horas corresponden al tiempo de sesión con usted. El análisis y la
+      elaboración de los documentos se hacen después y están incluidos en el
+      precio. La implementación se cotiza aparte.
+    </p>
+
+    <div class="mt-14 grid gap-8 md:grid-cols-3 md:gap-8">
+      {
+        pasos.map((p) => (
+          <div class="border-t border-linea pt-5">
+            <p class="text-cuerpo">
+              <span class="font-semibold">{p.titulo}</span>{' '}
+              <span class="text-gris">{p.texto}</span>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- El único bloque oscuro de toda la página. -->
+    <div class="mt-14 bg-azul-profundo px-7 py-10 text-base md:px-14 md:py-14">
+      <p class="text-d3 max-w-[26ch] text-white">
+        Si no encontramos cómo ahorrarle tiempo o dinero, no le cobramos la
+        consultoría.
+      </p>
+      <p class="mt-5 max-w-[52ch] text-cuerpo-lg text-white/75">
+        Y si implementamos una solución que no le resulta rentable, tampoco le
+        cobramos la implementación.
+      </p>
+    </div>
+  </div>
+</section>

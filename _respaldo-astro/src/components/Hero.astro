@@ -1,0 +1,228 @@
+---
+import { wa, MENSAJES } from '../config';
+---
+
+<section class="relative overflow-hidden border-b border-linea">
+  <div
+    class="lienzo grid items-center gap-12 pt-14 pb-16 md:grid-cols-[1.12fr_1fr] md:gap-8 md:pt-24 md:pb-28"
+  >
+    <div class="relative z-10">
+      <h1 class="text-d1">
+        Su empresa pierde dinero en cosas que la tecnología ya puede hacer sola.
+      </h1>
+
+      <p class="medida mt-7 text-cuerpo-lg text-gris">
+        Nosotros encontramos exactamente dónde, lo calculamos en pesos, y lo
+        arreglamos. Sin cambiar su equipo y sin palabras raras.
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+        <a
+          href={wa(MENSAJES.general)}
+          target="_blank"
+          rel="noopener"
+          class="boton boton-solido"
+        >
+          Agendar por WhatsApp
+        </a>
+        <p class="text-menudo text-gris">Consultoría desde USD 65</p>
+      </div>
+    </div>
+
+    <!-- El haz entra por el borde izquierdo de la pantalla, cruza por detrás
+         del texto y se refracta en espectro al salir por el prisma. -->
+    <div class="prisma-caja relative">
+      <div class="haz" aria-hidden="true"></div>
+
+      <svg
+        class="prisma relative z-[1] mx-auto block w-full max-w-[290px] md:max-w-none"
+        viewBox="0 0 440 360"
+        role="img"
+        aria-label="Un haz de luz blanca atraviesa un prisma y se abre en un espectro de colores."
+      >
+        <defs>
+          <linearGradient id="caraIzq" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1E5BD6" stop-opacity="0.20" />
+            <stop offset="1" stop-color="#0A2A6B" stop-opacity="0.32" />
+          </linearGradient>
+          <linearGradient id="caraDer" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1E5BD6" stop-opacity="0.10" />
+            <stop offset="1" stop-color="#1E5BD6" stop-opacity="0.24" />
+          </linearGradient>
+          <linearGradient id="caraBase" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0A2A6B" stop-opacity="0.30" />
+            <stop offset="1" stop-color="#0A2A6B" stop-opacity="0.14" />
+          </linearGradient>
+
+          <linearGradient id="arcoiris" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0.00" stop-color="#E8452B" />
+            <stop offset="0.17" stop-color="#F08A1E" />
+            <stop offset="0.33" stop-color="#EFC521" />
+            <stop offset="0.50" stop-color="#3EAE55" />
+            <stop offset="0.67" stop-color="#1E7FE0" />
+            <stop offset="0.84" stop-color="#3F3FAF" />
+            <stop offset="1.00" stop-color="#8B3AA6" />
+          </linearGradient>
+
+          <linearGradient id="desvanece" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0.00" stop-color="#fff" stop-opacity="0.35" />
+            <stop offset="0.18" stop-color="#fff" stop-opacity="1" />
+            <stop offset="0.62" stop-color="#fff" stop-opacity="0.62" />
+            <stop offset="1.00" stop-color="#fff" stop-opacity="0" />
+          </linearGradient>
+
+          <mask id="mascaraEspectro">
+            <rect x="196" y="70" width="250" height="240" fill="url(#desvanece)" />
+          </mask>
+
+          <clipPath id="abanico">
+            <path d="M198 186 L446 104 L446 276 Z" />
+          </clipPath>
+
+          <filter id="suave" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3.2" />
+          </filter>
+
+          <radialGradient id="destello">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.95" />
+            <stop offset="0.55" stop-color="#BFD6FF" stop-opacity="0.5" />
+            <stop offset="1" stop-color="#BFD6FF" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        <!-- Espectro: se abre desde el punto exacto de salida del prisma -->
+        <g class="espectro" mask="url(#mascaraEspectro)">
+          <g clip-path="url(#abanico)" filter="url(#suave)">
+            <rect x="196" y="80" width="252" height="220" fill="url(#arcoiris)" opacity="0.9" />
+          </g>
+        </g>
+
+        <!-- Prisma -->
+        <g class="cuerpo">
+          <path d="M150 34 L58 278 L150 320 Z" fill="url(#caraIzq)" />
+          <path d="M150 34 L150 320 L242 278 Z" fill="url(#caraDer)" />
+          <path d="M58 278 L150 320 L242 278 L150 246 Z" fill="url(#caraBase)" />
+          <g
+            fill="none"
+            stroke="#1E5BD6"
+            stroke-width="3"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          >
+            <path d="M150 34 L58 278 L150 320 L242 278 Z" />
+            <path d="M150 34 L150 320" />
+            <path d="M58 278 L150 246 L242 278" opacity="0.45" />
+          </g>
+        </g>
+
+        <!-- Destello donde el haz golpea la cara izquierda -->
+        <circle class="destello" cx="112" cy="180" r="34" fill="url(#destello)" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .prisma-caja {
+    /* Punto de entrada del haz sobre la cara izquierda del prisma,
+       expresado como porcentaje del ancho del SVG (112/440 ≈ 25%). */
+    --entrada-x: 74%;
+    --entrada-y: 50%;
+  }
+
+  .haz {
+    position: absolute;
+    /* La caja tiene altura real: clip-path recorta contra ella. */
+    top: calc(var(--entrada-y) - 36px);
+    right: var(--entrada-x);
+    width: 100vw;
+    height: 72px;
+    z-index: 0;
+    clip-path: inset(0 100% 0 0);
+    animation: entra-haz 0.72s cubic-bezier(0.4, 0, 0.2, 1) 0.18s forwards;
+  }
+
+  /* Núcleo del haz */
+  .haz::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 34.5px;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      rgba(30, 91, 214, 0) 0%,
+      rgba(30, 91, 214, 0.18) 18%,
+      rgba(30, 91, 214, 0.45) 46%,
+      rgba(86, 142, 250, 0.8) 70%,
+      rgba(176, 209, 255, 0.95) 88%,
+      #ffffff 100%
+    );
+  }
+
+  /* Halo difuso alrededor del núcleo */
+  .haz::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 19px;
+    height: 34px;
+    background: linear-gradient(
+      90deg,
+      rgba(30, 91, 214, 0) 0%,
+      rgba(30, 91, 214, 0.12) 30%,
+      rgba(46, 106, 224, 0.3) 62%,
+      rgba(120, 170, 255, 0.52) 86%,
+      rgba(200, 226, 255, 0.6) 100%
+    );
+    filter: blur(9px);
+  }
+
+  @keyframes entra-haz {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  .espectro {
+    transform-box: fill-box;
+    transform-origin: 0% 50%;
+    transform: scaleX(0.02);
+    animation: abre-espectro 0.5s cubic-bezier(0.16, 0.8, 0.3, 1) 0.62s forwards;
+  }
+
+  @keyframes abre-espectro {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .destello {
+    opacity: 0;
+    animation: enciende 0.3s ease-out 0.58s forwards;
+  }
+
+  @keyframes enciende {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Con la preferencia activa, el espectro aparece ya formado. */
+  @media (prefers-reduced-motion: reduce) {
+    .haz,
+    .espectro,
+    .destello {
+      animation: none;
+    }
+    .haz {
+      clip-path: none;
+    }
+    .espectro {
+      transform: none;
+    }
+    .destello {
+      opacity: 1;
+    }
+  }
+</style>

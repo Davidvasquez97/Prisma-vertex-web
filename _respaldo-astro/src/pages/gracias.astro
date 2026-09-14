@@ -1,0 +1,36 @@
+---
+// Página de agradecimiento. Hoy no está enlazada desde ningún punto del sitio:
+// se decidió que todos los llamados a la acción van directo a WhatsApp, sin
+// formulario. Queda lista por si más adelante se agrega uno.
+import Base from '../layouts/Base.astro';
+import { CONTACTO, wa, MENSAJES } from '../config';
+---
+
+<Base titulo="Gracias — Prisma Vertex" noIndexar={true}>
+  <section class="seccion">
+    <div class="lienzo max-w-[620px]">
+      <h1 class="text-d2">Gracias. Le escribimos pronto.</h1>
+      <p class="mt-6 text-cuerpo-lg text-gris">
+        Recibimos su mensaje. Le respondemos dentro del siguiente día hábil. Si
+        prefiere adelantar la conversación, escríbanos directo por WhatsApp.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a
+          href={wa(MENSAJES.general)}
+          target="_blank"
+          rel="noopener"
+          class="boton boton-solido"
+        >
+          Escribir por WhatsApp
+        </a>
+        <a href="/" class="boton boton-linea">Volver al inicio</a>
+      </div>
+      <p class="mt-8 text-menudo text-gris">
+        También puede escribirnos a{' '}
+        <a href={`mailto:${CONTACTO.correo}`} class="text-azul">
+          {CONTACTO.correo}
+        </a>.
+      </p>
+    </div>
+  </section>
+</Base>

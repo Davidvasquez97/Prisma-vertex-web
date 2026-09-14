@@ -1,0 +1,95 @@
+---
+const entregas = [
+  {
+    titulo: '1. El problema, en palabras simples.',
+    texto:
+      'Qué está pasando, en qué parte de su operación y por qué está costando dinero. Sin tecnicismos.',
+  },
+  {
+    titulo: '2. Cuánto le cuesta hoy.',
+    texto:
+      'Horas al mes y pesos al mes. Un número concreto, calculado con los datos de su propio negocio.',
+  },
+  {
+    titulo: '3. La solución, paso a paso.',
+    texto:
+      'Qué se construye, en qué orden y qué necesita usted poner de su lado. Escrito para que lo entienda cualquier persona de su equipo.',
+  },
+  {
+    titulo: '4. Cuánto tiempo se recupera.',
+    texto:
+      'Cuántas horas al mes quedan libres una vez resuelto, y qué puede hacer su equipo con ellas.',
+  },
+  {
+    titulo: '5. Cuánto vale arreglarlo.',
+    texto:
+      'Precio cerrado por cada solución, por separado. Usted decide cuáles hace, en qué orden y cuándo.',
+  },
+];
+---
+
+<section class="seccion filete" id="entregable">
+  <div class="lienzo">
+    <h2 class="text-d2 max-w-[22ch]">
+      Al terminar no le entregamos un informe bonito. Le entregamos un plan que
+      puede ejecutar.
+    </h2>
+
+    <p class="medida mt-7 text-cuerpo-lg text-gris">
+      La consultoría termina en un documento donde cada cuello de botella de su
+      operación queda escrito con nombre propio, explicado en palabras normales
+      y resuelto paso a paso. Va incluido en cualquiera de los planes.
+    </p>
+
+    <p class="mt-12 text-cuerpo font-semibold">
+      Para cada cuello de botella usted recibe:
+    </p>
+
+    <dl class="mt-6">
+      {
+        entregas.map((e) => (
+          <div class="fila filete gap-x-10 py-5 md:grid md:grid-cols-[minmax(0,24ch)_1fr]">
+            <dt class="font-semibold">{e.titulo}</dt>
+            <dd class="mt-1 text-gris md:mt-0">{e.texto}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <p class="medida mt-10 text-cuerpo-lg text-gris">
+      Con ese documento en la mano puede implementarlo con nosotros, con otro
+      proveedor, o con su propio equipo. Es suyo.
+    </p>
+
+    <!-- Ejemplo real anonimizado, presentado como una ficha del informe.
+         Es el único lugar del sitio donde algo parece un documento. -->
+    <article class="ficha mt-14 max-w-[760px] border-l-2 border-azul bg-perla px-7 py-8 md:px-10 md:py-10">
+      <h3 class="text-d4">Cuello de botella 02 — Reservas fuera de horario</h3>
+
+      <div class="mt-6 space-y-4 text-cuerpo">
+        <p>
+          <em class="text-gris">El problema:</em> después de las 8 p.m. nadie
+          responde el WhatsApp del restaurante. Los mensajes se acumulan y al
+          día siguiente ya es tarde para muchos.
+        </p>
+        <p>
+          <em class="text-gris">Cuánto cuesta hoy:</em> 38 reservas perdidas al
+          mes, en promedio.
+        </p>
+        <p>
+          <em class="text-gris">La solución:</em> 1) Conectamos el WhatsApp del
+          negocio a un asistente. 2) Le cargamos el menú, los horarios y las
+          reglas de reserva. 3) El asistente confirma la mesa y la escribe
+          directo en la agenda. 4) Si el caso es raro, avisa a una persona.
+        </p>
+        <p>
+          <em class="text-gris">Tiempo que se recupera:</em> 14 horas al mes del
+          equipo de sala.
+        </p>
+        <p>
+          <em class="text-gris">Inversión:</em> cotizada aparte, precio cerrado.
+        </p>
+      </div>
+    </article>
+  </div>
+</section>

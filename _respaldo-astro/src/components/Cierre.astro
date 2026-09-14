@@ -1,0 +1,33 @@
+---
+import { wa, MENSAJES } from '../config';
+---
+
+<section class="seccion" id="diagnostico">
+  <div class="lienzo flex flex-col items-center py-6 text-center md:py-10">
+    <h2 class="text-d2 max-w-[18ch]">Hablemos de su operación.</h2>
+
+    <p class="mt-6 max-w-[54ch] text-cuerpo-lg text-gris">
+      Una conversación de treinta minutos alcanza para saber si tenemos algo que
+      aportarle. Si no lo tenemos, se lo decimos.
+    </p>
+
+    <div class="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+      <a
+        href={wa(MENSAJES.diagnostico)}
+        target="_blank"
+        rel="noopener"
+        class="boton boton-solido"
+      >
+        Quiero mi diagnóstico
+      </a>
+      <a
+        href={wa(MENSAJES.general)}
+        target="_blank"
+        rel="noopener"
+        class="boton boton-linea"
+      >
+        Escribir por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

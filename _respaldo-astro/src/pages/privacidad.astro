@@ -1,0 +1,109 @@
+---
+// BORRADOR LEGAL — pendiente de revisión por David Vásquez antes de publicar.
+// Redactado sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
+import Base from '../layouts/Base.astro';
+import { CONTACTO, SITE } from '../config';
+
+const actualizado = '13 de septiembre de 2026';
+---
+
+<Base
+  titulo="Política de privacidad — Prisma Vertex"
+  descripcion="Política de tratamiento de datos personales de Prisma Vertex, conforme a la Ley 1581 de 2012."
+>
+  <section class="seccion">
+    <div class="lienzo max-w-[68ch]">
+      <h1 class="text-d2">Política de privacidad</h1>
+      <p class="mt-4 text-menudo text-gris">
+        Última actualización: {actualizado}
+      </p>
+
+      <div class="mt-10 space-y-8 text-cuerpo">
+        <div>
+          <h2 class="text-d4">1. Responsable del tratamiento</h2>
+          <p class="mt-3 text-gris">
+            {SITE.nombre}, con domicilio en {CONTACTO.ciudad},{' '}
+            {CONTACTO.departamento}, {CONTACTO.pais}, correo{' '}
+            <a href={`mailto:${CONTACTO.correo}`} class="text-azul">
+              {CONTACTO.correo}
+            </a>, es responsable del tratamiento de los datos personales
+            recolectados a través de este sitio y de los canales de contacto
+            asociados.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">2. Qué datos recogemos</h2>
+          <p class="mt-3 text-gris">
+            Este sitio no usa formularios ni cookies de analítica o publicidad.
+            Solo tratamos los datos que usted nos entrega voluntariamente cuando
+            nos escribe por WhatsApp o por correo: su nombre, su número de
+            teléfono, su correo electrónico y la información sobre su negocio
+            que decida compartir en la conversación.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">3. Para qué los usamos</h2>
+          <p class="mt-3 text-gris">
+            Para responder su solicitud, agendar y prestar la consultoría,
+            elaborar los documentos contratados, emitir la facturación
+            correspondiente y mantener el contacto comercial. No vendemos,
+            arrendamos ni compartimos sus datos con terceros para fines
+            publicitarios.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">4. Sus derechos</h2>
+          <p class="mt-3 text-gris">
+            Conforme a la Ley 1581 de 2012, usted puede conocer, actualizar y
+            rectificar sus datos personales; solicitar prueba de la autorización
+            otorgada; ser informado sobre el uso que se ha dado a sus datos;
+            presentar quejas ante la Superintendencia de Industria y Comercio; y
+            revocar la autorización o solicitar la supresión de sus datos cuando
+            no exista un deber legal o contractual que lo impida.
+          </p>
+          <p class="mt-3 text-gris">
+            Para ejercer cualquiera de estos derechos, escriba a{' '}
+            <a href={`mailto:${CONTACTO.correo}`} class="text-azul">
+              {CONTACTO.correo}
+            </a>. Respondemos las consultas en un plazo máximo de diez días
+            hábiles y los reclamos en un plazo máximo de quince días hábiles.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">5. Conservación y seguridad</h2>
+          <p class="mt-3 text-gris">
+            Conservamos los datos mientras dure la relación comercial y durante
+            el término necesario para cumplir las obligaciones legales y
+            contables aplicables. Adoptamos medidas técnicas y administrativas
+            razonables para proteger la información contra acceso o uso no
+            autorizado.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">6. Servicios de terceros</h2>
+          <p class="mt-3 text-gris">
+            Las conversaciones iniciadas desde este sitio se realizan a través
+            de WhatsApp, servicio operado por un tercero y sujeto a sus propias
+            políticas de privacidad. El alojamiento del sitio está a cargo de un
+            proveedor de infraestructura que puede registrar datos técnicos de
+            la conexión, como la dirección IP, con fines de seguridad y
+            disponibilidad.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-d4">7. Cambios</h2>
+          <p class="mt-3 text-gris">
+            Cualquier cambio en esta política se publicará en esta misma página
+            con la fecha de actualización correspondiente.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

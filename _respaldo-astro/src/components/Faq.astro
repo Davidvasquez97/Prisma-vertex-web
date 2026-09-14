@@ -1,0 +1,117 @@
+---
+const preguntas = [
+  {
+    p: '¿Tengo que cambiar los programas que ya uso?',
+    r: 'Casi nunca. Preferimos conectar lo que ya tiene antes que reemplazarlo. Cambiar todo es caro y su equipo lo resiente.',
+  },
+  {
+    p: '¿Esto sirve para un negocio pequeño?',
+    r: 'Sí. De hecho es donde más se nota, porque cada hora que se libera es una hora de alguien que hace tres cosas a la vez.',
+  },
+  {
+    p: '¿Qué diferencia hay entre el Plan Básico y el Pro?',
+    r: 'Los entregables son los mismos. Lo que cambia es cuánto de su negocio revisamos: el Básico se enfoca en un área o proceso puntual, el Pro cubre toda la operación.',
+  },
+  {
+    p: '¿En la hora de consultoría recibo todos los documentos?',
+    r: 'La hora es la sesión con usted. Los documentos los elaboramos después y están incluidos en el precio del plan, sin cobro adicional.',
+  },
+  {
+    p: '¿Cuánto se demora la entrega de los documentos?',
+    r: 'Entre una y dos semanas después de la sesión, según el tamaño de la operación.',
+  },
+  {
+    p: '¿Mi equipo va a tener que aprender algo complicado?',
+    r: 'No. Si una solución necesita capacitación larga, es que está mal diseñada. Entregamos las cosas funcionando y acompañamos los primeros 60 días.',
+  },
+  {
+    p: '¿Van a reemplazar a mi gente?',
+    r: 'No es la idea. Automatizamos tareas repetitivas para que su gente haga lo que una máquina no puede: vender, atender bien y resolver.',
+  },
+  {
+    p: '¿Atienden fuera de Popayán?',
+    r: 'Sí. El diagnóstico presencial lo hacemos en el Cauca; el resto del país lo atendemos de forma remota.',
+  },
+];
+---
+
+<section class="seccion bg-perla" id="preguntas">
+  <div class="lienzo">
+    <h2 class="text-d2">Preguntas frecuentes</h2>
+
+    <div class="mt-10 max-w-[820px]">
+      {
+        preguntas.map((q) => (
+          <details class="acordeon filete">
+            <summary>
+              <span class="text-d4 leading-snug">{q.p}</span>
+              <span class="signo" aria-hidden="true" />
+            </summary>
+            <p class="pr-10 pb-6 text-cuerpo text-gris">{q.r}</p>
+          </details>
+        ))
+      }
+      <div class="filete"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .acordeon summary {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.375rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .acordeon summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .acordeon summary:hover .signo {
+    border-color: var(--color-azul);
+  }
+
+  /* Signo de más / menos dibujado con bordes: sin librería de íconos. */
+  .signo {
+    position: relative;
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 0.35rem;
+    border: 1px solid var(--color-circuito);
+    border-radius: 2px;
+    transition: border-color 0.15s ease;
+  }
+
+  .signo::before,
+  .signo::after {
+    content: '';
+    position: absolute;
+    background: var(--color-azul);
+    transition: transform 0.18s ease;
+  }
+
+  .signo::before {
+    top: 50%;
+    left: 3px;
+    right: 3px;
+    height: 1.5px;
+    transform: translateY(-50%);
+  }
+
+  .signo::after {
+    left: 50%;
+    top: 3px;
+    bottom: 3px;
+    width: 1.5px;
+    transform: translateX(-50%);
+  }
+
+  .acordeon[open] .signo::after {
+    transform: translateX(-50%) scaleY(0);
+  }
+</style>

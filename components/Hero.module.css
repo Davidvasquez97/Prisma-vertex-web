@@ -1,0 +1,190 @@
+/* ------------------------------------------------------------------
+   El único momento orquestado del sitio: un haz de luz blanca entra por
+   el borde izquierdo, cruza por detrás del titular, atraviesa el prisma
+   y se abre en espectro al salir. Menos de 1.2 s y no se repite.
+   ------------------------------------------------------------------ */
+
+.caja {
+  position: relative;
+  /* Punto de entrada del haz sobre la cara izquierda del prisma,
+     expresado como porcentaje del ancho del SVG. */
+  --entrada-x: 74%;
+  --entrada-y: 50%;
+}
+
+.haz {
+  position: absolute;
+  /* La caja tiene altura real: clip-path recorta contra ella. */
+  top: calc(var(--entrada-y) - 36px);
+  right: var(--entrada-x);
+  width: 100vw;
+  height: 72px;
+  z-index: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: entraHaz 0.72s cubic-bezier(0.4, 0, 0.2, 1) 0.18s forwards;
+}
+
+/* Núcleo del haz */
+.haz::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 34.5px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(30, 91, 214, 0) 0%,
+    rgba(30, 91, 214, 0.18) 18%,
+    rgba(30, 91, 214, 0.45) 46%,
+    rgba(86, 142, 250, 0.8) 70%,
+    rgba(176, 209, 255, 0.95) 88%,
+    #ffffff 100%
+  );
+}
+
+/* Halo difuso alrededor del núcleo */
+.haz::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 19px;
+  height: 34px;
+  background: linear-gradient(
+    90deg,
+    rgba(30, 91, 214, 0) 0%,
+    rgba(30, 91, 214, 0.12) 30%,
+    rgba(46, 106, 224, 0.3) 62%,
+    rgba(120, 170, 255, 0.52) 86%,
+    rgba(200, 226, 255, 0.6) 100%
+  );
+  filter: blur(9px);
+}
+
+@keyframes entraHaz {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.espectro {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  transform: scaleX(0.02);
+  animation: abreEspectro 0.5s cubic-bezier(0.16, 0.8, 0.3, 1) 0.62s forwards;
+}
+
+@keyframes abreEspectro {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.destello {
+  opacity: 0;
+  animation: enciende 0.3s ease-out 0.58s forwards;
+}
+
+@keyframes enciende {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Circuito de sectores. El pulso lo recorre una sola vez cuando la
+   franja entra en pantalla, nunca en bucle.
+   ------------------------------------------------------------------ */
+
+.circuito :global(.pulso) {
+  stroke-dasharray: 64 2000;
+  stroke-dashoffset: 64;
+}
+
+.circuito:global(.visible) :global(.pulso) {
+  animation: recorre 1.45s cubic-bezier(0.45, 0.05, 0.4, 1) forwards;
+}
+
+@keyframes recorre {
+  from {
+    stroke-dashoffset: 64;
+  }
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+/* Riel vertical: la versión móvil de la pista */
+.rail {
+  position: relative;
+  padding-left: 5px;
+}
+
+.rail::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: 5px;
+  width: 1.5px;
+  background: var(--color-trazo);
+}
+
+.rail::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  width: 1.5px;
+  height: 54px;
+  top: 0;
+  background: linear-gradient(180deg, transparent, var(--color-azul), transparent);
+  opacity: 0;
+}
+
+.circuito:global(.visible) .rail::after {
+  animation: baja 1.45s cubic-bezier(0.45, 0.05, 0.4, 1) forwards;
+}
+
+@keyframes baja {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 54px);
+    opacity: 0;
+  }
+}
+
+.nodo {
+  position: absolute;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  background: var(--color-azul);
+}
+
+/* Con la preferencia activa, el espectro aparece ya formado. */
+@media (prefers-reduced-motion: reduce) {
+  .haz,
+  .espectro,
+  .destello,
+  .circuito:global(.visible) :global(.pulso),
+  .circuito:global(.visible) .rail::after {
+    animation: none;
+  }
+  .haz {
+    clip-path: none;
+  }
+  .espectro {
+    transform: none;
+  }
+  .destello {
+    opacity: 1;
+  }
+}

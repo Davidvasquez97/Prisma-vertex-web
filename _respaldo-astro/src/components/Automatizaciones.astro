@@ -1,0 +1,39 @@
+---
+const bloques = [
+  {
+    titulo: 'Atención y ventas por WhatsApp.',
+    texto: 'Un asistente que responde, cotiza y agenda solo, a cualquier hora.',
+  },
+  {
+    titulo: 'Sistemas a la medida.',
+    texto:
+      'Historias clínicas, inventarios, reservas. Software suyo, sin mensualidades eternas.',
+  },
+  {
+    titulo: 'Tareas repetitivas.',
+    texto: 'Lo que hoy alguien hace copiando y pegando, lo hace el sistema.',
+  },
+  {
+    titulo: 'Documentación y contratos.',
+    texto:
+      'Propuestas, contratos de desarrollo y respaldo legal, con criterio jurídico.',
+  },
+];
+---
+
+<section class="seccion bg-perla">
+  <div class="lienzo">
+    <h2 class="text-d2">Qué podemos automatizar</h2>
+
+    <div class="mt-10 max-w-[820px]">
+      {
+        bloques.map((b) => (
+          <div class="filete py-6 text-d4 leading-[1.45]">
+            <span class="font-semibold">{b.titulo}</span>{' '}
+            <span class="text-gris">{b.texto}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

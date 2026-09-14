@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import foto from '../assets/equipo-prisma.jpg';
+---
+
+<section class="seccion bg-perla" id="equipo">
+  <div class="lienzo grid items-start gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-16">
+    <Image
+      src={foto}
+      alt="David Vásquez y Juan David Chaves sosteniendo un prisma de vidrio atravesado por un haz de luz."
+      widths={[420, 640, 900]}
+      sizes="(min-width: 768px) 42vw, 100vw"
+      format="webp"
+      quality={78}
+      loading="lazy"
+      class="w-full"
+    />
+
+    <div>
+      <h2 class="text-d2">Quiénes estamos detrás</h2>
+
+      <div class="medida mt-7 space-y-5 text-cuerpo-lg text-gris">
+        <p>
+          Somos David Vásquez y Juan David Chaves. Fundamos Prisma Vertex porque
+          nos cansamos de ver negocios buenos frenados por procesos malos.
+        </p>
+        <p>
+          David viene del derecho; Juan David, del desarrollo. Esa mezcla nos
+          obligó a aprender lo que un consultor puramente técnico suele
+          saltarse: entender primero cómo funciona un negocio de verdad, con sus
+          contratos, su gente y sus costos. La tecnología viene después, y solo
+          si sirve.
+        </p>
+        <p>
+          Hoy dirigimos un equipo de cuatro personas que diseña e implementa
+          sistemas a la medida para empresas del Cauca.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+---
+const proyectos = [
+  {
+    titulo: 'Restaurante de alta cocina, Popayán',
+    texto:
+      'Sistema de reservas con asistente de IA en WhatsApp. Atención continua sin ampliar el equipo de sala.',
+  },
+  {
+    titulo: 'Consultorio odontológico',
+    texto:
+      'Historia clínica digital instalada en el consultorio. Reemplazó cuadernos y hojas sueltas.',
+  },
+  {
+    titulo: 'Centro de imagenología',
+    texto:
+      'Evaluación de integración de IA diagnóstica y contrato de desarrollo a la medida.',
+  },
+];
+---
+
+<section class="seccion">
+  <div class="lienzo">
+    <h2 class="text-d2">Algunos proyectos</h2>
+
+    <div class="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
+      {
+        proyectos.map((p) => (
+          <article class="border-t-2 border-tinta pt-5">
+            <h3 class="text-d4">{p.titulo}</h3>
+            <p class="mt-3 text-cuerpo text-gris">{p.texto}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 max-w-[52ch] text-cuerpo text-gris">
+      Los nombres de nuestros clientes se comparten en la primera conversación,
+      con su autorización.
+    </p>
+  </div>
+</section>

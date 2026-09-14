@@ -1,0 +1,41 @@
+---
+import Logo from './Logo.astro';
+import { wa, MENSAJES } from '../config';
+
+const enlaces = [
+  { texto: 'El método', href: '/#metodo' },
+  { texto: 'Qué recibe', href: '/#entregable' },
+  { texto: 'Planes', href: '/#planes' },
+  { texto: 'Preguntas', href: '/#preguntas' },
+];
+---
+
+<header class="border-b border-linea">
+  <nav class="lienzo flex h-[68px] items-center justify-between gap-6" aria-label="Principal">
+    <a href="/" class="text-tinta" aria-label="Prisma Vertex, inicio">
+      <Logo />
+    </a>
+
+    <ul class="hidden items-center gap-8 text-menudo text-gris md:flex">
+      {
+        enlaces.map((e) => (
+          <li>
+            <a href={e.href} class="transition-colors hover:text-tinta">
+              {e.texto}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      href={wa(MENSAJES.general)}
+      target="_blank"
+      rel="noopener"
+      class="boton boton-linea shrink-0 border-transparent px-0 py-2 text-menudo text-azul sm:border-linea sm:px-4 sm:text-tinta"
+    >
+      <span class="sm:hidden">WhatsApp</span>
+      <span class="hidden sm:inline">Agendar por WhatsApp</span>
+    </a>
+  </nav>
+</header>
