@@ -1,3 +1,4 @@
+import Boton from './Boton';
 import Revelar from './Revelar';
 import { NODOS_X, NODO_Y, TRAZO } from '@/lib/circuito';
 import { MENSAJES, SECTORES, wa } from '@/lib/config';
@@ -19,14 +20,9 @@ export default function Hero() {
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <a
-              href={wa(MENSAJES.general)}
-              target="_blank"
-              rel="noopener"
-              className="boton boton-solido"
-            >
+            <Boton href={wa(MENSAJES.general)} variante="solido">
               Agendar por WhatsApp
-            </a>
+            </Boton>
             <p className="text-menudo text-gris">Consultoría desde USD 65</p>
           </div>
         </div>

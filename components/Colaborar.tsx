@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import foto from '@/assets/equipo-prisma.jpg';
+import Boton from './Boton';
 import Faq from './Faq';
+import Instagram from './Instagram';
 import Planes from './Planes';
-import { CONTACTO, MENSAJES, wa } from '@/lib/config';
+import { CONTACTO, MENSAJES, MODO_VISTA_PREVIA, wa } from '@/lib/config';
 
 const proyectos = [
   {
@@ -66,6 +68,8 @@ export default function Colaborar() {
           </div>
         </div>
 
+        <Instagram />
+
         <Planes />
 
         <Faq />
@@ -79,18 +83,24 @@ export default function Colaborar() {
           </p>
 
           <div className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <a
-              href={wa(MENSAJES.diagnostico)}
-              target="_blank"
-              rel="noopener"
-              className="boton boton-solido"
-            >
+            <Boton href={wa(MENSAJES.diagnostico)} variante="solido">
               Quiero mi diagnóstico
-            </a>
-            <a href={`mailto:${CONTACTO.correo}`} className="boton boton-linea">
+            </Boton>
+            <Boton
+              href={`mailto:${CONTACTO.correo}`}
+              variante="linea"
+              externo={false}
+            >
               Escribir por correo
-            </a>
+            </Boton>
           </div>
+
+          {MODO_VISTA_PREVIA && (
+            <p className="text-menudo text-gris mt-6 max-w-[48ch]">
+              Estos botones todavía no llevan a ninguna parte. Se activan cuando
+              el sitio salga a su dominio definitivo.
+            </p>
+          )}
         </div>
       </div>
     </section>

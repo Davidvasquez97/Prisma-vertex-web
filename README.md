@@ -34,25 +34,59 @@ lib/
 _respaldo-astro/    la versión anterior en Astro, por si hace falta consultarla
 ```
 
+## Modo vista previa
+
+El sitio se publica hoy como **maqueta, sin ofrecer servicios**. Eso lo controla
+una sola línea en `lib/config.ts`:
+
+```ts
+export const MODO_VISTA_PREVIA = true;
+```
+
+Con el interruptor en `true`:
+
+- Aparece una franja arriba que dice que la página está en construcción.
+- Todos los botones de contacto se dibujan igual pero quedan inertes: en el HTML
+  no hay ni un solo enlace a `wa.me` ni a `mailto:`.
+- El correo, el WhatsApp y el Instagram del pie se muestran como texto, no como
+  enlaces.
+- La página se marca `noindex`, así Google no la lista.
+
+**Para lanzarlo de verdad**, cambie esa línea a `false` y haga `git push`. Todo
+vuelve a funcionar solo; no hay que tocar ningún componente.
+
 ## Pendiente antes de publicar
 
-1. **Foto del equipo.** `assets/equipo-prisma.jpg` es un marcador. Sobrescríbalo
-   con la foto real (cuadrada, mínimo 900px de lado). Next la convierte sola a
-   WebP en varios tamaños y calcula el desenfoque de carga.
-2. **Instagram y dominio**, en `lib/config.ts`. Están marcados con
+1. **Instagram y dominio**, en `lib/config.ts`. Están marcados con
    `← REEMPLAZAR`. Al cambiar el dominio, `sitemap.ts` y `robots.ts` se
    actualizan solos porque leen de ahí.
+2. **Quitar el modo vista previa** cuando el dominio esté conectado.
 3. **Textos legales.** `app/terminos/` y `app/privacidad/` son borradores
    construidos sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013. Necesitan
    revisión de David antes de publicarse.
-4. **Imagen para compartir.** `public/img/og.jpg` está generada con el prisma
-   redibujado; se puede reemplazar por una hecha con el logo original.
+4. **Imagen para compartir.** `public/img/og.jpg` se genera a partir del logo
+   real; se puede reemplazar por una diseñada aparte.
+
+## Las imágenes de la marca
+
+- `assets/logo-marca.jpg` — la pirámide del logo, recortada del lockup original
+  y con el punto blanco subido para que el fondo quede blanco puro. Se muestra
+  con `mix-blend-mode: multiply`, así el fondo desaparece sobre blanco y sobre
+  perla sin necesidad de un PNG con transparencia (que pesaría diez veces más).
+  Aparece en el nav, en el pie y en el apartado de Instagram.
+- `assets/equipo-prisma.jpg` — la foto de David y Juan David, recortada para
+  quitarle el texto "PRISMA VERTEX" que venía incrustado abajo: el sitio ya dice
+  el nombre justo al lado y repetirlo restaba.
+- El nombre del lockup va compuesto en Archivo, no como imagen, para que se vea
+  nítido a cualquier tamaño y en cualquier pantalla.
 
 ## Decisiones de diseño que conviene conocer
 
-- **El espectro aparece una sola vez**, en el hero. Por eso el prisma del nav y
-  del pie va monocromo: si el lockup llevara el arcoíris, el espectro aparecería
-  tres veces en la misma página.
+- **El espectro grande aparece una sola vez**, en el hero. La pirámide del logo
+  lleva su propia refracción, pero a 30px de alto no se lee como arcoíris sino
+  como un brillo: por eso puede repetirse en el nav, en el pie y en el apartado
+  de Instagram sin competir con el hero. El brief pedía espectro único; esta es
+  la interpretación que respeta la marca real.
 - **El haz del hero es CSS, no SVG.** Va anclado al costado izquierdo del prisma
   y se extiende `100vw` hacia la izquierda, así entra siempre por el borde de la
   pantalla sin importar el ancho del navegador.

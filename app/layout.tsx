@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { CONTACTO, SITE } from '@/lib/config';
+import { CONTACTO, MODO_VISTA_PREVIA, SITE } from '@/lib/config';
+import AvisoVistaPrevia from '@/components/AvisoVistaPrevia';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import './globals.css';
@@ -20,6 +21,8 @@ export const metadata: Metadata = {
   title: SITE.titulo,
   description: SITE.descripcion,
   alternates: { canonical: '/' },
+  // Mientras sea una maqueta no tiene sentido que Google la indexe.
+  robots: MODO_VISTA_PREVIA ? { index: false, follow: false } : undefined,
   openGraph: {
     type: 'website',
     siteName: SITE.nombre,
@@ -85,6 +88,7 @@ export default function RootLayout({
         >
           Saltar al contenido
         </a>
+        <AvisoVistaPrevia />
         <Nav />
         <main id="contenido">{children}</main>
         <Footer />

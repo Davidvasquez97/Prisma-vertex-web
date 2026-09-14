@@ -1,4 +1,5 @@
-import { MENSAJES, wa } from '@/lib/config';
+import Boton from './Boton';
+import { MENSAJES, MODO_VISTA_PREVIA, wa } from '@/lib/config';
 
 const planes = [
   {
@@ -75,16 +76,13 @@ export default function Planes() {
               ))}
             </ul>
 
-            <a
+            <Boton
               href={wa(p.mensaje)}
-              target="_blank"
-              rel="noopener"
-              className={`boton mt-auto w-full ${
-                p.destacado ? 'boton-solido' : 'boton-linea'
-              }`}
+              variante={p.destacado ? 'solido' : 'linea'}
+              className="mt-auto w-full"
             >
               {p.boton}
-            </a>
+            </Boton>
           </article>
         ))}
       </div>
@@ -110,14 +108,18 @@ export default function Planes() {
       <p className="text-cuerpo text-gris mt-8 max-w-[68ch]">
         ¿Su sector todavía no tiene caso publicado? Hacemos el diagnóstico
         completo sin costo a cambio de poder publicarlo.{' '}
-        <a
-          href={wa(MENSAJES.casos)}
-          target="_blank"
-          rel="noopener"
-          className="text-azul font-semibold underline underline-offset-4"
-        >
-          Postular mi empresa
-        </a>
+        {MODO_VISTA_PREVIA ? (
+          <span className="text-gris">Postulaciones abiertas al lanzamiento.</span>
+        ) : (
+          <a
+            href={wa(MENSAJES.casos)}
+            target="_blank"
+            rel="noopener"
+            className="text-azul font-semibold underline underline-offset-4"
+          >
+            Postular mi empresa
+          </a>
+        )}
       </p>
     </div>
   );

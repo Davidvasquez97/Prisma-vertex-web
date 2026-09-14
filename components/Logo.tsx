@@ -1,30 +1,33 @@
+import Image from 'next/image';
+import marca from '@/assets/logo-marca.jpg';
+
 /**
- * Marca Prisma Vertex, redibujada en vector para que quede nítida a 24px.
- * Monocroma a propósito: el espectro aparece una sola vez en toda la página
- * y ese lugar es el hero. Aquí el prisma va en un solo color.
+ * Lockup de Prisma Vertex: la pirámide original de la marca junto al nombre
+ * compuesto en Archivo con el eje de ancho abierto, que es lo que rima con el
+ * logotipo.
+ *
+ * La pirámide es un JPG con fondo blanco puro y se mezcla con `multiply`: sobre
+ * blanco y sobre perla el fondo desaparece por completo, sin necesidad de PNG
+ * con transparencia (que pesaría diez veces más).
  */
-export default function Logo({ conTexto = true }: { conTexto?: boolean }) {
+export default function Logo({
+  conTexto = true,
+  alto = 30,
+}: {
+  conTexto?: boolean;
+  alto?: number;
+}) {
   return (
     <span className="inline-flex items-center gap-2.5">
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 120 120"
-        fill="none"
-        aria-hidden="true"
-        className="shrink-0"
-      >
-        <g
-          stroke="currentColor"
-          strokeWidth="5"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-        >
-          <path d="M60 12 L14 88 L60 110 L106 88 Z" />
-          <path d="M60 12 L60 110" />
-          <path d="M14 88 L60 78 L106 88" opacity="0.45" />
-        </g>
-      </svg>
+      <Image
+        src={marca}
+        alt=""
+        height={alto}
+        width={Math.round((alto * 478) / 372)}
+        priority
+        className="mix-blend-multiply"
+        style={{ height: alto, width: 'auto' }}
+      />
       {conTexto && (
         <span
           className="text-[0.875rem] font-semibold whitespace-nowrap uppercase sm:text-[0.9375rem]"

@@ -171,4 +171,13 @@
   .boton-claro:hover {
     background: var(--color-perla);
   }
+
+  /* Modo vista previa: el botón conserva su forma pero no lleva a ningún lado. */
+  .boton-espera,
+  .boton-espera:hover {
+    background: var(--color-perla);
+    border: 1px solid var(--color-linea);
+    color: var(--color-gris);
+    cursor: not-allowed;
+  }
 }

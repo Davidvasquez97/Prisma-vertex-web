@@ -3,6 +3,18 @@
  * Todo el sitio lee de aquí.
  */
 
+/**
+ * Interruptor único del modo vista previa.
+ *
+ * En `true` el sitio no ofrece ningún canal de contacto: los botones quedan
+ * inertes, la página se marca como no indexable y aparece un aviso arriba.
+ * Es el estado en el que se publica mientras vive en un dominio de pruebas.
+ *
+ * Al pasar a `false`, todos los enlaces de WhatsApp, correo e Instagram
+ * vuelven a funcionar y la página se deja indexar. No hay que tocar nada más.
+ */
+export const MODO_VISTA_PREVIA = true;
+
 export const SITE = {
   nombre: 'Prisma Vertex',
   dominio: 'https://prismavertex.com', // ← REEMPLAZAR con el dominio final
@@ -17,6 +29,7 @@ export const CONTACTO = {
   correo: 'roboticlab6@gmail.com',
   instagram: 'https://instagram.com/prismavertex', // ← REEMPLAZAR
   instagramVisible: '@prismavertex',
+  instagramUsuario: 'prismavertex', // ← REEMPLAZAR
   ciudad: 'Popayán',
   departamento: 'Cauca',
   pais: 'Colombia',

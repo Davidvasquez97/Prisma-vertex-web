@@ -1,3 +1,4 @@
+import Boton from './Boton';
 import Logo from './Logo';
 import { MENSAJES, wa } from '@/lib/config';
 
@@ -28,15 +29,14 @@ export default function Nav() {
           ))}
         </ul>
 
-        <a
+        <Boton
           href={wa(MENSAJES.general)}
-          target="_blank"
-          rel="noopener"
-          className="boton boton-linea text-menudo text-azul sm:border-linea sm:text-tinta shrink-0 border-transparent px-0 py-2 sm:px-4"
+          variante="linea"
+          className="text-menudo shrink-0 px-4 py-2"
         >
           <span className="sm:hidden">WhatsApp</span>
           <span className="hidden sm:inline">Agendar por WhatsApp</span>
-        </a>
+        </Boton>
       </nav>
     </header>
   );
