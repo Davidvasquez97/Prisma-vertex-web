@@ -4,7 +4,7 @@ import { metaDe, migasJsonLd } from '@/lib/seo';
 export const metadata = metaDe({
   titulo: 'Consultoría de procesos en Bogotá',
   descripcion:
-    'Consultoría de procesos para empresas en Bogotá: medimos tu operación, te mostramos cuánto puedes ganar y lo implementamos. Trabajo remoto y visitas cuando hacen falta.',
+    'Consultoría de procesos en Bogotá: medimos tu operación, te mostramos cuánto puedes ganar y lo implementamos. Remoto, con visitas cuando hacen falta.',
   ruta: '/consultoria-procesos-bogota',
 });
 

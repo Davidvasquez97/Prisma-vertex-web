@@ -38,7 +38,7 @@ export default function Footer() {
                   {MODO_VISTA_PREVIA ? (
                     <span>{c.texto}</span>
                   ) : (
-                    <a href={c.href} className="hover:text-azul" target="_blank" rel="noopener">
+                    <a href={c.href} className="hover:text-azul inline-block py-1" target="_blank" rel="noopener">
                       {c.texto}
                     </a>
                   )}
@@ -46,7 +46,7 @@ export default function Footer() {
               ))}
             </ul>
             {MODO_VISTA_PREVIA && (
-              <p className="text-menudo text-gris/70 mt-3 max-w-[30ch]">
+              <p className="text-menudo text-gris mt-3 max-w-[30ch]">
                 Datos de referencia. Los canales se abren con el lanzamiento.
               </p>
             )}
@@ -57,7 +57,7 @@ export default function Footer() {
             <ul className="text-menudo text-gris mt-3 space-y-2">
               {legal.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="hover:text-azul">
+                  <Link href={l.href} className="hover:text-azul inline-block py-1">
                     {l.texto}
                   </Link>
                 </li>

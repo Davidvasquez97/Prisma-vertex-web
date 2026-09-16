@@ -14,8 +14,8 @@ export default function Proceso() {
           <ol className={`${estilos.pista} mt-11 grid gap-9 md:mt-14 md:grid-cols-3 md:gap-8`}>
             {PASOS.map((p, i) => (
               <li key={p.titulo} className="relative">
-                <span className={estilos.nodo} aria-hidden="true" />
-                <p className="text-menudo cifra text-azul mt-5 font-semibold">
+                <span className={`${estilos.nodo} hidden md:block`} aria-hidden="true" />
+                <p className="text-menudo cifra text-azul font-semibold md:mt-5">
                   0{i + 1}
                 </p>
                 <h3 className="text-d3 mt-2">{p.titulo}</h3>

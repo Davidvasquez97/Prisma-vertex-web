@@ -130,9 +130,9 @@
     top: 0;
     z-index: 40;
     border-bottom: 1px solid var(--color-linea);
-    background: color-mix(in srgb, var(--color-base) 80%, transparent);
-    backdrop-filter: saturate(1.6) blur(14px);
-    -webkit-backdrop-filter: saturate(1.6) blur(14px);
+    background: color-mix(in srgb, var(--color-base) 93%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
   }
 
   /* ---- Botones: mínimo 48 px de alto, cómodos de tocar ---------------- */
@@ -180,7 +180,7 @@
   }
 
   .boton-pequeno {
-    min-height: 42px;
+    min-height: 44px;
     padding: 0.5rem 1rem;
     font-size: var(--text-menudo);
   }

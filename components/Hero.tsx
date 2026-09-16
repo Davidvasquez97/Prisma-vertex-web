@@ -15,9 +15,11 @@ export default function Hero() {
             style={{ letterSpacing: '0.12em' }}
           >
             <span className="uppercase">Consultoría de procesos empresariales</span>
-            <span className="text-trazo"> · </span>
-            <span className="uppercase">
-              {SITE.ciudad}, {SITE.pais}
+            <span className="hidden sm:inline">
+              <span className="text-gris"> · </span>
+              <span className="uppercase">
+                {SITE.ciudad}, {SITE.pais}
+              </span>
             </span>
           </p>
 

@@ -16,14 +16,15 @@ export default function Nav() {
         className="lienzo flex h-[68px] items-center justify-between gap-5"
         aria-label="Principal"
       >
-        <Link href="/" className="text-tinta" aria-label="Prisma Vertex, ir al inicio">
+        <Link href="/" className="text-tinta flex min-h-[44px] items-center"
+          aria-label="Prisma Vertex, ir al inicio">
           <Logo />
         </Link>
 
         <ul className="text-menudo text-gris hidden items-center gap-8 md:flex">
           {enlaces.map((e) => (
             <li key={e.href}>
-              <Link href={e.href} className="hover:text-tinta transition-colors">
+              <Link href={e.href} className="hover:text-tinta inline-block py-2 transition-colors">
                 {e.texto}
               </Link>
             </li>
