@@ -125,7 +125,7 @@ export type Plan = {
 
 export const PLANES: Plan[] = [
   {
-    nombre: 'Pequeña empresa',
+    nombre: 'Pequeña empresa o negocio',
     para: 'Un área o un proceso puntual',
     usd: 65,
     destacado: false,
