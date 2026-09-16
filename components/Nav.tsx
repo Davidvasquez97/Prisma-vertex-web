@@ -33,7 +33,7 @@ export default function Nav() {
 
         <Link
           href="/diagnostico"
-          className="boton boton-solido boton-pequeno shrink-0"
+          className="boton boton-calma boton-pequeno shrink-0"
         >
           Diagnóstico
         </Link>

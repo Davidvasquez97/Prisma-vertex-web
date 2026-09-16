@@ -1,13 +1,15 @@
 import Link from 'next/link';
 import { MODO_VISTA_PREVIA } from '@/lib/config';
 
-type Variante = 'solido' | 'linea' | 'claro' | 'galaxia';
+type Variante = 'solido' | 'linea' | 'claro' | 'galaxia' | 'calma' | 'suave';
 
 const clases: Record<Variante, string> = {
   solido: 'boton-solido',
   linea: 'boton-linea',
   claro: 'boton-claro',
   galaxia: 'boton-galaxia',
+  calma: 'boton-calma',
+  suave: 'boton-suave',
 };
 
 /**

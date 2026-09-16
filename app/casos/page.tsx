@@ -61,7 +61,7 @@ export default function Casos() {
               </div>
 
               <div className="mt-9">
-                <Boton href="/diagnostico" variante="solido">
+                <Boton href="/diagnostico" variante="calma">
                   Quiero mi diagnóstico
                 </Boton>
               </div>

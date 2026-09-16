@@ -11,7 +11,7 @@ export default function Cierre() {
           <div className="flex flex-col items-center py-4 text-center md:py-10">
             <h2 className="text-d1 max-w-[26ch]">{CIERRE.titulo}</h2>
             <div className="mt-9">
-              <Boton href="/diagnostico" variante="solido">
+              <Boton href="/diagnostico" variante="calma">
                 {CIERRE.boton}
               </Boton>
             </div>

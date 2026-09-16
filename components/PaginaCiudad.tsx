@@ -40,7 +40,7 @@ export default function PaginaCiudad({
           </div>
 
           <div className="mt-9">
-            <Boton href="/diagnostico" variante="solido">
+            <Boton href="/diagnostico" variante="calma">
               {HERO.boton}
             </Boton>
             <p className="text-menudo text-gris mt-4">{HERO.bajoBoton}</p>
@@ -60,7 +60,7 @@ export default function PaginaCiudad({
                 Empecemos por saber cuánto estás perdiendo.
               </h2>
               <div className="mt-8">
-                <Boton href="/diagnostico" variante="solido">
+                <Boton href="/diagnostico" variante="calma">
                   Agendar diagnóstico
                 </Boton>
               </div>

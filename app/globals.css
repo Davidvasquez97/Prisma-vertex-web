@@ -206,49 +206,38 @@
     font-size: var(--text-menudo);
   }
 
-  /* ---- Botón galaxia ------------------------------------------------
-     El único botón que se mueve solo: el de empresa grande. Un degradado
-     de azules profundos, índigo y violeta que se desplaza despacio, con un
-     brillo que respira. Todos los tonos son oscuros a propósito: el texto
-     blanco no baja de 5,9:1 en ningún momento de la animación. */
-  .boton-galaxia {
+  /* ---- Botones galaxia y calma ---------------------------------------
+     Los dos comparten mecánica y difieren en voz.
+
+     El degradado no se mueve con background-position: eso obliga a
+     repintar el botón en cada fotograma, y con seis botones en pantalla
+     el rendimiento móvil bajó de 97 a 75. Vive en una capa (::before) tres
+     veces más ancha que el botón y se desliza con transform, que resuelve
+     la tarjeta gráfica sin tocar el procesador. Las estrellas van en esa
+     misma capa, así que derivan despacio con el color. */
+  .boton-galaxia,
+  .boton-calma {
     position: relative;
     isolation: isolate;
     overflow: hidden;
     color: #fff;
-    background: linear-gradient(
-      115deg,
-      #0a2a6b,
-      #1e5bd6,
-      #3b2fb5,
-      #6d28d9,
-      #1e3a8a,
-      #1e5bd6,
-      #0a2a6b
-    );
-    background-size: 320% 100%;
-    animation:
-      galaxiaFluye 5s ease-in-out infinite alternate,
-      galaxiaRespira 3.2s ease-in-out infinite;
   }
 
-  /* Polvo de estrellas: puntos de luz fijos sobre el degradado que se mueve. */
-  .boton-galaxia::before {
+  .boton-galaxia::before,
+  .boton-calma::before {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
     z-index: -1;
-    background-image:
-      radial-gradient(1px 1px at 14% 30%, rgb(255 255 255 / 0.85), transparent),
-      radial-gradient(1px 1px at 36% 72%, rgb(255 255 255 / 0.6), transparent),
-      radial-gradient(1.5px 1.5px at 61% 24%, rgb(255 255 255 / 0.75), transparent),
-      radial-gradient(1px 1px at 82% 64%, rgb(255 255 255 / 0.55), transparent),
-      radial-gradient(1px 1px at 91% 20%, rgb(255 255 255 / 0.7), transparent);
-    animation: galaxiaTitila 2.6s ease-in-out infinite alternate;
+    width: 320%;
+    will-change: transform;
   }
 
-  /* Un destello que cruza el botón al pasar el mouse. */
-  .boton-galaxia::after {
+  /* Destello que cruza el botón al pasar el mouse. */
+  .boton-galaxia::after,
+  .boton-calma::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -263,20 +252,72 @@
     transition: transform 0.7s var(--curva);
   }
 
-  .boton-galaxia:hover::after {
+  .boton-galaxia:hover::after,
+  .boton-calma:hover::after {
     transform: translateX(120%);
   }
 
-  .boton-galaxia:hover {
-    animation-duration: 2.5s, 3.2s;
+  /* Galaxia: el más llamativo del sitio, reservado para empresa grande.
+     Azules profundos, índigo y violeta, con estrellas. Todos los tonos son
+     oscuros: el texto blanco no baja de 5,96:1. */
+  .boton-galaxia {
+    background-color: #0a2a6b;
+    animation: galaxiaRespira 3.2s ease-in-out infinite;
   }
 
-  @keyframes galaxiaFluye {
+  .boton-galaxia::before {
+    background-image:
+      radial-gradient(1px 1px at 5% 30%, rgb(255 255 255 / 0.85), transparent),
+      radial-gradient(1px 1px at 11% 72%, rgb(255 255 255 / 0.6), transparent),
+      radial-gradient(1.5px 1.5px at 19% 24%, rgb(255 255 255 / 0.75), transparent),
+      radial-gradient(1px 1px at 26% 64%, rgb(255 255 255 / 0.55), transparent),
+      radial-gradient(1px 1px at 34% 20%, rgb(255 255 255 / 0.7), transparent),
+      radial-gradient(1.5px 1.5px at 42% 78%, rgb(255 255 255 / 0.65), transparent),
+      radial-gradient(1px 1px at 51% 36%, rgb(255 255 255 / 0.8), transparent),
+      radial-gradient(1px 1px at 59% 70%, rgb(255 255 255 / 0.5), transparent),
+      radial-gradient(1.5px 1.5px at 67% 18%, rgb(255 255 255 / 0.7), transparent),
+      radial-gradient(1px 1px at 75% 58%, rgb(255 255 255 / 0.6), transparent),
+      radial-gradient(1px 1px at 84% 28%, rgb(255 255 255 / 0.8), transparent),
+      radial-gradient(1px 1px at 93% 74%, rgb(255 255 255 / 0.55), transparent),
+      linear-gradient(115deg, #0a2a6b, #1e5bd6, #3b2fb5, #6d28d9, #1e3a8a, #1e5bd6, #0a2a6b);
+    animation: fluye 5s ease-in-out infinite alternate;
+  }
+
+  .boton-galaxia:hover::before {
+    animation-duration: 2.5s;
+  }
+
+  /* Calma: el mismo movimiento en voz baja, para todos los botones que
+     llevan al diagnóstico. Solo azules de la marca y un par de estrellas
+     tenues. El tono más claro deja el texto blanco en 5,2:1. La sombra es
+     fija: con varios en pantalla, una sombra que respira cuesta demasiado. */
+  .boton-calma {
+    background-color: #1e5bd6;
+    box-shadow: 0 6px 18px -10px rgb(30 91 214 / 0.5);
+  }
+
+  .boton-calma::before {
+    background-image:
+      radial-gradient(1px 1px at 12% 34%, rgb(255 255 255 / 0.35), transparent),
+      radial-gradient(1px 1px at 38% 70%, rgb(255 255 255 / 0.25), transparent),
+      radial-gradient(1px 1px at 63% 26%, rgb(255 255 255 / 0.3), transparent),
+      radial-gradient(1px 1px at 88% 62%, rgb(255 255 255 / 0.25), transparent),
+      linear-gradient(115deg, #1a4fbf, #1e5bd6, #2a66dc, #2456c9, #1e5bd6, #1a4fbf);
+    animation: fluye 8s ease-in-out infinite alternate;
+  }
+
+  .boton-calma:hover::before {
+    animation-duration: 4s;
+  }
+
+  /* La capa mide 320 % del botón: deslizarla un 68,75 % de su propio ancho
+     muestra el otro extremo del degradado. */
+  @keyframes fluye {
     from {
-      background-position: 0% 50%;
+      transform: translateX(0);
     }
     to {
-      background-position: 100% 50%;
+      transform: translateX(-68.75%);
     }
   }
 
@@ -290,13 +331,18 @@
     }
   }
 
-  @keyframes galaxiaTitila {
-    from {
-      opacity: 0.35;
-    }
-    to {
-      opacity: 1;
-    }
+  /* ---- Botón suave ---------------------------------------------------
+     Azul, pero sin ceremonia: fondo celeste y letra azul profundo. Para el
+     plan de entrada, que tiene que verse al alcance. */
+  .boton-suave {
+    background: color-mix(in srgb, var(--color-azul) 11%, var(--color-base));
+    border: 1px solid color-mix(in srgb, var(--color-azul) 28%, var(--color-base));
+    color: var(--color-hondo);
+  }
+
+  .boton-suave:hover {
+    background: color-mix(in srgb, var(--color-azul) 19%, var(--color-base));
+    border-color: var(--color-azul);
   }
 
   /* El botón se hunde un pelo al presionarlo. Es el único gesto táctil. */
@@ -378,7 +424,8 @@
   }
 
   .boton-galaxia,
-  .boton-galaxia::before {
+  .boton-galaxia::before,
+  .boton-calma::before {
     animation: none !important;
   }
 

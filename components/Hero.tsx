@@ -1,10 +1,17 @@
 import Image from 'next/image';
 import foto from '@/assets/equipo-prisma.jpg';
 import Boton from './Boton';
+import PrismaLuz from './PrismaLuz';
 import { HERO } from '@/lib/contenido';
 import estilos from './Hero.module.css';
 
 export default function Hero() {
+  // La última palabra viaja pegada al prisma: así el dibujo nunca cae
+  // solo en una línea nueva.
+  const corte = HERO.titulo.lastIndexOf(' ');
+  const inicio = HERO.titulo.slice(0, corte + 1);
+  const final = HERO.titulo.slice(corte + 1);
+
   return (
     <section className="border-linea border-b">
       <div className="lienzo grid items-center gap-11 pt-12 pb-14 md:pt-20 md:pb-24 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
@@ -19,7 +26,11 @@ export default function Hero() {
           </p>
 
           <h1 className={`text-d0 titular-suelto mt-5 ${estilos.entra} ${estilos.d2}`}>
-            {HERO.titulo}
+            {inicio}
+            <span className="whitespace-nowrap">
+              {final}
+              <PrismaLuz />
+            </span>
           </h1>
 
           <div className={`${estilos.riel} mt-8 max-w-[22rem]`} aria-hidden="true" />
@@ -31,7 +42,7 @@ export default function Hero() {
           </p>
 
           <div className={`mt-9 ${estilos.entra} ${estilos.d4}`}>
-            <Boton href="/diagnostico" variante="solido">
+            <Boton href="/diagnostico" variante="calma">
               {HERO.boton}
             </Boton>
             <p className="text-menudo text-gris mt-4">{HERO.bajoBoton}</p>

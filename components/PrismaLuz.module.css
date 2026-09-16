@@ -1,0 +1,151 @@
+/* ------------------------------------------------------------------
+   El prisma del titular. Dos tiempos:
+
+   1. Entrada (una vez): el haz se dibuja hasta la cara del prisma, el
+      rayo cruza el vidrio y el espectro se abre desde el punto de salida.
+   2. Latido (en bucle, cada 3,6 s): un pulso de luz corre por el haz y,
+      cuando llega al prisma, el espectro destella.
+
+   Solo se animan opacity, transform y stroke-dashoffset: nada que obligue
+   al navegador a recalcular el diseño de la página.
+   ------------------------------------------------------------------ */
+
+.marca {
+  display: inline-block;
+  width: 1.4em;
+  height: 0.96em;
+  margin-left: 0.16em;
+  vertical-align: -0.04em;
+  overflow: visible;
+}
+
+/* ---- 1. Entrada ---------------------------------------------------- */
+
+.haz {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: dibuja 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+}
+
+.rayo {
+  opacity: 0;
+  animation: aparece 0.25s ease-out 1s forwards;
+}
+
+.abanico {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  opacity: 0;
+  animation: abre 0.7s cubic-bezier(0.16, 0.8, 0.3, 1) 1.1s forwards;
+}
+
+@keyframes dibuja {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes aparece {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes abre {
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* ---- 2. Latido ----------------------------------------------------- */
+
+.pulso {
+  stroke-dasharray: 16 200;
+  stroke-dashoffset: 16;
+  opacity: 0;
+  animation: corre 3.6s cubic-bezier(0.5, 0, 0.5, 1) 1.9s infinite;
+}
+
+@keyframes corre {
+  0% {
+    stroke-dashoffset: 16;
+    opacity: 1;
+  }
+  34% {
+    stroke-dashoffset: -100;
+    opacity: 1;
+  }
+  35%,
+  100% {
+    stroke-dashoffset: -100;
+    opacity: 0;
+  }
+}
+
+.espectro {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  opacity: 0.82;
+  animation: destella 3.6s ease-in-out 1.9s infinite;
+}
+
+@keyframes destella {
+  0%,
+  30% {
+    opacity: 0.82;
+    transform: scaleY(1);
+  }
+  46% {
+    opacity: 1;
+    transform: scaleY(1.12);
+  }
+  70%,
+  100% {
+    opacity: 0.82;
+    transform: scaleY(1);
+  }
+}
+
+.chispa {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  opacity: 0;
+  animation: chispea 3.6s ease-out 1.9s infinite;
+}
+
+@keyframes chispea {
+  0%,
+  32% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  62%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+/* Sin movimiento: el prisma aparece ya con la luz atravesándolo. */
+@media (prefers-reduced-motion: reduce) {
+  .haz,
+  .rayo,
+  .abanico,
+  .espectro {
+    animation: none !important;
+    stroke-dashoffset: 0;
+    opacity: 1;
+    transform: none;
+  }
+
+  .pulso,
+  .chispa {
+    display: none;
+  }
+}

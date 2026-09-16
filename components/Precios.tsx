@@ -81,7 +81,7 @@ export default function Precios() {
 
                 <Boton
                   href="/diagnostico"
-                  variante={p.usd === null ? 'galaxia' : p.destacado ? 'solido' : 'linea'}
+                  variante={p.usd === null ? 'galaxia' : p.destacado ? 'calma' : 'suave'}
                   className="mt-auto w-full"
                 >
                   {p.usd === null ? 'Hablemos' : 'Quiero este'}

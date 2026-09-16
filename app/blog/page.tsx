@@ -41,7 +41,9 @@ export default function Blog() {
                 solo, con su propia página y su entrada en el sitemap.
               </p>
               <div className="mt-8">
-                <Boton href="/diagnostico">Quiero mi diagnóstico</Boton>
+                <Boton href="/diagnostico" variante="calma">
+                  Quiero mi diagnóstico
+                </Boton>
               </div>
             </div>
           </Revelar>

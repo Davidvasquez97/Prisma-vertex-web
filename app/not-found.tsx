@@ -22,7 +22,7 @@ export default function NoEncontrada() {
           <Boton href="/" variante="linea">
             Volver al inicio
           </Boton>
-          <Boton href="/diagnostico" variante="solido">
+          <Boton href="/diagnostico" variante="calma">
             Quiero mi diagnóstico
           </Boton>
         </div>
