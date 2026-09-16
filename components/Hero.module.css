@@ -33,6 +33,27 @@
   animation: abreEspectro 1.15s var(--curva) 0.5s forwards;
 }
 
+/* El rótulo bajo «Colombia». Resalta por color, no por grosor: peso
+   normal, la versión ancha de Archivo que usan los titulares y un
+   degradado de azul a violeta, los mismos tonos del botón galaxia.
+   Es quieto a propósito: animar un degradado sobre texto repinta en cada
+   fotograma. Los tres tonos dan más de 5,9:1 sobre blanco, así que se lee
+   en cualquier punto del degradado. */
+.rotulo {
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+  line-height: 1.4;
+  font-weight: 400;
+  font-variation-settings: 'wdth' 108;
+  letter-spacing: 0.002em;
+  text-wrap: balance;
+  max-width: 34rem;
+  color: var(--color-azul);
+  background-image: linear-gradient(95deg, #1e5bd6 0%, #3b2fb5 58%, #6d28d9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Un destello blanco recorre la línea una sola vez, por delante. */
 .riel::after {
   content: '';

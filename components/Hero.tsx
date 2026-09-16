@@ -16,16 +16,17 @@ export default function Hero() {
     <section className="border-linea border-b">
       <div className="lienzo grid items-center gap-11 pt-12 pb-14 md:pt-20 md:pb-24 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
         <div>
-          <p
-            className={`text-gris text-[0.8125rem] uppercase sm:text-[0.875rem] ${estilos.entra} ${estilos.d1}`}
-            style={{ letterSpacing: '0.085em' }}
-          >
-            <span className="text-tinta font-semibold">{HERO.lugar}</span>
-            <span className="text-gris"> · </span>
-            {HERO.rotulo}
-          </p>
+          <div className={`${estilos.entra} ${estilos.d1}`}>
+            <p
+              className="text-tinta text-[0.8125rem] font-semibold uppercase sm:text-[0.875rem]"
+              style={{ letterSpacing: '0.12em' }}
+            >
+              {HERO.lugar}
+            </p>
+            <p className={`${estilos.rotulo} mt-1.5`}>{HERO.rotulo}</p>
+          </div>
 
-          <h1 className={`text-d0 titular-suelto mt-5 ${estilos.entra} ${estilos.d2}`}>
+          <h1 className={`text-d0 titular-suelto mt-6 ${estilos.entra} ${estilos.d2}`}>
             {inicio}
             <span className="whitespace-nowrap">
               {final}
