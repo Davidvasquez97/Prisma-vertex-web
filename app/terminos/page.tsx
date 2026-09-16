@@ -1,20 +1,22 @@
 // BORRADOR LEGAL — pendiente de revisión por David Vásquez antes de publicar.
-import type { Metadata } from 'next';
 import { CONTACTO, SITE } from '@/lib/config';
+import { metaDe, migasJsonLd } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Términos y condiciones — Prisma Vertex',
-  description:
-    'Términos y condiciones de los servicios de consultoría y desarrollo de Prisma Vertex.',
-  alternates: { canonical: '/terminos' },
-};
+export const metadata = metaDe({
+  titulo: 'Términos y condiciones',
+  descripcion:
+    'Condiciones bajo las que Prisma Vertex presta sus servicios de consultoría en optimización de procesos.',
+  ruta: '/terminos',
+});
+
+const migas = migasJsonLd([{ nombre: 'Términos', ruta: '/terminos' }]);
 
 const ACTUALIZADO = '13 de septiembre de 2026';
 
 const apartados = [
   {
     titulo: '1. Quiénes somos',
-    texto: `${SITE.nombre} presta servicios de consultoría en optimización de procesos, desarrollo de software a la medida, automatizaciones e implementación de agentes de inteligencia artificial, con domicilio en ${CONTACTO.ciudad}, ${CONTACTO.departamento}, ${CONTACTO.pais}.`,
+    texto: `${SITE.nombre} presta servicios de consultoría en optimización de procesos, desarrollo de software a la medida, automatizaciones e implementación de soluciones con inteligencia artificial, con domicilio en ${SITE.ciudad}, ${SITE.departamento}, ${SITE.pais}.`,
   },
   {
     titulo: '2. Alcance de la consultoría',
@@ -46,13 +48,17 @@ const apartados = [
   },
   {
     titulo: '8. Ley aplicable',
-    texto: `Estos términos se rigen por la legislación de la República de Colombia. Cualquier controversia se someterá a los jueces competentes de ${CONTACTO.ciudad}, ${CONTACTO.departamento}.`,
+    texto: `Estos términos se rigen por la legislación de la República de Colombia. Cualquier controversia se someterá a los jueces competentes de ${SITE.ciudad}, ${SITE.departamento}.`,
   },
 ];
 
 export default function Terminos() {
   return (
     <section className="bloque">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(migas) }}
+      />
       <div className="lienzo max-w-[68ch]">
         <h1 className="text-d1">Términos y condiciones</h1>
         <p className="text-menudo text-gris mt-4">

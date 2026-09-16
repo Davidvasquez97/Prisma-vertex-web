@@ -1,14 +1,18 @@
 // BORRADOR LEGAL — pendiente de revisión por David Vásquez antes de publicar.
 // Redactado sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
-import type { Metadata } from 'next';
 import { CONTACTO, SITE } from '@/lib/config';
+import { metaDe, migasJsonLd } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Política de privacidad — Prisma Vertex',
-  description:
-    'Política de tratamiento de datos personales de Prisma Vertex, conforme a la Ley 1581 de 2012.',
-  alternates: { canonical: '/privacidad' },
-};
+export const metadata = metaDe({
+  titulo: 'Política de tratamiento de datos',
+  descripcion:
+    'Cómo trata Prisma Vertex los datos personales que recibe por este sitio, conforme a la Ley 1581 de 2012 y el Decreto 1377 de 2013.',
+  ruta: '/politica-de-datos',
+});
+
+const migas = migasJsonLd([
+  { nombre: 'Política de datos', ruta: '/politica-de-datos' },
+]);
 
 const ACTUALIZADO = '13 de septiembre de 2026';
 
@@ -16,7 +20,7 @@ const apartados = [
   {
     titulo: '2. Qué datos recogemos',
     texto:
-      'Este sitio no usa formularios ni cookies de analítica o publicidad. Solo tratamos los datos que usted nos entrega voluntariamente cuando nos escribe por WhatsApp o por correo: su nombre, su número de teléfono, su correo electrónico y la información sobre su negocio que decida compartir en la conversación.',
+      'Este sitio no usa cookies de analítica ni de publicidad. Tratamos únicamente los datos que usted nos entrega de forma voluntaria: los que escribe en el formulario de diagnóstico —nombre, empresa, número de WhatsApp y la descripción de lo que le quita tiempo a su equipo— y los que comparta si nos escribe por WhatsApp o por correo.',
   },
   {
     titulo: '3. Para qué los usamos',
@@ -40,11 +44,15 @@ const apartados = [
   },
 ];
 
-export default function Privacidad() {
+export default function PoliticaDeDatos() {
   return (
     <section className="bloque">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(migas) }}
+      />
       <div className="lienzo max-w-[68ch]">
-        <h1 className="text-d1">Política de privacidad</h1>
+        <h1 className="text-d1">Política de tratamiento de datos</h1>
         <p className="text-menudo text-gris mt-4">
           Última actualización: {ACTUALIZADO}
         </p>
@@ -53,8 +61,8 @@ export default function Privacidad() {
           <div>
             <h2 className="text-d3">1. Responsable del tratamiento</h2>
             <p className="text-gris mt-3">
-              {SITE.nombre}, con domicilio en {CONTACTO.ciudad},{' '}
-              {CONTACTO.departamento}, {CONTACTO.pais}, correo{' '}
+              {SITE.nombre}, con domicilio en {SITE.ciudad},{' '}
+              {SITE.departamento}, {SITE.pais}, correo{' '}
               <a href={`mailto:${CONTACTO.correo}`} className="text-azul">
                 {CONTACTO.correo}
               </a>

@@ -58,3 +58,21 @@
 .acordeon[open] .signo::after {
   transform: translateX(-50%) scaleY(0);
 }
+
+/* La respuesta se despliega en lugar de aparecer de golpe. */
+.acordeon[open] > div {
+  animation: abreRespuesta 0.28s var(--curva);
+}
+
+@keyframes abreRespuesta {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acordeon[open] > div {
+    animation: none;
+  }
+}

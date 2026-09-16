@@ -1,42 +1,41 @@
-import Boton from './Boton';
+import Link from 'next/link';
 import Logo from './Logo';
-import { MENSAJES, wa } from '@/lib/config';
 
+/* Tres enlaces en escritorio. En celular no hay menú: la página es corta y
+   lo único que tiene que estar siempre a la vista es el botón. */
 const enlaces = [
-  { texto: 'El problema', href: '#problema' },
-  { texto: 'Qué recibe', href: '#solucion' },
-  { texto: 'Planes', href: '#planes' },
+  { texto: 'Lo que ganas', href: '/#lo-que-ganas' },
+  { texto: 'Cómo trabajamos', href: '/#como-trabajamos' },
+  { texto: 'Casos', href: '/casos' },
 ];
 
 export default function Nav() {
   return (
-    <header className="border-linea border-b">
+    <header className="encabezado">
       <nav
-        className="lienzo flex h-[68px] items-center justify-between gap-6"
+        className="lienzo flex h-[68px] items-center justify-between gap-5"
         aria-label="Principal"
       >
-        <a href="#contenido" className="text-tinta" aria-label="Prisma Vertex, inicio">
+        <Link href="/" className="text-tinta" aria-label="Prisma Vertex, ir al inicio">
           <Logo />
-        </a>
+        </Link>
 
         <ul className="text-menudo text-gris hidden items-center gap-8 md:flex">
           {enlaces.map((e) => (
             <li key={e.href}>
-              <a href={e.href} className="hover:text-tinta transition-colors">
+              <Link href={e.href} className="hover:text-tinta transition-colors">
                 {e.texto}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
 
-        <Boton
-          href={wa(MENSAJES.general)}
-          variante="linea"
-          className="text-menudo shrink-0 px-4 py-2"
+        <Link
+          href="/diagnostico"
+          className="boton boton-solido boton-pequeno shrink-0"
         >
-          <span className="sm:hidden">WhatsApp</span>
-          <span className="hidden sm:inline">Agendar por WhatsApp</span>
-        </Boton>
+          Diagnóstico
+        </Link>
       </nav>
     </header>
   );

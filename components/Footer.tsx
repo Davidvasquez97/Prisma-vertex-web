@@ -1,18 +1,17 @@
+import Link from 'next/link';
 import Logo from './Logo';
 import { CONTACTO, MODO_VISTA_PREVIA, SITE } from '@/lib/config';
 
-const contacto = [
-  { texto: CONTACTO.correo, href: `mailto:${CONTACTO.correo}`, externo: false },
-  {
-    texto: `WhatsApp ${CONTACTO.whatsappVisible}`,
-    href: `https://wa.me/${CONTACTO.whatsapp}`,
-    externo: true,
-  },
-  {
-    texto: `Instagram ${CONTACTO.instagramVisible}`,
-    href: CONTACTO.instagram,
-    externo: true,
-  },
+const legal = [
+  { texto: 'Política de datos', href: '/politica-de-datos' },
+  { texto: 'Términos y condiciones', href: '/terminos' },
+];
+
+const canales = [
+  { texto: `WhatsApp ${CONTACTO.whatsappVisible}`, href: `https://wa.me/${CONTACTO.whatsapp}` },
+  { texto: CONTACTO.correo, href: `mailto:${CONTACTO.correo}` },
+  { texto: `Instagram ${CONTACTO.instagramVisible}`, href: CONTACTO.instagram },
+  ...(CONTACTO.linkedin ? [{ texto: 'LinkedIn', href: CONTACTO.linkedin }] : []),
 ];
 
 export default function Footer() {
@@ -20,13 +19,13 @@ export default function Footer() {
 
   return (
     <footer className="filete">
-      <div className="lienzo grid gap-10 py-14 md:grid-cols-[1fr_auto] md:items-start md:gap-16">
+      <div className="lienzo grid gap-9 py-12 md:grid-cols-[1fr_auto] md:items-start md:gap-16">
         <div>
           <span className="text-tinta">
-            <Logo alto={34} />
+            <Logo alto={32} />
           </span>
           <p className="text-menudo text-gris mt-4">
-            {CONTACTO.ciudad}, {CONTACTO.departamento}, {CONTACTO.pais}
+            {SITE.ciudad}, {SITE.pais}
           </p>
         </div>
 
@@ -34,18 +33,12 @@ export default function Footer() {
           <div>
             <p className="text-menudo font-semibold">Contacto</p>
             <ul className="text-menudo text-gris mt-3 space-y-2">
-              {contacto.map((c) => (
+              {canales.map((c) => (
                 <li key={c.texto}>
                   {MODO_VISTA_PREVIA ? (
                     <span>{c.texto}</span>
                   ) : (
-                    <a
-                      href={c.href}
-                      className="hover:text-azul"
-                      {...(c.externo
-                        ? { target: '_blank', rel: 'noopener' }
-                        : {})}
-                    >
+                    <a href={c.href} className="hover:text-azul" target="_blank" rel="noopener">
                       {c.texto}
                     </a>
                   )}
@@ -62,21 +55,13 @@ export default function Footer() {
           <div>
             <p className="text-menudo font-semibold">Legal</p>
             <ul className="text-menudo text-gris mt-3 space-y-2">
-              <li>
-                <a href="/terminos" className="hover:text-azul">
-                  Términos y condiciones
-                </a>
-              </li>
-              <li>
-                <a href="/privacidad" className="hover:text-azul">
-                  Política de privacidad
-                </a>
-              </li>
-              <li>
-                <a href="/terminos#aviso" className="hover:text-azul">
-                  Aviso legal
-                </a>
-              </li>
+              {legal.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="hover:text-azul">
+                    {l.texto}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -85,8 +70,8 @@ export default function Footer() {
       <div className="filete">
         <div className="lienzo py-6">
           <p className="text-menudo text-gris">
-            &copy; {anio} {SITE.nombre}. Todos los derechos reservados.
-            {MODO_VISTA_PREVIA && ' Sitio en construcción.'}
+            &copy; {anio} {SITE.nombre} · {SITE.ciudad}, {SITE.pais}
+            {MODO_VISTA_PREVIA && ' · Sitio en construcción'}
           </p>
         </div>
       </div>

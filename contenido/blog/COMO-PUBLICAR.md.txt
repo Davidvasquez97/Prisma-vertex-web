@@ -1,0 +1,26 @@
+Cómo publicar un artículo
+=========================
+
+1. Crea un archivo .md en esta misma carpeta. El nombre del archivo es la URL:
+   perder-horas-en-reprocesos.md  ->  /blog/perder-horas-en-reprocesos
+
+2. Empiézalo con esta cabecera, entre dos líneas de tres guiones:
+
+   ---
+   titulo: Cómo saber si tu equipo está perdiendo horas
+   descripcion: Tres señales que se ven antes de medir nada.
+   fecha: 2026-10-02
+   ---
+
+   Y debajo, el texto en Markdown normal: ## para subtítulos, **negrita**,
+   listas con guiones, enlaces con [texto](url).
+
+3. git add, git commit, git push. La página aparece sola, con su propia
+   dirección y su entrada en el sitemap. No hay que registrarla en ninguna
+   lista.
+
+La descripción es la que sale en Google: menos de 155 caracteres.
+El título, menos de 60 contando « | Prisma Vertex ».
+
+Este archivo termina en .txt a propósito, para que el sitio no lo tome por
+un artículo.

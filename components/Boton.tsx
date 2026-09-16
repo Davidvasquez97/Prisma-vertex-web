@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { MODO_VISTA_PREVIA } from '@/lib/config';
 
 type Variante = 'solido' | 'linea' | 'claro';
@@ -9,23 +10,34 @@ const clases: Record<Variante, string> = {
 };
 
 /**
- * Un botón que, en modo vista previa, se dibuja igual pero no lleva a ningún
- * lado. Así la maqueta se puede mostrar sin ofrecer canales de contacto.
+ * Botón del sitio.
+ *
+ * La navegación interna (rutas que empiezan por «/» o por «#») funciona
+ * siempre: recorrer el sitio no es contratar nada. Lo que el modo vista
+ * previa apaga son los canales de contacto —WhatsApp, correo, redes—, que
+ * se dibujan igual pero quedan inertes.
  */
 export default function Boton({
   href,
   variante = 'linea',
-  externo = true,
   className = '',
   children,
 }: {
   href: string;
   variante?: Variante;
-  externo?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
   const base = `boton ${clases[variante]} ${className}`;
+  const interno = href.startsWith('/') || href.startsWith('#');
+
+  if (interno) {
+    return (
+      <Link href={href} className={base}>
+        {children}
+      </Link>
+    );
+  }
 
   if (MODO_VISTA_PREVIA) {
     return (
@@ -41,11 +53,7 @@ export default function Boton({
   }
 
   return (
-    <a
-      href={href}
-      className={base}
-      {...(externo ? { target: '_blank', rel: 'noopener' } : {})}
-    >
+    <a href={href} className={base} target="_blank" rel="noopener">
       {children}
     </a>
   );
