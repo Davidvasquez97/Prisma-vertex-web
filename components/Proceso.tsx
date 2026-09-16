@@ -1,3 +1,4 @@
+import Herramientas from './Herramientas';
 import Revelar from './Revelar';
 import { PASOS } from '@/lib/contenido';
 import estilos from './Proceso.module.css';
@@ -25,6 +26,8 @@ export default function Proceso() {
           </ol>
         </Revelar>
       </div>
+
+      <Herramientas />
     </section>
   );
 }

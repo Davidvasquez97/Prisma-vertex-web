@@ -48,8 +48,8 @@ export default function Blog() {
         ) : (
           <ul className="mt-11 md:mt-14">
             {lista.map((a, i) => (
-              <Revelar key={a.slug} retraso={i * 70}>
-                <li className="filete py-7">
+              <li key={a.slug} className="filete py-7">
+                <Revelar retraso={i * 70}>
                   <article>
                     <h2 className="text-d3">
                       <Link href={`/blog/${a.slug}`} className="hover:text-azul">
@@ -67,8 +67,8 @@ export default function Blog() {
                       </p>
                     )}
                   </article>
-                </li>
-              </Revelar>
+                </Revelar>
+              </li>
             ))}
           </ul>
         )}

@@ -4,14 +4,15 @@ import Resultados from '@/components/Resultados';
 import Proceso from '@/components/Proceso';
 import Garantia from '@/components/Garantia';
 import Faq from '@/components/Faq';
+import Precios from '@/components/Precios';
 import Cierre from '@/components/Cierre';
 import { PREGUNTAS } from '@/lib/contenido';
 import { metaDe } from '@/lib/seo';
 
 export const metadata = metaDe({
-  titulo: 'Consultoría de procesos empresariales',
+  titulo: 'Consultoría en automatización e IA',
   descripcion:
-    'Consultoría que te ayuda a ganar más tiempo y dinero optimizando tus procesos. Diagnóstico sin riesgo: si no encontramos cómo ahorrarte, no pagas.',
+    'Consultoría en automatización e inteligencia artificial para empresas en Colombia. Ganas más tiempo y más dinero optimizando tus procesos.',
   ruta: '/',
 });
 
@@ -39,6 +40,7 @@ export default function Inicio() {
       <Proceso />
       <Garantia />
       <Faq />
+      <Precios />
       <Cierre />
     </>
   );

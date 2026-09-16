@@ -19,7 +19,10 @@
 
   /* Escala 1.25. El mínimo del H1 es 40 px: el brief pide 32 como piso
      en móvil y conviene tener margen por encima. */
-  --text-d0: clamp(2.5rem, 1.35rem + 4.9vw, 4.25rem);
+  /* Mínimo de 36 px, medido y no elegido a ojo: «Tu empresa puede» tiene
+     que caber en una línea de teléfono. Sigue por encima de los 32 px
+     que pide el brief. Ver también la regla de ancho de .titular-suelto. */
+  --text-d0: clamp(2.25rem, 1.15rem + 4.9vw, 3.5rem);
   --text-d0--line-height: 1.04;
   --text-d1: clamp(1.875rem, 1.3rem + 2.6vw, 3rem);
   --text-d1--line-height: 1.1;
@@ -113,6 +116,24 @@
 
   .medida {
     max-width: 62ch;
+  }
+
+  /* Los titulares se equilibran por defecto. En frases cortas eso produce
+     líneas de dos palabras: esta clase les devuelve el corte natural.
+
+     En teléfono, además, cierra un poco el eje de ancho de Archivo. Es
+     la ventaja de una tipografía variable: en vez de encoger la letra
+     hasta que quepa, se estrecha 14 unidades y el titular conserva su
+     tamaño. A 36 px y wdth 98, «Tu empresa puede» mide 301 px y entra
+     en los 312 que deja un teléfono de 360. */
+  .titular-suelto {
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 639px) {
+    .titular-suelto {
+      font-variation-settings: 'wdth' 98;
+    }
   }
 
   .filete {

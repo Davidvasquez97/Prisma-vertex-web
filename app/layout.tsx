@@ -23,9 +23,9 @@ const archivo = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.dominio),
-  title: 'Consultoría de procesos empresariales | Prisma Vertex',
+  title: 'Consultoría en automatización e IA | Prisma Vertex',
   description:
-    'Consultoría que te ayuda a ganar más tiempo y dinero optimizando tus procesos. Popayán, Colombia.',
+    'Consultoría en automatización e inteligencia artificial para empresas en Colombia. Ganas más tiempo y más dinero optimizando tus procesos.',
   icons: {
     icon: '/favicon.svg',
     apple: '/img/icono-180.png',
@@ -43,16 +43,16 @@ const negocio = {
   '@id': `${SITE.dominio}/#negocio`,
   name: SITE.nombre,
   description:
-    'Consultoría que ayuda a empresas medianas y grandes a ganar más tiempo y dinero optimizando sus procesos.',
+    'Consultoría en automatización e inteligencia artificial que ayuda a empresas medianas y grandes de Colombia a ganar más tiempo y dinero optimizando sus procesos.',
   url: SITE.dominio,
   image: `${SITE.dominio}/img/og.jpg`,
   logo: `${SITE.dominio}/img/og.jpg`,
   email: CONTACTO.correo,
   telephone: `+${CONTACTO.whatsapp}`,
   areaServed: [
+    { '@type': 'Country', name: 'Colombia' },
     { '@type': 'City', name: 'Popayán' },
     { '@type': 'City', name: 'Bogotá' },
-    { '@type': 'Country', name: 'Colombia' },
   ],
   address: {
     '@type': 'PostalAddress',
@@ -61,9 +61,11 @@ const negocio = {
     addressCountry: 'CO',
   },
   knowsAbout: [
+    'Automatización de procesos',
+    'Inteligencia artificial aplicada a empresas',
+    'Desarrollo de software a la medida',
+    'Integración de sistemas',
     'Optimización de procesos',
-    'Consultoría de procesos empresariales',
-    'Automatización de tareas repetitivas',
     'Medición de productividad',
   ],
   sameAs: [CONTACTO.instagram, ...(CONTACTO.linkedin ? [CONTACTO.linkedin] : [])],

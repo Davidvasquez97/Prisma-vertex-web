@@ -25,7 +25,7 @@ export default function Footer() {
             <Logo alto={32} />
           </span>
           <p className="text-menudo text-gris mt-4">
-            {SITE.ciudad}, {SITE.pais}
+            {SITE.pais}
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export default function Footer() {
       <div className="filete">
         <div className="lienzo py-6">
           <p className="text-menudo text-gris">
-            &copy; {anio} {SITE.nombre} · {SITE.ciudad}, {SITE.pais}
+            &copy; {anio} {SITE.nombre} · {SITE.pais}
             {MODO_VISTA_PREVIA && ' · Sitio en construcción'}
           </p>
         </div>

@@ -2,28 +2,23 @@ import Image from 'next/image';
 import foto from '@/assets/equipo-prisma.jpg';
 import Boton from './Boton';
 import { HERO } from '@/lib/contenido';
-import { SITE } from '@/lib/config';
 import estilos from './Hero.module.css';
 
 export default function Hero() {
   return (
     <section className="border-linea border-b">
-      <div className="lienzo grid items-center gap-11 pt-12 pb-14 md:grid-cols-[1.06fr_0.94fr] md:gap-14 md:pt-20 md:pb-24">
+      <div className="lienzo grid items-center gap-11 pt-12 pb-14 md:pt-20 md:pb-24 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
         <div>
           <p
-            className={`text-menudo text-gris ${estilos.entra} ${estilos.d1}`}
-            style={{ letterSpacing: '0.12em' }}
+            className={`text-gris text-[0.8125rem] uppercase sm:text-[0.875rem] ${estilos.entra} ${estilos.d1}`}
+            style={{ letterSpacing: '0.085em' }}
           >
-            <span className="uppercase">Consultoría de procesos empresariales</span>
-            <span className="hidden sm:inline">
-              <span className="text-gris"> · </span>
-              <span className="uppercase">
-                {SITE.ciudad}, {SITE.pais}
-              </span>
-            </span>
+            <span className="text-tinta font-semibold">{HERO.lugar}</span>
+            <span className="text-gris"> · </span>
+            {HERO.rotulo}
           </p>
 
-          <h1 className={`text-d0 mt-5 ${estilos.entra} ${estilos.d2}`}>
+          <h1 className={`text-d0 titular-suelto mt-5 ${estilos.entra} ${estilos.d2}`}>
             {HERO.titulo}
           </h1>
 
@@ -47,7 +42,7 @@ export default function Hero() {
           <Image
             src={foto}
             alt="David Vásquez y Juan David Chaves, consultores de Prisma Vertex, sosteniendo un prisma atravesado por un haz de luz."
-            sizes="(min-width: 768px) 44vw, 100vw"
+            sizes="(min-width: 1024px) 40vw, 100vw"
             placeholder="blur"
             priority
             fetchPriority="high"

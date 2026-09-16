@@ -7,12 +7,35 @@
  */
 
 export const HERO = {
-  titulo: 'Tu empresa puede ganar más. Te mostramos cómo.',
+  rotulo: 'Consultoría en automatización e inteligencia artificial para empresas',
+  lugar: 'Colombia',
+  // El titular se corta en el punto: la promesa sola, sin nada detrás.
+  titulo: 'Tu empresa puede ganar más.',
   subtitulo:
-    'Consultoría que te ayuda a ganar más tiempo y dinero optimizando tus procesos.',
+    'Te mostramos cómo. Ganas más tiempo y más dinero optimizando tus procesos.',
   boton: 'Quiero mi diagnóstico',
   bajoBoton: 'Si no encontramos cómo ahorrarte, no pagas.',
 } as const;
+
+/**
+ * Con qué trabajamos. Va debajo de los tres pasos, en una franja que cruza la
+ * página de lado a lado: después de leer el método, el cliente ve con qué se
+ * hace. Seis y no más, porque la lista es para entenderse de un vistazo.
+ */
+export type Herramienta = {
+  icono: 'consultoria' | 'ia' | 'software' | 'automatizacion' | 'integraciones' | 'optimizacion';
+  titulo: string;
+  texto: string;
+};
+
+export const HERRAMIENTAS: Herramienta[] = [
+  { icono: 'consultoria', titulo: 'Consultoría', texto: 'Diagnóstico y plan' },
+  { icono: 'ia', titulo: 'Inteligencia artificial', texto: 'Tareas que se resuelven solas' },
+  { icono: 'software', titulo: 'Desarrollo de software', texto: 'Herramientas a la medida' },
+  { icono: 'automatizacion', titulo: 'Automatización', texto: 'Menos trabajo repetitivo' },
+  { icono: 'integraciones', titulo: 'Integraciones', texto: 'Que tus sistemas se hablen' },
+  { icono: 'optimizacion', titulo: 'Optimización', texto: 'Medir, ajustar, repetir' },
+];
 
 export type Ganancia = { icono: 'tiempo' | 'dinero' | 'claridad'; titulo: string; texto: string };
 
@@ -84,3 +107,61 @@ export type Caso = {
 };
 
 export const CASOS: Caso[] = [];
+
+/**
+ * Precios de la consultoría. Van al final de la página, después de las
+ * preguntas: quien llega hasta ahí ya sabe qué recibe.
+ *
+ * `usd` en null significa que el plan no tiene precio de lista.
+ */
+export type Plan = {
+  nombre: string;
+  para: string;
+  usd: number | null;
+  destacado: boolean;
+  etiqueta?: string;
+  items: string[];
+};
+
+export const PLANES: Plan[] = [
+  {
+    nombre: 'Pequeña empresa',
+    para: 'Un área o un proceso puntual',
+    usd: 65,
+    destacado: false,
+    items: [
+      '1 hora de consultoría',
+      'Diagnóstico de lo que revisamos',
+      'Propuesta de solución',
+      'Cotización cerrada de esa solución',
+    ],
+  },
+  {
+    nombre: 'Mediana empresa',
+    para: 'Pymes que quieren revisar toda su operación',
+    usd: 120,
+    destacado: true,
+    etiqueta: 'El más pedido',
+    items: [
+      '2 horas de consultoría',
+      'Diagnóstico de toda la operación',
+      'Propuesta con los cuellos de botella priorizados',
+      'Cotización cerrada de esa solución',
+    ],
+  },
+  {
+    nombre: 'Empresa grande',
+    para: 'Varias áreas, sedes o equipos',
+    usd: null,
+    destacado: false,
+    items: [
+      'Más de tres horas de consultoría',
+      'Diagnóstico por área',
+      'Propuesta y cotización de cada frente',
+      'Acompañamiento continuo',
+    ],
+  },
+];
+
+export const NOTA_PRECIOS =
+  'Estos precios son solo el costo de la consultoría: la sesión contigo, el diagnóstico, la propuesta de solución y su cotización. Implementar esa solución se cobra aparte, y siempre sabrás cuánto vale antes de decidir.';

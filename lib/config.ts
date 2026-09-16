@@ -46,6 +46,22 @@ export const FORMULARIO_ENDPOINT = '';
 /** ← PENDIENTE: código de verificación de Google Search Console. */
 export const GOOGLE_SEARCH_CONSOLE = '';
 
+/**
+ * Tasa para mostrar los precios en pesos. Es referencia, no cotización:
+ * por eso las cifras salen redondeadas y con un «aprox.» al lado.
+ *
+ * TRM del Banco de la República, 14 de septiembre de 2026: 3.072,27.
+ * ← ACTUALIZAR de vez en cuando. Los dos precios en pesos se recalculan
+ *   solos: no hay ningún número escrito a mano en el sitio.
+ */
+export const TASA_COP = 3072;
+
+/** Dólares a pesos, redondeado a la decena de miles más cercana. */
+export function enPesos(usd: number): string {
+  const redondeado = Math.round((usd * TASA_COP) / 10000) * 10000;
+  return '$' + redondeado.toLocaleString('es-CO');
+}
+
 /** Construye un enlace de WhatsApp con mensaje prellenado. */
 export function wa(mensaje: string): string {
   return `https://wa.me/${CONTACTO.whatsapp}?text=${encodeURIComponent(mensaje)}`;
@@ -75,4 +91,5 @@ export const PENDIENTES = [
   'Código de verificación de Google Search Console.',
   'Dominio propio y apagar MODO_VISTA_PREVIA.',
   'Logo en SVG (hoy es JPG con fondo blanco).',
+  'Revisar la tasa TASA_COP cada tanto: los precios en pesos salen de ahí.',
 ] as const;
