@@ -15,26 +15,52 @@ npm start        # sirve el build para revisarlo
 
 | Qué quieres cambiar | Archivo |
 | --- | --- |
-| WhatsApp, correo, Instagram, LinkedIn, ciudad | `lib/config.ts` |
+| WhatsApp, correo, Instagram, LinkedIn de la empresa | `lib/config.ts` → `CONTACTO` |
 | Dominio final | `lib/config.ts` → `SITE.dominio` |
 | Apagar el modo vista previa | `lib/config.ts` → `MODO_VISTA_PREVIA` |
+| Encender la analítica | `lib/config.ts` → `ANALITICA_ACTIVA` |
+| Tasa dólar a pesos de los precios | `lib/config.ts` → `TASA_COP` |
 | Destino del formulario | `lib/config.ts` → `FORMULARIO_ENDPOINT` |
-| Textos de los siete bloques del inicio | `lib/contenido.ts` |
+| Textos del inicio | `lib/contenido.ts` |
+| Precios, planes y llamada inicial | `lib/contenido.ts` → `PLANES`, `LLAMADA_INICIAL` |
+| Garantía | `lib/contenido.ts` → `GARANTIA` |
+| Supuestos de la calculadora | `lib/contenido.ts` → `CALCULADORA` |
 | Preguntas frecuentes | `lib/contenido.ts` → `PREGUNTAS` |
 | Cifras de resultados | `lib/contenido.ts` → `RESULTADOS` |
 | Casos publicados | `lib/contenido.ts` → `CASOS` |
-| Foto del equipo, logo | `assets/` |
+| Equipo, cargos y LinkedIn de cada uno | `lib/contenido.ts` → `EQUIPO` |
+| Fotos y logo | `assets/` |
 | Artículos del blog | `contenido/blog/*.md` |
 
 Las preguntas frecuentes viven en un solo sitio a propósito: de ahí salen el
 acordeón que se ve y la ficha que lee Google. No pueden desincronizarse.
 
+## El inicio, en orden
+
+El orden cuenta una historia de venta: la promesa → lo que ganas → cuánto
+estás perdiendo hoy → cómo lo hacemos → pruebas → garantía → precio → las
+objeciones al precio → quiénes somos → cierre.
+
+| Sección | Componente |
+| --- | --- |
+| Entrada animada (una vez por visita) | `Entrada` |
+| Titular, foto del equipo | `Hero` |
+| Lo que ganas | `LoQueGanas` |
+| Calculadora de cuánto pierde la empresa | `Calculadora` |
+| Cómo trabajamos y con qué | `Proceso`, `Herramientas` |
+| Resultados | `Resultados` |
+| Garantía | `Garantia` |
+| Precios | `Precios`, `Billetes` |
+| Preguntas frecuentes | `Faq` |
+| Las personas detrás | `Equipo` |
+| Cierre | `Cierre` |
+
 ## Estructura
 
 ```
 app/
-  layout.tsx        <head>, fuente autoalojada, ficha del negocio para Google
-  page.tsx          el inicio: siete bloques
+  layout.tsx        <head>, fuente, ficha del negocio para Google, WhatsApp, analítica
+  page.tsx          el inicio
   diagnostico/      formulario
   casos/            plantilla de casos
   consultoria-procesos-popayan/  y  -bogota/   versiones locales
@@ -42,13 +68,13 @@ app/
   terminos/  politica-de-datos/               borradores legales
   not-found.tsx     404 con salida al inicio y al diagnóstico
   sitemap.ts  robots.ts
-components/
-  Hero  LoQueGanas  Resultados  Proceso  Garantia  Faq  Cierre
-  Nav  Footer  Logo  Boton  Pendiente  Iconos  PaginaCiudad
-  FormularioDiagnostico   el formulario, con validación
-  Revelar                 el único componente de cliente del sitio
+components/         un archivo por sección, más Nav, Footer, Logo, Boton…
+  Calculadora           componente de cliente: responde al mover las barras
+  FormularioDiagnostico componente de cliente: valida el formulario
+  Revelar               componente de cliente: las entradas al hacer scroll
+  WhatsappFlotante      botón flotante, solo cuando el sitio está lanzado
 lib/
-  config.ts     datos de contacto, interruptores, lista de pendientes
+  config.ts     datos de contacto, interruptores, tasa, lista de pendientes
   contenido.ts  los textos del inicio
   seo.ts        metadatos y migas de pan
   blog.ts       lee los .md de contenido/blog
@@ -68,9 +94,10 @@ export const MODO_VISTA_PREVIA = true;
 Con el interruptor en `true`:
 
 - Aparece una franja arriba que dice que la página está en construcción.
-- **La navegación interna funciona completa**: se puede recorrer todo el sitio.
+- **La navegación interna funciona completa**, calculadora incluida.
 - Los canales de contacto no: en el HTML publicado no hay ni un `wa.me` ni un
-  `mailto:`. El correo, el WhatsApp y el Instagram del pie son texto plano.
+  `mailto:`. El pie muestra el correo, el WhatsApp y el Instagram como texto;
+  el botón flotante de WhatsApp y los LinkedIn del equipo no aparecen.
 - El formulario se dibuja entero pero no envía, y lo dice antes de que alguien
   se tome el trabajo de llenarlo.
 - `robots.txt` no deja rastrear nada y las páginas van con `noindex`.
@@ -80,66 +107,83 @@ que tocar ningún componente.
 
 ## Pendiente antes de publicar
 
-1. **Cifras de los dos resultados del inicio** — `lib/contenido.ts`.
-2. **Casos completos** — `lib/contenido.ts` → `CASOS`. En cuanto haya uno,
-   `/casos` deja de mostrar la plantilla.
-3. **Tiempos reales de implementación** — segunda pregunta del acordeón.
-4. **URL de LinkedIn** y **usuario real de Instagram** — `lib/config.ts`.
-5. **Destino del formulario** — `FORMULARIO_ENDPOINT` en `lib/config.ts`. Con
-   un endpoint de Formspree basta: el formulario ya envía JSON por POST.
-6. **Revisión legal** de `/terminos` y `/politica-de-datos` por David.
-   Son borradores sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
-7. **Código de verificación de Google Search Console** — `lib/config.ts`.
-8. **Dominio propio**, y con él apagar el modo vista previa.
-9. **Logo en SVG.** Hoy es un JPG con fondo blanco que se muestra con
-   `mix-blend-mode: multiply`.
+Tres son compromisos públicos con dinero de por medio y necesitan la
+aprobación de David y Juan David: la garantía, los precios y los términos.
+
+1. **Aprobar la garantía**: devolución del 100 % si el diagnóstico no encuentra
+   ahorros mayores a lo pagado. Falta definir el plazo para pedirla
+   (`app/terminos/page.tsx` lo marca).
+2. **Aprobar los precios**: USD 95 y USD 190 (antes 65 y 120).
+3. **Revisión legal** de `/terminos` y `/politica-de-datos`. Son borradores
+   sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
+4. **Casos con cifras** — `lib/contenido.ts` → `CASOS`, y las dos cifras de
+   `RESULTADOS`. Hay una plantilla para recolectarlos en el estudio de mercado.
+5. **Confirmar quién es quién** en la foto del equipo (se asumió David a la
+   izquierda) y la ortografía de los apellidos.
+6. **LinkedIn** de la empresa y de cada integrante.
+7. **Activar Web Analytics** en el panel de Vercel y después poner
+   `ANALITICA_ACTIVA` en `true`. Antes de activarla, su script da 404.
+8. **Destino del formulario** — `FORMULARIO_ENDPOINT`. Con un endpoint de
+   Formspree basta: el formulario ya envía JSON por POST.
+9. **Tiempos reales de implementación** — segunda pregunta del acordeón.
+10. **Código de verificación de Google Search Console.**
+11. **Dominio propio**, y con él apagar el modo vista previa.
+12. **Usuario real de Instagram.**
 
 Todos están listados también en `PENDIENTES`, dentro de `lib/config.ts`.
 
 ## Medición
 
-Lighthouse móvil, build de producción, con el modo vista previa apagado:
+Lighthouse móvil sobre el build de producción, noviembre de 2026:
 
-| | |
-| --- | --- |
-| Rendimiento | 99 |
-| Accesibilidad | 100 |
-| Buenas prácticas | 100 |
-| SEO | 100 |
-| LCP | 2,1 s |
-| CLS | 0 |
+| | Vista previa | Lanzamiento |
+| --- | --- | --- |
+| Rendimiento | 98–99 | 99 |
+| Accesibilidad | 100 | 100 |
+| Buenas prácticas | 100 | 100 |
+| SEO | 69 | 100 |
+| LCP | 1,1–1,5 s | 1,1 s |
+| CLS | 0 | 0 |
 
-Con el modo vista previa encendido el SEO baja a 69, y es correcto que baje:
-la única auditoría que falla es «la página está bloqueada para indexación»,
-que es justo lo que pedimos mientras sea una maqueta.
+En vista previa el SEO baja a 69 y es correcto: la única auditoría que falla
+es «la página está bloqueada para indexación», que es justo lo que pedimos
+mientras sea una maqueta. La primera corrida después de arrancar el servidor
+sale más lenta: hay que medir con el servidor ya caliente.
 
-## Decisiones de diseño que conviene conocer
+## Decisiones que conviene conocer
 
-- **Un solo gesto de movimiento en todo el sitio**: subir 16 px y aparecer,
-  0,62 s. Sin zoom, sin giros, sin rebotes. El único momento propio es el
-  hero, donde una línea gris se abre en espectro: es lo que hace un prisma,
-  dicho sin explicarlo.
-- **Todo se apaga con `prefers-reduced-motion`**, y nada queda escondido: lo
-  que entra con scroll se muestra ya colocado. Sin JavaScript, igual.
+- **La entrada animada dura unos 2 segundos**, lo mismo que el video de
+  referencia. Gira el logo real como una moneda de dos caras, la luz blanca
+  entra por la izquierda y el arcoíris sale por la derecha. Sale una vez por
+  visita, se salta con un clic o una tecla y no aparece con
+  `prefers-reduced-motion`. Es CSS y un guion de diez líneas: si JavaScript
+  falla, la cortina igual se quita sola.
+- **La calculadora usa el valor legal de la hora**: salario ÷ 210, el divisor
+  vigente desde el 15 de julio de 2026 con la jornada de 42 horas (Ley 2101
+  de 2021), más un 52 % estimado de prestaciones y aportes. Todo corre en el
+  navegador del visitante: no envía nada.
+- **Los precios subieron a la parte media del mercado** colombiano, con una
+  llamada inicial gratis y el diagnóstico descontable de la implementación.
+- **«Recomendado» y no «El más pedido»**: la segunda frase solo puede volver
+  cuando las ventas lo confirmen.
+- **Los billetes junto a cada precio crecen con el monto**: se cuentan de a
+  50 dólares y de a 100.000 pesos, con un tope de seis.
+- **Un solo gesto de movimiento en el resto del sitio**: subir 16 px y
+  aparecer. Todo se apaga con `prefers-reduced-motion`, y nada queda escondido
+  sin JavaScript.
 - **El acordeón usa `<details>` nativo**: sin estado de React.
-- **Un solo componente de cliente**, `Revelar`. Escucha el scroll de forma
-  pasiva y se da de baja en cuanto dispara.
-- **Los emoji del brief se cambiaron por iconos de línea.** Dicen lo mismo,
-  pesan 300 bytes y no se leen como plantilla.
-- **La foto del equipo es la imagen principal del hero**, con prioridad de
-  carga. Es la única imagen real del sitio y sirve de «quiénes somos».
-- **No hay precios.** La garantía nueva —pago ligado a resultados— los
-  contradecía. Están en el historial de git si hay que recuperarlos.
+- **Los emoji del brief se cambiaron por iconos de línea** dibujados a mano.
 
 ## Las imágenes de la marca
 
-- `assets/logo-marca.jpg` — la pirámide, recortada del lockup original y con
-  el punto blanco subido. Se muestra con `mix-blend-mode: multiply`: el fondo
-  desaparece sin necesidad de un PNG con transparencia.
-- `assets/equipo-prisma.jpg` — David y Juan David, recortada para quitarle el
-  texto incrustado abajo.
-- El nombre va compuesto en Archivo, no como imagen, para que se vea nítido a
-  cualquier tamaño.
+- `assets/prisma-logo.png` — el logo con fondo transparente, sacado del
+  «SVG» que entregó David (por dentro era una imagen PNG, no vectores). Es el
+  que gira en la entrada.
+- `assets/logo-marca.jpg` — la pirámide del encabezado y el pie, mostrada con
+  `mix-blend-mode: multiply` para que el fondo blanco desaparezca.
+- `assets/equipo-prisma.jpg` — David y Juan David, en el hero.
+- `assets/retrato-izquierda.jpg` y `retrato-derecha.jpg` — los dos retratos
+  del equipo, recortados de la foto anterior.
 
 ## Publicar
 

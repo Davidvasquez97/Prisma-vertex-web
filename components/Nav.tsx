@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import Logo from './Logo';
 
-/* Tres enlaces en escritorio. En celular no hay menú: la página es corta y
+/* Cuatro enlaces en escritorio. En celular no hay menú: la página es corta y
    lo único que tiene que estar siempre a la vista es el botón. */
 const enlaces = [
-  { texto: 'Lo que ganas', href: '/#lo-que-ganas' },
+  { texto: 'Calculadora', href: '/#calculadora' },
   { texto: 'Cómo trabajamos', href: '/#como-trabajamos' },
+  { texto: 'Precios', href: '/#precios' },
   { texto: 'Casos', href: '/casos' },
 ];
 

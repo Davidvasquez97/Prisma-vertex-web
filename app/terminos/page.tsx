@@ -11,7 +11,7 @@ export const metadata = metaDe({
 
 const migas = migasJsonLd([{ nombre: 'Términos', ruta: '/terminos' }]);
 
-const ACTUALIZADO = '13 de septiembre de 2026';
+const ACTUALIZADO = '7 de noviembre de 2026';
 
 const apartados = [
   {
@@ -30,7 +30,8 @@ const apartados = [
   },
   {
     titulo: '4. Garantías',
-    texto: `Si del diagnóstico no resulta ninguna oportunidad de ahorro de tiempo o dinero para el cliente, no se cobra la consultoría. Si una solución implementada por ${SITE.nombre} no resulta rentable para el cliente en los términos acordados por escrito antes de la implementación, tampoco se cobra dicha implementación. Estas garantías no cubren costos de terceros, licencias ni servicios contratados directamente por el cliente.`,
+    // ← BORRADOR: falta definir el plazo para pedir la devolución. Revisar con David.
+    texto: `Si el diagnóstico no encuentra oportunidades de ahorro de tiempo o dinero cuyo valor supere lo pagado por él, ${SITE.nombre} devuelve el 100 % de ese valor. Si el cliente contrata la implementación, lo pagado por el diagnóstico se descuenta de ella. Si una solución implementada por ${SITE.nombre} no resulta rentable para el cliente en los términos acordados por escrito antes de la implementación, tampoco se cobra dicha implementación. Estas garantías no cubren costos de terceros, licencias ni servicios contratados directamente por el cliente.`,
   },
   {
     titulo: '5. Propiedad de los entregables',

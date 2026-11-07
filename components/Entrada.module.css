@@ -1,16 +1,18 @@
 /* ------------------------------------------------------------------
-   Animación de entrada, sobre el logo real. Dura tres segundos:
+   Animación de entrada, sobre el logo real. Dura poco más de dos
+   segundos, lo mismo que el video de referencia: más que eso empieza a
+   sentirse como una espera.
 
    0,00 s  aparece el prisma
-   0,10 s  gira dos vueltas sobre su eje, cada vez más lento, y queda
+   0,05 s  gira dos vueltas sobre su eje, cada vez más lento, y queda
            de frente. Pasa de canto como una moneda, igual que el video
            de referencia.
-   1,15 s  un haz de luz blanca entra desde el borde izquierdo
-   1,45 s  destello donde la luz toca el vidrio
-   1,50 s  el arcoíris sale por la derecha, abriéndose hasta el borde.
+   0,85 s  un haz de luz blanca entra desde el borde izquierdo
+   1,05 s  destello donde la luz toca el vidrio
+   1,08 s  el arcoíris sale por la derecha, abriéndose hasta el borde.
            Es lo mismo que cuenta el logo, ahora en movimiento.
-   1,75 s  aparece el nombre
-   2,45 s  la cortina se desvanece y queda la página
+   1,20 s  aparece el nombre
+   1,75 s  la cortina se desvanece y a los 2,2 s queda la página
 
    Es CSS puro: si JavaScript no carga, la animación igual termina y la
    cortina desaparece sola. Nunca puede dejar la página tapada.
@@ -25,14 +27,14 @@
   place-items: center;
   overflow: hidden;
   background: var(--color-base);
-  animation: sale 0.55s cubic-bezier(0.4, 0, 0.2, 1) 2.45s forwards;
+  animation: sale 0.45s cubic-bezier(0.4, 0, 0.2, 1) 1.75s forwards;
 }
 
 .escena {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: acerca 0.55s cubic-bezier(0.4, 0, 0.2, 1) 2.45s forwards;
+  animation: acerca 0.45s cubic-bezier(0.4, 0, 0.2, 1) 1.75s forwards;
 }
 
 /* Mide exactamente lo que mide el prisma: la luz se coloca contra él. */
@@ -57,8 +59,8 @@
   transform-style: preserve-3d;
   opacity: 0;
   animation:
-    aparece 0.3s ease-out forwards,
-    gira 1.2s cubic-bezier(0.2, 0.7, 0.25, 1) 0.1s forwards;
+    aparece 0.25s ease-out forwards,
+    gira 0.9s cubic-bezier(0.2, 0.7, 0.25, 1) 0.05s forwards;
 }
 
 .cara {
@@ -108,7 +110,7 @@
   /* Crece desde el borde izquierdo hacia el prisma: la luz viene de afuera. */
   transform: scaleX(0);
   transform-origin: 0% 50%;
-  animation: entraLuz 0.35s cubic-bezier(0.4, 0, 0.2, 1) 1.15s forwards;
+  animation: entraLuz 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.85s forwards;
 }
 
 @keyframes entraLuz {
@@ -142,7 +144,7 @@
   opacity: 0;
   transform: scaleX(0);
   transform-origin: 0% 50%;
-  animation: saleArcoiris 0.7s cubic-bezier(0.16, 0.8, 0.3, 1) 1.5s forwards;
+  animation: saleArcoiris 0.5s cubic-bezier(0.16, 0.8, 0.3, 1) 1.08s forwards;
 }
 
 @keyframes saleArcoiris {
@@ -171,7 +173,7 @@
   background: radial-gradient(circle, #fff 0%, rgb(191 214 255 / 0.75) 38%, transparent 70%);
   opacity: 0;
   transform: scale(0.4);
-  animation: destella 0.6s ease-out 1.45s forwards;
+  animation: destella 0.45s ease-out 1.05s forwards;
 }
 
 @keyframes destella {
@@ -201,7 +203,7 @@
   color: var(--color-tinta);
   opacity: 0;
   transform: translateY(8px);
-  animation: nombra 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.75s forwards;
+  animation: nombra 0.45s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
 }
 
 @keyframes nombra {

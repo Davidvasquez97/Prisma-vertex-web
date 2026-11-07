@@ -1,0 +1,83 @@
+/* Barras deslizantes con la misma voz del resto del sitio: pista fina en
+   gris, tramo recorrido en azul y una perilla blanca con borde azul. El
+   tramo azul se pinta con la variable --lleno, que el componente actualiza. */
+
+.barra {
+  --lleno: 50%;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.barra:focus {
+  outline: none;
+}
+
+.barra::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--color-azul) 0 var(--lleno),
+    var(--color-linea) var(--lleno) 100%
+  );
+}
+
+.barra::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-linea);
+}
+
+.barra::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-azul);
+}
+
+.barra::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  margin-top: -9px;
+  border: 2px solid var(--color-azul);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px -2px rgb(10 42 107 / 0.35);
+  transition: transform 0.15s var(--curva);
+}
+
+.barra::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-azul);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px -2px rgb(10 42 107 / 0.35);
+}
+
+.barra:hover::-webkit-slider-thumb,
+.barra:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+
+.barra:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-azul);
+  outline-offset: 3px;
+}
+
+.barra:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--color-azul);
+  outline-offset: 3px;
+}
+
+/* La cifra grande cambia sin saltar: los dígitos tienen todos el mismo
+   ancho, así el número no baila mientras se arrastra la barra. */
+.cifra {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}

@@ -8,7 +8,7 @@ import estilos from './Entrada.module.css';
  * - Si ya se vio en esta visita, o el sistema pide menos movimiento, la
  *   cortina no llega a aparecer.
  * - Un clic o una tecla la saltan.
- * - A los 3,1 s queda marcada como vista: si el visitante sale a otra página
+ * - A los 2,3 s queda marcada como vista: si el visitante sale a otra página
  *   y vuelve al inicio sin recargar, no se repite.
  *
  * Todo va envuelto en try/catch porque sessionStorage puede estar bloqueado
@@ -23,7 +23,7 @@ sessionStorage.setItem('pv-entrada','1');
 var fin=function(){d.classList.add('entrada-sale');setTimeout(function(){d.classList.add('sin-entrada');},300);};
 addEventListener('pointerdown',fin,{once:true});
 addEventListener('keydown',fin,{once:true});
-setTimeout(function(){d.classList.add('sin-entrada');},3100);
+setTimeout(function(){d.classList.add('sin-entrada');},2300);
 })();`;
 
 export default function Entrada() {

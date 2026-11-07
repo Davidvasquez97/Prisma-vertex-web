@@ -14,7 +14,7 @@ const migas = migasJsonLd([
   { nombre: 'Política de datos', ruta: '/politica-de-datos' },
 ]);
 
-const ACTUALIZADO = '13 de septiembre de 2026';
+const ACTUALIZADO = '7 de noviembre de 2026';
 
 const apartados = [
   {
@@ -35,7 +35,7 @@ const apartados = [
   {
     titulo: '6. Servicios de terceros',
     texto:
-      'Las conversaciones iniciadas desde este sitio se realizan a través de WhatsApp, servicio operado por un tercero y sujeto a sus propias políticas de privacidad. El alojamiento del sitio está a cargo de un proveedor de infraestructura que puede registrar datos técnicos de la conexión, como la dirección IP, con fines de seguridad y disponibilidad.',
+      'Las conversaciones iniciadas desde este sitio se realizan a través de WhatsApp, servicio operado por un tercero y sujeto a sus propias políticas de privacidad. El alojamiento del sitio está a cargo de Vercel, que puede registrar datos técnicos de la conexión, como la dirección IP, con fines de seguridad y disponibilidad. Para saber qué páginas se visitan usamos Vercel Web Analytics: el componente instalado no guarda cookies ni datos en su navegador, y lo que se registra se consulta de forma agregada (página visitada, país, navegador, tipo de dispositivo y sitio desde el que llegó). No lo usamos para identificarlo a usted. La calculadora del inicio funciona en su propio navegador: las cifras que usted mueve no se envían a ningún lado.',
   },
   {
     titulo: '7. Cambios',

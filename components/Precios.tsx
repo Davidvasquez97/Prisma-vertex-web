@@ -2,16 +2,17 @@ import Billetes, { cuantosBilletes } from './Billetes';
 import Boton from './Boton';
 import Revelar from './Revelar';
 import { enPesos, TASA_COP } from '@/lib/config';
-import { NOTA_PRECIOS, PLANES } from '@/lib/contenido';
+import { LLAMADA_INICIAL, NOTA_PRECIOS, PLANES } from '@/lib/contenido';
 
-/* Los billetes se cuentan de a 50 dólares y de a 50.000 pesos, que son las
-   denominaciones con las que uno piensa el monto en cada moneda. */
+/* Los billetes se cuentan de a 50 dólares y de a 100.000 pesos. Con los
+   precios de noviembre de 2026, contados de a 50.000 los dos planes llegaban
+   al tope y se veían iguales; de a 100.000 quedan en 4 y 6. */
 const BILLETE_USD = 50;
-const BILLETE_COP = 50000;
+const BILLETE_COP = 100000;
 
 export default function Precios() {
   return (
-    <section id="precios" className="bloque">
+    <section id="precios" className="bloque bg-perla">
       <div className="lienzo">
         <Revelar>
           <h2 className="text-d1">Cuánto cuesta</h2>
@@ -21,7 +22,24 @@ export default function Precios() {
           </p>
         </Revelar>
 
-        <div className="mt-11 grid gap-5 md:mt-14 md:grid-cols-3 md:gap-6">
+        {/* El primer paso no cuesta: así nadie paga antes de saber si
+            encajamos. */}
+        <Revelar retraso={60}>
+          <div className="tarjeta mt-10 flex flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between md:mt-12 md:px-8">
+            <div>
+              <p className="text-d3">
+                <span className="text-azul font-semibold">Gratis · </span>
+                {LLAMADA_INICIAL.titulo}
+              </p>
+              <p className="text-cuerpo text-gris mt-1">{LLAMADA_INICIAL.texto}</p>
+            </div>
+            <Boton href="/diagnostico" variante="suave" className="shrink-0">
+              Agendar la llamada
+            </Boton>
+          </div>
+        </Revelar>
+
+        <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-3 md:gap-6">
           {PLANES.map((p, i) => (
             <Revelar key={p.nombre} retraso={i * 80}>
               <article

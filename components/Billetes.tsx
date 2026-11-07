@@ -1,15 +1,16 @@
 /**
  * Una pilita de billetes, dibujada a mano.
  *
- * La gracia es que la pila crece con el monto: el plan de 65 dólares muestra
- * menos billetes que el de 120, y en pesos se cuentan de a 50.000. No es un
- * adorno, es información. Se lee de reojo antes de leer la cifra.
+ * La gracia es que la pila crece con el monto: el plan pequeño muestra menos
+ * billetes que el mediano. No es un adorno, es información. Se lee de reojo
+ * antes de leer la cifra.
  *
- * Va topada en cinco billetes: más que eso deja de leerse como un montoncito
- * y empieza a parecer una baraja.
+ * Va topada en seis billetes: más que eso deja de leerse como un montoncito
+ * y empieza a parecer una baraja. Si dos planes llegan al tope, la pila deja
+ * de distinguirlos: entonces hay que contar en un billete más grande.
  */
 
-const TOPE = 5;
+const TOPE = 6;
 
 /** Cuántos billetes dibujar para un monto, contando de a `denominacion`. */
 export function cuantosBilletes(monto: number, denominacion: number): number {

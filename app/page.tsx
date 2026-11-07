@@ -1,10 +1,11 @@
 import Hero from '@/components/Hero';
 import LoQueGanas from '@/components/LoQueGanas';
-import Resultados from '@/components/Resultados';
+import Calculadora from '@/components/Calculadora';
 import Proceso from '@/components/Proceso';
+import Resultados from '@/components/Resultados';
 import Garantia from '@/components/Garantia';
-import Faq from '@/components/Faq';
 import Precios from '@/components/Precios';
+import Faq from '@/components/Faq';
 import Equipo from '@/components/Equipo';
 import Cierre from '@/components/Cierre';
 import Entrada from '@/components/Entrada';
@@ -18,7 +19,7 @@ export const metadata = metaDe({
   ruta: '/',
 });
 
-/* Las mismas cuatro preguntas que se ven en el acordeón, para Google. */
+/* Las mismas preguntas que se ven en el acordeón, para Google. */
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -29,6 +30,12 @@ const faqJsonLd = {
   })),
 };
 
+/*
+ * El orden cuenta una historia de venta:
+ * la promesa → lo que ganas → cuánto estás perdiendo hoy (calculadora) →
+ * cómo lo hacemos → pruebas → garantía → precio → objeciones al precio
+ * (preguntas, justo después) → quiénes somos → cierre.
+ */
 export default function Inicio() {
   return (
     <>
@@ -39,11 +46,12 @@ export default function Inicio() {
       />
       <Hero />
       <LoQueGanas />
-      <Resultados />
+      <Calculadora />
       <Proceso />
+      <Resultados />
       <Garantia />
-      <Faq />
       <Precios />
+      <Faq />
       <Equipo />
       <Cierre />
     </>

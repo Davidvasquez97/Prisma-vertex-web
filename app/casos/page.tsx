@@ -20,6 +20,8 @@ const RANURAS = [
   { clave: 'problema', etiqueta: 'El problema' },
   { clave: 'hicimos', etiqueta: 'Qué hicimos' },
   { clave: 'cifras', etiqueta: 'Las cifras' },
+  { clave: 'tiempo', etiqueta: 'En cuánto tiempo' },
+  { clave: 'cita', etiqueta: 'La frase del cliente' },
 ] as const;
 
 export default function Casos() {
@@ -73,7 +75,18 @@ export default function Casos() {
               <Revelar key={c.resultado} retraso={i * 80}>
                 <article className="tarjeta px-6 py-9 md:px-10 md:py-11">
                   <h2 className="text-d2 text-azul">{c.resultado}</h2>
-                  <p className="text-menudo text-gris mt-2">{c.sector}</p>
+                  <p className="text-menudo text-gris mt-2">
+                    {c.sector}
+                    {c.tiempo && ` · en ${c.tiempo}`}
+                  </p>
+
+                  {/* La frase del cliente va antes del detalle: es lo que más
+                      convence, y en sus palabras, no en las nuestras. */}
+                  {c.cita && (
+                    <blockquote className="text-guia border-azul mt-6 border-l-2 pl-5">
+                      «{c.cita}»
+                    </blockquote>
+                  )}
 
                   <dl className="mt-7 grid gap-6 sm:grid-cols-3">
                     <div>

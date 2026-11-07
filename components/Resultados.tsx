@@ -5,7 +5,7 @@ import { RESULTADOS } from '@/lib/contenido';
 
 export default function Resultados() {
   return (
-    <section id="resultados" className="bloque bg-perla">
+    <section id="resultados" className="bloque">
       <div className="lienzo">
         <Revelar>
           <h2 className="text-d1">Resultados reales</h2>

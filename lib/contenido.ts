@@ -14,7 +14,7 @@ export const HERO = {
   subtitulo:
     'Te mostramos cómo. Ganas más tiempo y más dinero optimizando tus procesos.',
   boton: 'Quiero mi diagnóstico',
-  bajoBoton: 'Si no encontramos cómo ahorrarte, no pagas.',
+  bajoBoton: 'Si no encontramos cómo ahorrarte, te devolvemos tu dinero.',
 } as const;
 
 /**
@@ -46,6 +46,29 @@ export const GANANCIAS: Ganancia[] = [
 ];
 
 /**
+ * La calculadora de cuánto pierde una empresa en tareas repetitivas.
+ *
+ * El costo de una hora se calcula como lo hace la ley colombiana: salario
+ * mensual dividido entre 210 horas, el divisor vigente desde el 15 de julio
+ * de 2026 con la jornada de 42 horas (Ley 2101 de 2021). A eso se le suma el
+ * costo de prestaciones y aportes del empleador, estimado en un 52 % del
+ * salario. El resultado es una estimación y la calculadora lo dice.
+ */
+export const CALCULADORA = {
+  titulo: '¿Cuánto le cuestan a tu empresa las tareas repetitivas?',
+  subtitulo: 'Mueve las tres barras. El cálculo es inmediato y no pide datos tuyos.',
+  divisorHoras: 210,
+  factorPrestacional: 1.52,
+  semanasPorMes: 4.33,
+  personas: { min: 1, max: 50, paso: 1, inicial: 5 },
+  horas: { min: 1, max: 20, paso: 1, inicial: 6 },
+  salario: { min: 1_500_000, max: 8_000_000, paso: 100_000, inicial: 2_500_000 },
+  boton: 'Quiero recuperar ese dinero',
+  nota:
+    'Estimación con el valor legal de la hora (salario ÷ 210) más un 52 % de prestaciones y aportes del empleador.',
+} as const;
+
+/**
  * Resultados. Las cifras van vacías a propósito: no se inventan.
  * Al llenar `cifra` y `texto`, la tarjeta deja de mostrar el marcador sola.
  */
@@ -62,10 +85,16 @@ export const PASOS = [
   { titulo: 'Implementación', texto: 'lo ponemos en marcha y medimos.' },
 ];
 
+/**
+ * La garantía, dicha en concreto: una devolución del 100 % con una condición
+ * que se puede verificar. Una garantía específica convence más que una
+ * general («nuestro pago va ligado a tus resultados»).
+ * ← APROBAR antes del lanzamiento: es un compromiso con dinero de por medio.
+ */
 export const GARANTIA = {
   titulo: 'Si tú no ganas, nosotros no cobramos.',
   texto:
-    'Medimos tu operación antes y después. Nuestro pago va ligado a tus resultados.',
+    'Si el diagnóstico no encuentra ahorros que superen lo que pagaste, te devolvemos el 100 %. Y si contratas la implementación, el diagnóstico se descuenta.',
 } as const;
 
 export const PREGUNTAS = [
@@ -84,7 +113,11 @@ export const PREGUNTAS = [
   },
   {
     p: '¿Y si no hay ahorro?',
-    r: 'Si no encontramos cómo ahorrarte tiempo o dinero, no pagas el diagnóstico.',
+    r: 'Si el diagnóstico no encuentra ahorros que superen lo que pagaste, te devolvemos el 100 %.',
+  },
+  {
+    p: '¿Por qué cobran el diagnóstico?',
+    r: 'Porque es trabajo real: medimos tu operación y te entregamos un plan con cifras. Si después contratas la implementación, lo que pagaste se descuenta. La primera llamada, de 20 minutos, es gratis.',
   },
 ] as const;
 
@@ -96,7 +129,8 @@ export const CIERRE = {
 /**
  * Casos publicados. Vacío a propósito: cuando David entregue los reales, se
  * agregan aquí y /casos deja de mostrar la plantilla sola.
- * Orden de la ficha: resultado primero, cifras al final.
+ * Orden de la ficha: resultado primero, cifras al final. `tiempo` y `cita`
+ * son opcionales, pero un caso con la frase del cliente convence más.
  */
 export type Caso = {
   resultado: string;
@@ -104,15 +138,30 @@ export type Caso = {
   problema: string;
   hicimos: string;
   cifras: string;
+  tiempo?: string;
+  cita?: string;
 };
 
 export const CASOS: Caso[] = [];
 
+/** La conversación previa al diagnóstico. Filtra antes de cobrar. */
+export const LLAMADA_INICIAL = {
+  titulo: 'Primero, una llamada de 20 minutos sin costo',
+  texto: 'Para ver si podemos ayudarte antes de que pagues nada.',
+} as const;
+
 /**
- * Precios de la consultoría. Van al final de la página, después de las
- * preguntas: quien llega hasta ahí ya sabe qué recibe.
+ * Precios del diagnóstico. Van después de la garantía y antes de las
+ * preguntas: las objeciones aparecen al ver el precio.
+ *
+ * Revisados en noviembre de 2026 contra el mercado colombiano: un consultor
+ * con experiencia cobra entre $200.000 y $400.000 la hora, y estos planes
+ * incluyen además el diagnóstico, la propuesta y la cotización.
+ * ← APROBAR antes del lanzamiento.
  *
  * `usd` en null significa que el plan no tiene precio de lista.
+ * `etiqueta` dice «Recomendado» y no «El más pedido»: esa frase solo puede
+ * volver cuando las ventas lo confirmen.
  */
 export type Plan = {
   nombre: string;
@@ -127,26 +176,26 @@ export const PLANES: Plan[] = [
   {
     nombre: 'Pequeña empresa o negocio',
     para: 'Un área o un proceso puntual',
-    usd: 65,
+    usd: 95,
     destacado: false,
     items: [
       '1 hora de consultoría',
       'Diagnóstico de lo que revisamos',
-      'Propuesta de solución',
-      'Cotización cerrada de esa solución',
+      'Propuesta y cotización cerrada',
+      'Se descuenta si implementas con nosotros',
     ],
   },
   {
     nombre: 'Mediana empresa',
     para: 'Pymes que quieren revisar toda su operación',
-    usd: 120,
+    usd: 190,
     destacado: true,
-    etiqueta: 'El más pedido',
+    etiqueta: 'Recomendado',
     items: [
       '2 horas de consultoría',
       'Diagnóstico de toda la operación',
-      'Propuesta con los cuellos de botella priorizados',
-      'Cotización cerrada de esa solución',
+      'Cuellos de botella priorizados por lo que valen',
+      'Se descuenta si implementas con nosotros',
     ],
   },
   {
@@ -164,7 +213,7 @@ export const PLANES: Plan[] = [
 ];
 
 export const NOTA_PRECIOS =
-  'Estos precios son solo el costo de la consultoría: la sesión contigo, el diagnóstico, la propuesta de solución y su cotización. Implementar esa solución se cobra aparte, y siempre sabrás cuánto vale antes de decidir.';
+  'Estos precios son solo el costo del diagnóstico: la sesión contigo, el análisis, la propuesta de solución y su cotización. Implementar esa solución se cobra aparte, siempre sabrás cuánto vale antes de decidir, y si la contratas, el diagnóstico se descuenta.';
 
 /**
  * Las personas detrás de Prisma Vertex.
@@ -174,6 +223,9 @@ export const NOTA_PRECIOS =
  *   y Juan David Chaves», de izquierda a derecha). Si está al revés, basta
  *   con intercambiar 'izquierda' y 'derecha' en estas dos líneas.
  *
+ * `linkedin` ← PENDIENTE para los tres. Con la URL puesta, la tarjeta muestra
+ * el enlace sola: una foto con credenciales al lado convence más que sola.
+ *
  * Sebastián prefiere no aparecer: `foto: null` dibuja una silueta.
  */
 export type Integrante = {
@@ -182,6 +234,7 @@ export type Integrante = {
   sigla: string;
   rol: string;
   foto: 'izquierda' | 'derecha' | null;
+  linkedin: string;
 };
 
 export const EQUIPO: Integrante[] = [
@@ -191,6 +244,7 @@ export const EQUIPO: Integrante[] = [
     sigla: 'CEO',
     rol: 'Estrategia y relación con cada cliente.',
     foto: 'izquierda',
+    linkedin: '',
   },
   {
     nombre: 'Juan David Chaves',
@@ -198,6 +252,7 @@ export const EQUIPO: Integrante[] = [
     sigla: 'COO',
     rol: 'Operación y entrega de cada proyecto.',
     foto: 'derecha',
+    linkedin: '',
   },
   {
     nombre: 'Sebastián',
@@ -205,5 +260,6 @@ export const EQUIPO: Integrante[] = [
     sigla: 'CTO',
     rol: 'Arquitectura e implementación técnica.',
     foto: null,
+    linkedin: '',
   },
 ];

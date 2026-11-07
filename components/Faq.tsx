@@ -5,7 +5,7 @@ import estilos from './Faq.module.css';
 
 export default function Faq() {
   return (
-    <section id="preguntas" className="bloque bg-perla">
+    <section id="preguntas" className="bloque">
       <div className="lienzo">
         <Revelar>
           <h2 className="text-d1">Preguntas frecuentes</h2>

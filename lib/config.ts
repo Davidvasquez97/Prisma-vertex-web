@@ -43,6 +43,14 @@ export const CONTACTO = {
  */
 export const FORMULARIO_ENDPOINT = '';
 
+/**
+ * Analítica de Vercel (visitas sin cookies).
+ * ← Ponerlo en `true` DESPUÉS de activar Web Analytics en el panel del
+ *   proyecto en Vercel. Antes de eso el script que carga no existe, el
+ *   navegador registra un error 404 y Lighthouse lo descuenta.
+ */
+export const ANALITICA_ACTIVA = false;
+
 /** ← PENDIENTE: código de verificación de Google Search Console. */
 export const GOOGLE_SEARCH_CONSOLE = '';
 
@@ -50,11 +58,11 @@ export const GOOGLE_SEARCH_CONSOLE = '';
  * Tasa para mostrar los precios en pesos. Es referencia, no cotización:
  * por eso las cifras salen redondeadas y con un «aprox.» al lado.
  *
- * TRM del Banco de la República, 14 de septiembre de 2026: 3.072,27.
+ * TRM del 7 de noviembre de 2026: 3.237,83 (dolarhoy.co).
  * ← ACTUALIZAR de vez en cuando. Los dos precios en pesos se recalculan
  *   solos: no hay ningún número escrito a mano en el sitio.
  */
-export const TASA_COP = 3072;
+export const TASA_COP = 3238;
 
 /** Dólares a pesos, redondeado a la decena de miles más cercana. */
 export function enPesos(usd: number): string {
@@ -85,7 +93,10 @@ export const PENDIENTES = [
   'Cifras reales de los dos resultados del inicio.',
   'Casos completos para /casos.',
   'Tiempos reales de implementación (pregunta 2 del acordeón).',
-  'URL de LinkedIn.',
+  'URL de LinkedIn de la empresa y de David, Juan David y Sebastián (lib/contenido.ts → EQUIPO).',
+  'Aprobar la garantía de devolución del 100 % y los precios nuevos (lib/contenido.ts).',
+  'Confirmar quién es quién en la foto del equipo (lib/contenido.ts → EQUIPO).',
+  'Activar Web Analytics en el panel de Vercel y después poner ANALITICA_ACTIVA en true.',
   'Endpoint del formulario de diagnóstico.',
   'Texto legal de /politica-de-datos revisado por David.',
   'Código de verificación de Google Search Console.',

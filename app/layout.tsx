@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import {
+  ANALITICA_ACTIVA,
   CONTACTO,
   GOOGLE_SEARCH_CONSOLE,
   MODO_VISTA_PREVIA,
@@ -9,6 +10,8 @@ import {
 import AvisoVistaPrevia from '@/components/AvisoVistaPrevia';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import WhatsappFlotante from '@/components/WhatsappFlotante';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 const archivo = localFont({
@@ -106,6 +109,10 @@ export default function RootLayout({
         <Nav />
         <main id="contenido">{children}</main>
         <Footer />
+        <WhatsappFlotante />
+        {/* Analítica de Vercel: cuenta visitas sin cookies. Se enciende en
+            lib/config.ts después de activarla en el panel del proyecto. */}
+        {ANALITICA_ACTIVA && <Analytics />}
       </body>
     </html>
   );

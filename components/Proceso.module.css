@@ -24,12 +24,21 @@
   }
 }
 
+/* En celular no hay línea que unir, así que el nodo no se dibuja. Se
+   decide aquí y no con la clase `hidden` de Tailwind: este archivo carga
+   después y su `display` le ganaba. */
 .nodo {
-  display: block;
+  display: none;
   width: 9px;
   height: 9px;
   background: var(--color-azul);
   border-radius: 1px;
+}
+
+@media (min-width: 768px) {
+  .nodo {
+    display: block;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
