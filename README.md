@@ -118,8 +118,9 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
    sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
 4. **Casos con cifras** — `lib/contenido.ts` → `CASOS`, y las dos cifras de
    `RESULTADOS`. Hay una plantilla para recolectarlos en el estudio de mercado.
-5. **Confirmar quién es quién** en la foto del equipo (se asumió David a la
-   izquierda) y la ortografía de los apellidos.
+5. **Confirmar la ortografía de los apellidos.** El sitio usa Vásquez y
+   Chaves, como el brief y el usuario de GitHub; en los mensajes aparecen
+   también Vázquez y Chávez.
 6. **LinkedIn** de la empresa y de cada integrante.
 7. **Activar Web Analytics** en el panel de Vercel y después poner
    `ANALITICA_ACTIVA` en `true`. Antes de activarla, su script da 404.
@@ -181,9 +182,14 @@ sale más lenta: hay que medir con el servidor ya caliente.
   que gira en la entrada.
 - `assets/logo-marca.jpg` — la pirámide del encabezado y el pie, mostrada con
   `mix-blend-mode: multiply` para que el fondo blanco desaparezca.
-- `assets/equipo-prisma.jpg` — David y Juan David, en el hero.
-- `assets/retrato-izquierda.jpg` y `retrato-derecha.jpg` — los dos retratos
-  del equipo, recortados de la foto anterior.
+- `assets/equipo-prisma.jpg` — Juan David (izquierda) y David (derecha), en
+  el hero.
+- `assets/retrato-derecha.jpg` — el retrato de David en la sección del
+  equipo, recortado de la foto anterior.
+- `assets/retrato-juan-david.jpg` — el retrato de Juan David, una foto suya
+  aparte.
+- `assets/retrato-izquierda.jpg` — sin uso desde que Juan David tiene su
+  propia foto; se puede borrar.
 
 ## Publicar
 

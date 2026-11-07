@@ -1,12 +1,14 @@
 import Image from 'next/image';
-import retratoIzquierda from '@/assets/retrato-izquierda.jpg';
-import retratoDerecha from '@/assets/retrato-derecha.jpg';
+import retratoDavid from '@/assets/retrato-derecha.jpg';
+import retratoJuanDavid from '@/assets/retrato-juan-david.jpg';
 import Revelar from './Revelar';
 import { EQUIPO } from '@/lib/contenido';
 import { MODO_VISTA_PREVIA } from '@/lib/config';
 import estilos from './Equipo.module.css';
 
-const RETRATOS = { izquierda: retratoIzquierda, derecha: retratoDerecha } as const;
+/* David sale recortado de la foto de equipo (es el de la derecha); Juan
+   David, de una foto suya aparte. */
+const RETRATOS = { david: retratoDavid, 'juan-david': retratoJuanDavid } as const;
 
 /** Silueta para quien prefiere no salir en foto. */
 function Silueta() {

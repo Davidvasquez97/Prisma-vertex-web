@@ -95,7 +95,7 @@ export const PENDIENTES = [
   'Tiempos reales de implementación (pregunta 2 del acordeón).',
   'URL de LinkedIn de la empresa y de David, Juan David y Sebastián (lib/contenido.ts → EQUIPO).',
   'Aprobar la garantía de devolución del 100 % y los precios nuevos (lib/contenido.ts).',
-  'Confirmar quién es quién en la foto del equipo (lib/contenido.ts → EQUIPO).',
+  'Confirmar la ortografía de los apellidos: el sitio usa Vásquez y Chaves.',
   'Activar Web Analytics en el panel de Vercel y después poner ANALITICA_ACTIVA en true.',
   'Endpoint del formulario de diagnóstico.',
   'Texto legal de /politica-de-datos revisado por David.',

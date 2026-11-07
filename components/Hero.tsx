@@ -53,15 +53,16 @@ export default function Hero() {
         <figure className={estilos.foto}>
           <Image
             src={foto}
-            alt="David Vásquez y Juan David Chaves, consultores de Prisma Vertex, sosteniendo un prisma atravesado por un haz de luz."
+            alt="Juan David Chaves, a la izquierda, y David Vásquez, a la derecha, socios de Prisma Vertex, sosteniendo un prisma atravesado por un haz de luz."
             sizes="(min-width: 1024px) 40vw, 100vw"
             placeholder="blur"
             priority
             fetchPriority="high"
             className="h-auto w-full rounded-xl"
           />
+          {/* Nombrados en el orden en que aparecen, de izquierda a derecha. */}
           <figcaption className="text-menudo text-gris mt-3">
-            David Vásquez y Juan David Chaves, socios de Prisma Vertex.
+            Juan David Chaves y David Vásquez, socios de Prisma Vertex.
           </figcaption>
         </figure>
       </div>

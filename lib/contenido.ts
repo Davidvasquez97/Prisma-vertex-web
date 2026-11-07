@@ -218,10 +218,10 @@ export const NOTA_PRECIOS =
 /**
  * Las personas detrás de Prisma Vertex.
  *
- * `foto` dice de qué lado de la foto de equipo sale cada retrato.
- * ← CONFIRMAR: se asumió el orden del pie de foto publicado («David Vásquez
- *   y Juan David Chaves», de izquierda a derecha). Si está al revés, basta
- *   con intercambiar 'izquierda' y 'derecha' en estas dos líneas.
+ * `foto` dice qué retrato lleva cada uno (ver RETRATOS en Equipo.tsx).
+ * Confirmado por David el 7 de noviembre de 2026: en la foto de equipo
+ * Juan David es el de la izquierda (gafas, barba) y David el de la derecha.
+ * Juan David lleva además una foto suya aparte, que entregó David.
  *
  * `linkedin` ← PENDIENTE para los tres. Con la URL puesta, la tarjeta muestra
  * el enlace sola: una foto con credenciales al lado convence más que sola.
@@ -233,7 +233,7 @@ export type Integrante = {
   cargo: string;
   sigla: string;
   rol: string;
-  foto: 'izquierda' | 'derecha' | null;
+  foto: 'david' | 'juan-david' | null;
   linkedin: string;
 };
 
@@ -243,7 +243,7 @@ export const EQUIPO: Integrante[] = [
     cargo: 'Fundador',
     sigla: 'CEO',
     rol: 'Estrategia y relación con cada cliente.',
-    foto: 'izquierda',
+    foto: 'david',
     linkedin: '',
   },
   {
@@ -251,7 +251,7 @@ export const EQUIPO: Integrante[] = [
     cargo: 'Cofundador',
     sigla: 'COO',
     rol: 'Operación y entrega de cada proyecto.',
-    foto: 'derecha',
+    foto: 'juan-david',
     linkedin: '',
   },
   {
