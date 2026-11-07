@@ -165,3 +165,45 @@ export const PLANES: Plan[] = [
 
 export const NOTA_PRECIOS =
   'Estos precios son solo el costo de la consultoría: la sesión contigo, el diagnóstico, la propuesta de solución y su cotización. Implementar esa solución se cobra aparte, y siempre sabrás cuánto vale antes de decidir.';
+
+/**
+ * Las personas detrás de Prisma Vertex.
+ *
+ * `foto` dice de qué lado de la foto de equipo sale cada retrato.
+ * ← CONFIRMAR: se asumió el orden del pie de foto publicado («David Vásquez
+ *   y Juan David Chaves», de izquierda a derecha). Si está al revés, basta
+ *   con intercambiar 'izquierda' y 'derecha' en estas dos líneas.
+ *
+ * Sebastián prefiere no aparecer: `foto: null` dibuja una silueta.
+ */
+export type Integrante = {
+  nombre: string;
+  cargo: string;
+  sigla: string;
+  rol: string;
+  foto: 'izquierda' | 'derecha' | null;
+};
+
+export const EQUIPO: Integrante[] = [
+  {
+    nombre: 'David Vásquez',
+    cargo: 'Fundador',
+    sigla: 'CEO',
+    rol: 'Estrategia y relación con cada cliente.',
+    foto: 'izquierda',
+  },
+  {
+    nombre: 'Juan David Chaves',
+    cargo: 'Cofundador',
+    sigla: 'COO',
+    rol: 'Operación y entrega de cada proyecto.',
+    foto: 'derecha',
+  },
+  {
+    nombre: 'Sebastián',
+    cargo: 'Director de tecnología',
+    sigla: 'CTO',
+    rol: 'Arquitectura e implementación técnica.',
+    foto: null,
+  },
+];

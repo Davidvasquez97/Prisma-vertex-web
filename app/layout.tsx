@@ -69,13 +69,21 @@ const negocio = {
     'Medición de productividad',
   ],
   sameAs: [CONTACTO.instagram, ...(CONTACTO.linkedin ? [CONTACTO.linkedin] : [])],
+  // Personas con nombre y cargo: Google las usa como señal de quién responde
+  // por el negocio. Sebastián no va porque prefiere no figurar.
+  founder: [
+    { '@type': 'Person', name: 'David Vásquez', jobTitle: 'Fundador y CEO' },
+    { '@type': 'Person', name: 'Juan David Chaves', jobTitle: 'Cofundador y COO' },
+  ],
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-CO" className={archivo.variable}>
+    // suppressHydrationWarning: el guion de la animación de entrada añade una
+    // clase a <html> antes de que React hidrate. Es intencional.
+    <html lang="es-CO" className={archivo.variable} suppressHydrationWarning>
       <head>
         {/* Sin JavaScript nada queda escondido: las entradas por scroll se
             muestran ya colocadas. */}

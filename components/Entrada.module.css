@@ -1,0 +1,243 @@
+/* ------------------------------------------------------------------
+   Animación de entrada, sobre el logo real. Dura tres segundos:
+
+   0,00 s  aparece el prisma
+   0,10 s  gira dos vueltas sobre su eje, cada vez más lento, y queda
+           de frente. Pasa de canto como una moneda, igual que el video
+           de referencia.
+   1,15 s  un haz de luz blanca entra desde el borde izquierdo
+   1,45 s  destello donde la luz toca el vidrio
+   1,50 s  el arcoíris sale por la derecha, abriéndose hasta el borde.
+           Es lo mismo que cuenta el logo, ahora en movimiento.
+   1,75 s  aparece el nombre
+   2,45 s  la cortina se desvanece y queda la página
+
+   Es CSS puro: si JavaScript no carga, la animación igual termina y la
+   cortina desaparece sola. Nunca puede dejar la página tapada.
+   Solo se animan transform y opacity: corre en la tarjeta gráfica.
+   ------------------------------------------------------------------ */
+
+.cortina {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--color-base);
+  animation: sale 0.55s cubic-bezier(0.4, 0, 0.2, 1) 2.45s forwards;
+}
+
+.escena {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: acerca 0.55s cubic-bezier(0.4, 0, 0.2, 1) 2.45s forwards;
+}
+
+/* Mide exactamente lo que mide el prisma: la luz se coloca contra él. */
+.centro {
+  position: relative;
+  width: clamp(112px, 28vw, 150px);
+  aspect-ratio: 307 / 339;
+}
+
+/* ---- El prisma: una moneda de dos caras ------------------------------- */
+
+.giro {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  perspective: 700px;
+}
+
+.moneda {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  opacity: 0;
+  animation:
+    aparece 0.3s ease-out forwards,
+    gira 1.2s cubic-bezier(0.2, 0.7, 0.25, 1) 0.1s forwards;
+}
+
+.cara {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* La cara de atrás va volteada: cuando la moneda está de espaldas, el
+   logo se sigue viendo derecho y no en espejo. */
+.dorso {
+  transform: rotateY(180deg);
+}
+
+@keyframes aparece {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gira {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(720deg);
+  }
+}
+
+/* ---- La luz ----------------------------------------------------------- */
+
+/* Haz blanco: del borde izquierdo de la pantalla al centro del prisma. */
+.haz {
+  position: absolute;
+  z-index: 1;
+  top: calc(55% - 2px);
+  right: 50%;
+  width: 50vw;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #cfd8e6 30%, #fff 100%);
+  box-shadow: 0 0 14px 2px rgb(191 214 255 / 0.9);
+  /* Crece desde el borde izquierdo hacia el prisma: la luz viene de afuera. */
+  transform: scaleX(0);
+  transform-origin: 0% 50%;
+  animation: entraLuz 0.35s cubic-bezier(0.4, 0, 0.2, 1) 1.15s forwards;
+}
+
+@keyframes entraLuz {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Arcoíris: del centro del prisma al borde derecho, abriéndose en
+   abanico como un espectro de verdad. */
+.espectro {
+  position: absolute;
+  z-index: 1;
+  top: calc(52% - 24px);
+  left: 50%;
+  width: 50vw;
+  height: 48px;
+  background: linear-gradient(
+    180deg,
+    #e8452b,
+    #f08a1e,
+    #efc521,
+    #3eae55,
+    #1e7fe0,
+    #3f3faf,
+    #8b3aa6
+  );
+  clip-path: polygon(0 44%, 100% 0, 100% 100%, 0 56%);
+  -webkit-mask-image: linear-gradient(90deg, #000 55%, transparent);
+  mask-image: linear-gradient(90deg, #000 55%, transparent);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: 0% 50%;
+  animation: saleArcoiris 0.7s cubic-bezier(0.16, 0.8, 0.3, 1) 1.5s forwards;
+}
+
+@keyframes saleArcoiris {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  20% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0.95;
+    transform: scaleX(1);
+  }
+}
+
+/* Destello donde la luz toca el vidrio. */
+.destello {
+  position: absolute;
+  z-index: 3;
+  top: calc(54% - 40px);
+  left: calc(50% - 40px);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, rgb(191 214 255 / 0.75) 38%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.4);
+  animation: destella 0.6s ease-out 1.45s forwards;
+}
+
+@keyframes destella {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* ---- El nombre -------------------------------------------------------- */
+
+.nombre {
+  margin-top: 1.75rem;
+  font-size: clamp(0.9375rem, 0.85rem + 0.5vw, 1.125rem);
+  font-weight: 600;
+  font-variation-settings: 'wdth' 115;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-tinta);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: nombra 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.75s forwards;
+}
+
+@keyframes nombra {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- La salida -------------------------------------------------------- */
+
+@keyframes sale {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes acerca {
+  to {
+    transform: scale(1.06);
+  }
+}
+
+/* Al saltarla con un clic o una tecla, se va en un cuarto de segundo. */
+:global(html.entrada-sale) .cortina {
+  animation: sale 0.25s ease-out forwards;
+}
+
+/* Ya se vio en esta visita, o se pidió menos movimiento: no existe. */
+:global(html.sin-entrada) .cortina {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cortina {
+    display: none;
+  }
+}

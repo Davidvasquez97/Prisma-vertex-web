@@ -5,7 +5,9 @@ import Proceso from '@/components/Proceso';
 import Garantia from '@/components/Garantia';
 import Faq from '@/components/Faq';
 import Precios from '@/components/Precios';
+import Equipo from '@/components/Equipo';
 import Cierre from '@/components/Cierre';
+import Entrada from '@/components/Entrada';
 import { PREGUNTAS } from '@/lib/contenido';
 import { metaDe } from '@/lib/seo';
 
@@ -30,6 +32,7 @@ const faqJsonLd = {
 export default function Inicio() {
   return (
     <>
+      <Entrada />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -41,6 +44,7 @@ export default function Inicio() {
       <Garantia />
       <Faq />
       <Precios />
+      <Equipo />
       <Cierre />
     </>
   );
