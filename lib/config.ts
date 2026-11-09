@@ -103,4 +103,12 @@ export const PENDIENTES = [
   'Dominio propio y apagar MODO_VISTA_PREVIA.',
   'Logo en SVG (hoy es JPG con fondo blanco).',
   'Revisar la tasa TASA_COP cada tanto: los precios en pesos salen de ahí.',
+  // Nichos y otros sectores (lib/contenido.ts → NICHOS, OTROS_SECTORES)
+  'Videos demo de los cuatro nichos: poner la ruta en `video` de cada uno en NICHOS.',
+  'Caso Panorex: resultado, problema, qué hicimos, cifras y testimonio, más su autorización escrita para nombrarlo.',
+  'Revisar los textos de los cuatro nichos y de /otros-sectores; al aprobarlos, poner `revisar: false`.',
+  // Equipo (lib/contenido.ts → EQUIPO)
+  'Fotos nuevas del equipo como archivo: Juan David en su grado y David en la etapa ganada.',
+  'Trayectoria de Sebastián.',
+  'Confirmar «Fundetec Medellín» y el nombre exacto del título de Juan David en Unimayor.',
 ] as const;

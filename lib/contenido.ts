@@ -99,6 +99,8 @@ export type Nicho = {
   ruta: string;
   icono: IconoNicho;
   nombre: string;
+  /** Nombre corto, para el pie de página. */
+  corto: string;
   /** El dolor en una línea, para la tarjeta del inicio. */
   dolor: string;
   /** Mientras sea true, la página muestra el aviso de textos por revisar. */
@@ -149,6 +151,7 @@ export const NICHOS: Nicho[] = [
     ruta: '/centros-radiologicos',
     icono: 'radiologia',
     nombre: 'Centros radiológicos y de imágenes diagnósticas',
+    corto: 'Centros radiológicos',
     dolor: 'Turnos, remisiones de odontólogos y entrega de resultados sin filas.',
     revisar: true,
     meta: {
@@ -208,6 +211,7 @@ export const NICHOS: Nicho[] = [
     ruta: '/laboratorios-clinicos',
     icono: 'laboratorio',
     nombre: 'Laboratorios clínicos',
+    corto: 'Laboratorios clínicos',
     dolor: 'Preguntas de ayuno, preparación y resultados respondidas por WhatsApp.',
     revisar: true,
     meta: {
@@ -267,6 +271,7 @@ export const NICHOS: Nicho[] = [
     ruta: '/clinicas-esteticas',
     icono: 'estetica',
     nombre: 'Clínicas de estética y cirugía plástica',
+    corto: 'Clínicas estéticas',
     dolor: 'Cada lead de Instagram y WhatsApp atendido al instante, también en inglés.',
     revisar: true,
     meta: {
@@ -329,6 +334,7 @@ export const NICHOS: Nicho[] = [
     ruta: '/clinicas-odontologicas',
     icono: 'odontologia',
     nombre: 'Clínicas odontológicas',
+    corto: 'Clínicas odontológicas',
     dolor: 'Citas confirmadas y tratamientos con seguimiento.',
     revisar: true,
     meta: {

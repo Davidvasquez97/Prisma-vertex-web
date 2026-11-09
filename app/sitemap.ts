@@ -8,6 +8,7 @@ import { NICHOS } from '@/lib/contenido';
 const paginas: { ruta: string; prioridad: number }[] = [
   { ruta: '/', prioridad: 1 },
   ...NICHOS.map((n) => ({ ruta: n.ruta, prioridad: 0.9 })),
+  { ruta: '/otros-sectores', prioridad: 0.7 },
   { ruta: '/diagnostico', prioridad: 0.9 },
   { ruta: '/casos', prioridad: 0.8 },
   { ruta: '/consultoria-procesos-popayan', prioridad: 0.8 },

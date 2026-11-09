@@ -28,7 +28,9 @@ npm start        # sirve el build para revisarlo
 | Preguntas frecuentes | `lib/contenido.ts` → `PREGUNTAS` |
 | Cifras de resultados | `lib/contenido.ts` → `RESULTADOS` |
 | Casos publicados | `lib/contenido.ts` → `CASOS` |
-| Equipo, cargos y LinkedIn de cada uno | `lib/contenido.ts` → `EQUIPO` |
+| Equipo, cargos, trayectoria y LinkedIn | `lib/contenido.ts` → `EQUIPO` |
+| Especialidades y sus páginas | `lib/contenido.ts` → `NICHOS` |
+| Otros sectores | `lib/contenido.ts` → `OTROS_SECTORES` |
 | Fotos y logo | `assets/` |
 | Artículos del blog | `contenido/blog/*.md` |
 
@@ -37,8 +39,8 @@ acordeón que se ve y la ficha que lee Google. No pueden desincronizarse.
 
 ## El inicio, en orden
 
-El orden cuenta una historia de venta: la promesa → lo que ganas → cuánto
-estás perdiendo hoy → cómo lo hacemos → pruebas → garantía → precio → las
+El orden cuenta una historia de venta: la promesa → lo que ganas → en qué
+somos especialistas → cuánto estás perdiendo hoy → cómo lo hacemos → pruebas → garantía → precio → las
 objeciones al precio → quiénes somos → cierre.
 
 | Sección | Componente |
@@ -46,6 +48,7 @@ objeciones al precio → quiénes somos → cierre.
 | Entrada animada (una vez por visita) | `Entrada` |
 | Titular, foto del equipo | `Hero` |
 | Lo que ganas | `LoQueGanas` |
+| Especialistas en (cuatro nichos) | `Nichos` |
 | Calculadora de cuánto pierde la empresa | `Calculadora` |
 | Cómo trabajamos y con qué | `Proceso`, `Herramientas` |
 | Resultados | `Resultados` |
@@ -61,6 +64,9 @@ objeciones al precio → quiénes somos → cierre.
 app/
   layout.tsx        <head>, fuente, ficha del negocio para Google, WhatsApp, analítica
   page.tsx          el inicio
+  centros-radiologicos/  laboratorios-clinicos/
+  clinicas-esteticas/    clinicas-odontologicas/   una página por nicho
+  otros-sectores/   los demás sectores, sin página propia todavía
   diagnostico/      formulario
   casos/            plantilla de casos
   consultoria-procesos-popayan/  y  -bogota/   versiones locales
@@ -73,6 +79,7 @@ components/         un archivo por sección, más Nav, Footer, Logo, Boton…
   FormularioDiagnostico componente de cliente: valida el formulario
   Revelar               componente de cliente: las entradas al hacer scroll
   WhatsappFlotante      botón flotante, solo cuando el sitio está lanzado
+  PaginaNicho           la plantilla de las cuatro páginas de nicho
 lib/
   config.ts     datos de contacto, interruptores, tasa, lista de pendientes
   contenido.ts  los textos del inicio
@@ -130,6 +137,12 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
 10. **Código de verificación de Google Search Console.**
 11. **Dominio propio**, y con él apagar el modo vista previa.
 12. **Usuario real de Instagram.**
+13. **Videos demo** de los cuatro nichos (campo `video` en `NICHOS`).
+14. **Caso Panorex**: resultado, problema, qué hicimos, cifras, testimonio y
+    autorización escrita para nombrarlo.
+15. **Revisar los textos** de los cuatro nichos y de `/otros-sectores`. Al
+    aprobar uno, poner `revisar: false` y deja de mostrar el aviso.
+16. **Fotos nuevas del equipo** como archivo y **trayectoria de Sebastián**.
 
 Todos están listados también en `PENDIENTES`, dentro de `lib/config.ts`.
 
@@ -174,6 +187,18 @@ sale más lenta: hay que medir con el servidor ya caliente.
   sin JavaScript.
 - **El acordeón usa `<details>` nativo**: sin estado de React.
 - **Los emoji del brief se cambiaron por iconos de línea** dibujados a mano.
+
+## Agregar una especialidad
+
+1. En `lib/contenido.ts`, agregar una entrada a `NICHOS` copiando una
+   existente: textos, dolores, supuestos de la calculadora, preguntas y
+   mensaje de WhatsApp. Si falta el icono, se dibuja en
+   `components/Iconos.tsx`.
+2. Crear `app/<slug>/page.tsx` copiando el de cualquier nicho y cambiando el
+   slug. Es un archivo de diez líneas que solo llama a `PaginaNicho`.
+
+La tarjeta del inicio, el enlace del pie y la entrada del sitemap aparecen
+solos.
 
 ## Las imágenes de la marca
 

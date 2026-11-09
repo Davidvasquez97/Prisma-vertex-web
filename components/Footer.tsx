@@ -1,6 +1,14 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import { CONTACTO, MODO_VISTA_PREVIA, SITE } from '@/lib/config';
+import { NICHOS, NICHOS_SECCION } from '@/lib/contenido';
+
+/* Los nichos y «Otros sectores»: este es el único lugar del sitio, aparte
+   del botón de «Especialistas en», que enlaza a /otros-sectores. */
+const sectores = [
+  ...NICHOS.map((n) => ({ texto: n.corto, href: n.ruta })),
+  { texto: 'Otros sectores', href: NICHOS_SECCION.otrosRuta },
+];
 
 const legal = [
   { texto: 'Política de datos', href: '/politica-de-datos' },
@@ -29,7 +37,20 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 md:gap-16">
+        <div className="grid gap-8 sm:grid-cols-3 md:gap-12">
+          <div>
+            <p className="text-menudo font-semibold">Sectores</p>
+            <ul className="text-menudo text-gris mt-3 space-y-2">
+              {sectores.map((s) => (
+                <li key={s.href}>
+                  <Link href={s.href} className="hover:text-azul inline-block py-1">
+                    {s.texto}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div>
             <p className="text-menudo font-semibold">Contacto</p>
             <ul className="text-menudo text-gris mt-3 space-y-2">
