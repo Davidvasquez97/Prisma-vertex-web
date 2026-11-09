@@ -358,6 +358,15 @@
     color: var(--color-gris);
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
+    animation: none;
+  }
+
+  /* Un botón animado (calma, galaxia) apagado no conserva su capa de color:
+     sin esto, el degradado quedaba debajo de la letra gris y no se leía. */
+  .boton-espera::before,
+  .boton-espera::after {
+    display: none;
   }
 
   /* ---- Tarjetas ------------------------------------------------------- */

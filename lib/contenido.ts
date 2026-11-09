@@ -64,6 +64,36 @@ export const NICHOS_SECCION = {
 
 export type IconoNicho = 'radiologia' | 'laboratorio' | 'estetica' | 'odontologia';
 
+/** Textos que comparten todas las páginas de nicho. */
+export const NICHO_TEXTOS = {
+  agendar: 'Agendar diagnóstico',
+  calcular: 'Calcula cuánto pierdes',
+  dolores: '¿Te pasa esto?',
+  comoFunciona: 'Cómo funciona',
+  comoFuncionaTexto: 'Así se ve el sistema atendiendo a un paciente real, de principio a fin.',
+  instalamos: 'Lo que instalamos',
+  turnero: 'Turnero inteligente',
+  agente: 'Agente de WhatsApp con IA',
+  conectamos: 'No reemplazamos tu facturador ni tu historia clínica: los conectamos.',
+  casoPreparacion: 'Caso en preparación',
+  casoPreparacionTexto:
+    'Estamos documentando los resultados con un cliente de este sector. No publicamos cifras hasta poder sostenerlas.',
+  revisar: 'textos de esta página por revisar con David',
+} as const;
+
+/**
+ * Caso publicado en una página de nicho. Los campos vacíos se muestran como
+ * PENDIENTE: no se publica ninguna cifra que David no haya entregado.
+ */
+export type CasoNicho = {
+  cliente: string;
+  resultado: string;
+  problema: string;
+  hicimos: string;
+  cifras: string;
+  cita: string;
+};
+
 export type Nicho = {
   slug: string;
   ruta: string;
@@ -71,8 +101,48 @@ export type Nicho = {
   nombre: string;
   /** El dolor en una línea, para la tarjeta del inicio. */
   dolor: string;
+  /** Mientras sea true, la página muestra el aviso de textos por revisar. */
+  revisar: boolean;
+  meta: { titulo: string; descripcion: string };
+  titular: string;
+  subtitulo: string;
+  dolores: string[];
+  /** Ruta del video demo dentro de /public. Vacío = marcador PENDIENTE. */
+  video: string;
+  turnero: string;
+  agente: string;
+  /** null = «Caso en preparación». */
+  caso: CasoNicho | null;
+  calculadora: DatosCalculadora;
+  preguntas: Pregunta[];
+  /** Mensaje prellenado de WhatsApp: dice de qué nicho viene la persona. */
+  mensaje: string;
+  cierre: string;
 };
 
+/** Pregunta de instalación, igual en los cuatro nichos hasta tener tiempos reales. */
+const PREGUNTA_INSTALACION: Pregunta = {
+  p: '¿Cuánto tarda la instalación?',
+  r: 'Depende del tamaño de tu operación y de lo que haya que conectar; lo definimos con fecha en el diagnóstico.',
+  pendiente: 'tiempo real de instalación',
+};
+
+const PREGUNTA_SISTEMAS: Pregunta = {
+  p: '¿Tengo que cambiar mi facturador o mi historia clínica?',
+  r: 'No. No reemplazamos tu facturador ni tu historia clínica: los conectamos. En el diagnóstico revisamos qué usas y cómo integrarlo.',
+};
+
+/** Supuestos que comparten las calculadoras de los nichos. */
+const DIAS_HABILES = 22;
+const NOTA_INASISTENCIA = (unidad: string, valor: string) =>
+  `Estimación: ${unidad} al día × ${DIAS_HABILES} días hábiles × porcentaje que no llega × ${valor}. Los valores iniciales son de ejemplo: pon los de tu negocio.`;
+
+/*
+ * ← REVISAR con David: los textos de los cuatro nichos los redactó Claude a
+ *   partir del encargo, salvo el titular de radiología, que dio David.
+ *   Ninguno tiene cifras ni testimonios; los datos que faltan van como
+ *   PENDIENTE.
+ */
 export const NICHOS: Nicho[] = [
   {
     slug: 'centros-radiologicos',
@@ -80,6 +150,58 @@ export const NICHOS: Nicho[] = [
     icono: 'radiologia',
     nombre: 'Centros radiológicos y de imágenes diagnósticas',
     dolor: 'Turnos, remisiones de odontólogos y entrega de resultados sin filas.',
+    revisar: true,
+    meta: {
+      titulo: 'Turnos y WhatsApp para centros radiológicos',
+      descripcion:
+        'Turnero inteligente y agente de WhatsApp con IA para centros radiológicos: turnos ordenados, remisiones de odontólogos y resultados sin filas.',
+    },
+    titular: 'Tu centro radiológico con turnos ordenados y WhatsApp atendido 24/7',
+    subtitulo:
+      'Organizamos los turnos, las remisiones y la entrega de resultados para que tu equipo deje de vivir pegado al teléfono.',
+    dolores: [
+      'La sala de espera se llena a ciertas horas y se vacía en otras.',
+      'Las remisiones de los odontólogos llegan por WhatsApp, en fotos y a cualquier hora.',
+      'Los pacientes llaman a preguntar si ya están sus resultados.',
+      'La recepción responde todo el día lo mismo: precios, preparación y horarios.',
+    ],
+    video: '',
+    turnero:
+      'Asigna turnos por tipo de estudio y por equipo, reparte la demanda a lo largo del día y le avisa a cada paciente a qué hora llegar.',
+    agente:
+      'Atiende el WhatsApp de día y de noche: recibe la remisión del odontólogo, agenda el estudio, explica la preparación y avisa cuando el resultado está listo.',
+    caso: { cliente: 'Panorex', resultado: '', problema: '', hicimos: '', cifras: '', cita: '' },
+    calculadora: {
+      tipo: 'inasistencia',
+      titulo: '¿Cuánto pierde tu centro por los pacientes que no llegan?',
+      subtitulo: 'Mueve las barras con los números de tu centro. El cálculo no pide datos tuyos.',
+      campos: [
+        { etiqueta: 'Estudios agendados al día', min: 5, max: 200, paso: 5, inicial: 40, formato: 'conteo', unidad: ['estudio', 'estudios'] },
+        { etiqueta: 'Porcentaje que no llega', min: 0, max: 40, paso: 1, inicial: 15, formato: 'porcentaje' },
+        { etiqueta: 'Valor promedio del estudio', min: 20_000, max: 500_000, paso: 5_000, inicial: 120_000, formato: 'pesos' },
+      ],
+      diasAlMes: DIAS_HABILES,
+      resultado: 'Tu centro pierde cerca de',
+      sufijo: 'al mes en estudios que no se hacen',
+      metrica: 'Estudios perdidos al mes',
+      boton: 'Quiero recuperar esos estudios',
+      nota: NOTA_INASISTENCIA('estudios', 'valor del estudio'),
+    },
+    preguntas: [
+      PREGUNTA_SISTEMAS,
+      {
+        p: '¿El agente responde de noche y los fines de semana?',
+        r: 'Sí. Atiende el WhatsApp a cualquier hora, y cuando una consulta necesita a una persona se la pasa a tu equipo.',
+      },
+      {
+        p: '¿Cómo recibe las remisiones de los odontólogos?',
+        r: 'Por el mismo WhatsApp: el odontólogo o el paciente envía la orden, el agente la registra y ofrece un turno.',
+      },
+      PREGUNTA_INSTALACION,
+    ],
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex para centros radiológicos. Quiero agendar un diagnóstico para mi centro.',
+    cierre: '¿Cuántos estudios se le están quedando sin hacer a tu centro?',
   },
   {
     slug: 'laboratorios-clinicos',
@@ -87,6 +209,58 @@ export const NICHOS: Nicho[] = [
     icono: 'laboratorio',
     nombre: 'Laboratorios clínicos',
     dolor: 'Preguntas de ayuno, preparación y resultados respondidas por WhatsApp.',
+    revisar: true,
+    meta: {
+      titulo: 'Turnos y WhatsApp para laboratorios clínicos',
+      descripcion:
+        'Agente de WhatsApp con IA para laboratorios clínicos: responde preguntas de ayuno y preparación, ordena las tomas de muestra y avisa los resultados.',
+    },
+    titular: 'Tu laboratorio con pacientes que llegan preparados y resultados avisados por WhatsApp',
+    subtitulo:
+      'Respondemos por WhatsApp lo que hoy se pregunta en la ventanilla, y repartimos las tomas de muestra para que no se acumulen a primera hora.',
+    dolores: [
+      'Todos llegan a primera hora y la fila sale a la calle.',
+      'Pacientes que llegan sin ayuno o sin la preparación correcta, y hay que reprogramar.',
+      'El teléfono no para con la misma pregunta: ¿ya están mis resultados?',
+      'El WhatsApp se llena de órdenes médicas en foto que alguien tiene que leer una por una.',
+    ],
+    video: '',
+    turnero:
+      'Reparte las tomas de muestra en franjas para que no se concentren a primera hora, y le recuerda a cada paciente su turno y su preparación.',
+    agente:
+      'Responde a cualquier hora las preguntas de ayuno y preparación según el examen, recibe la orden médica y avisa por WhatsApp cuando el resultado está listo.',
+    caso: null,
+    calculadora: {
+      tipo: 'inasistencia',
+      titulo: '¿Cuánto pierde tu laboratorio en tomas que se reprograman?',
+      subtitulo: 'Mueve las barras con los números de tu laboratorio. El cálculo no pide datos tuyos.',
+      campos: [
+        { etiqueta: 'Pacientes agendados al día', min: 5, max: 300, paso: 5, inicial: 60, formato: 'conteo', unidad: ['paciente', 'pacientes'] },
+        { etiqueta: 'Porcentaje que no llega o llega sin preparación', min: 0, max: 40, paso: 1, inicial: 10, formato: 'porcentaje' },
+        { etiqueta: 'Valor promedio de la orden', min: 20_000, max: 400_000, paso: 5_000, inicial: 80_000, formato: 'pesos' },
+      ],
+      diasAlMes: DIAS_HABILES,
+      resultado: 'Tu laboratorio pierde cerca de',
+      sufijo: 'al mes en tomas que no se hacen',
+      metrica: 'Tomas perdidas al mes',
+      boton: 'Quiero recuperar esas tomas',
+      nota: NOTA_INASISTENCIA('pacientes', 'valor de la orden'),
+    },
+    preguntas: [
+      PREGUNTA_SISTEMAS,
+      {
+        p: '¿El agente interpreta los resultados?',
+        r: 'No. Avisa que están listos y cómo recogerlos o descargarlos; cualquier pregunta médica pasa a tu equipo.',
+      },
+      {
+        p: '¿Cómo sabe qué preparación necesita cada examen?',
+        r: 'La configuramos con tu laboratorio, examen por examen, y tu equipo la revisa antes de encenderla.',
+      },
+      PREGUNTA_INSTALACION,
+    ],
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex para laboratorios clínicos. Quiero agendar un diagnóstico para mi laboratorio.',
+    cierre: '¿Cuántas tomas se le están cayendo a tu laboratorio?',
   },
   {
     slug: 'clinicas-esteticas',
@@ -94,6 +268,61 @@ export const NICHOS: Nicho[] = [
     icono: 'estetica',
     nombre: 'Clínicas de estética y cirugía plástica',
     dolor: 'Cada lead de Instagram y WhatsApp atendido al instante, también en inglés.',
+    revisar: true,
+    meta: {
+      titulo: 'WhatsApp con IA para clínicas estéticas',
+      descripcion:
+        'Agente de WhatsApp con IA para clínicas de estética y cirugía plástica: atiende cada lead de Instagram y WhatsApp al instante, en español y en inglés.',
+    },
+    titular: 'Tu clínica estética atendiendo cada lead al instante, en español y en inglés',
+    subtitulo:
+      'Quien escribe por Instagram o WhatsApp a las once de la noche está decidiendo. Si nadie le responde, sigue buscando.',
+    dolores: [
+      'Los mensajes de Instagram y WhatsApp se acumulan y se responden horas después.',
+      'Pacientes del exterior que escriben en inglés y nadie les contesta a tiempo.',
+      'Valoraciones agendadas a las que el paciente no llega.',
+      'No sabes cuántos leads llegan ni cuántos terminan en procedimiento.',
+    ],
+    video: '',
+    turnero:
+      'Agenda las valoraciones según la disponibilidad de cada especialista, confirma la cita y la recuerda el día anterior.',
+    agente:
+      'Responde al instante en Instagram y WhatsApp, en español y en inglés: resuelve dudas de los procedimientos y agenda la valoración.',
+    caso: null,
+    calculadora: {
+      tipo: 'inasistencia',
+      titulo: '¿Cuánto pierde tu clínica en valoraciones que no se cumplen?',
+      subtitulo: 'Mueve las barras con los números de tu clínica. El cálculo no pide datos tuyos.',
+      campos: [
+        { etiqueta: 'Valoraciones agendadas al día', min: 1, max: 60, paso: 1, inicial: 8, formato: 'conteo', unidad: ['valoración', 'valoraciones'] },
+        { etiqueta: 'Porcentaje que no llega', min: 0, max: 50, paso: 1, inicial: 20, formato: 'porcentaje' },
+        { etiqueta: 'Valor de la valoración', min: 30_000, max: 500_000, paso: 10_000, inicial: 150_000, formato: 'pesos' },
+      ],
+      diasAlMes: DIAS_HABILES,
+      resultado: 'Tu clínica pierde cerca de',
+      sufijo: 'al mes en valoraciones que no se cumplen',
+      metrica: 'Valoraciones perdidas al mes',
+      boton: 'Quiero recuperar esas valoraciones',
+      nota: NOTA_INASISTENCIA('valoraciones', 'valor de la valoración'),
+    },
+    preguntas: [
+      {
+        p: '¿Responde en inglés?',
+        r: 'Sí. Atiende en español y en inglés, y contesta en el idioma en que escribe el paciente.',
+      },
+      {
+        p: '¿Funciona en Instagram además de WhatsApp?',
+        r: 'Sí. La idea es que cada mensaje se atienda donde llegue, sin que tu equipo tenga que estar pendiente de dos bandejas.',
+      },
+      {
+        p: '¿El agente da precios?',
+        r: 'Da los rangos que tu clínica defina y agenda la valoración; el precio final lo da el especialista.',
+      },
+      PREGUNTA_INSTALACION,
+    ],
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex para clínicas estéticas. Quiero agendar un diagnóstico para mi clínica.',
+    cierre: '¿Cuántos pacientes se te están yendo sin respuesta?',
   },
   {
     slug: 'clinicas-odontologicas',
@@ -101,31 +330,129 @@ export const NICHOS: Nicho[] = [
     icono: 'odontologia',
     nombre: 'Clínicas odontológicas',
     dolor: 'Citas confirmadas y tratamientos con seguimiento.',
+    revisar: true,
+    meta: {
+      titulo: 'Citas y WhatsApp para odontología',
+      descripcion:
+        'Turnero inteligente y agente de WhatsApp con IA para clínicas odontológicas: citas confirmadas, recordatorios y seguimiento de cada tratamiento.',
+    },
+    titular: 'Tu clínica odontológica con citas confirmadas y tratamientos que no se abandonan',
+    subtitulo:
+      'Confirmamos cada cita por WhatsApp y hacemos seguimiento a los tratamientos largos, para que el sillón no quede vacío.',
+    dolores: [
+      'Citas a las que el paciente no llega y nadie avisó.',
+      'Tratamientos de ortodoncia o rehabilitación que el paciente abandona a la mitad.',
+      'La recepción pasa el día confirmando citas por teléfono.',
+      'Pacientes que hace meses no vuelven a control y nadie los llama.',
+    ],
+    video: '',
+    turnero:
+      'Organiza la agenda por profesional y por sillón, confirma cada cita el día anterior y llena los huecos con pacientes en lista de espera.',
+    agente:
+      'Confirma y reprograma citas por WhatsApp, recuerda los controles de cada tratamiento y responde las dudas frecuentes a cualquier hora.',
+    caso: null,
+    calculadora: {
+      tipo: 'inasistencia',
+      titulo: '¿Cuánto pierde tu clínica por las citas que no se cumplen?',
+      subtitulo: 'Mueve las barras con los números de tu clínica. El cálculo no pide datos tuyos.',
+      campos: [
+        { etiqueta: 'Citas agendadas al día', min: 2, max: 100, paso: 1, inicial: 20, formato: 'conteo', unidad: ['cita', 'citas'] },
+        { etiqueta: 'Porcentaje que no llega', min: 0, max: 40, paso: 1, inicial: 15, formato: 'porcentaje' },
+        { etiqueta: 'Valor promedio de la cita', min: 20_000, max: 400_000, paso: 5_000, inicial: 90_000, formato: 'pesos' },
+      ],
+      diasAlMes: DIAS_HABILES,
+      resultado: 'Tu clínica pierde cerca de',
+      sufijo: 'al mes en citas que no se cumplen',
+      metrica: 'Citas perdidas al mes',
+      boton: 'Quiero recuperar esas citas',
+      nota: NOTA_INASISTENCIA('citas', 'valor de la cita'),
+    },
+    preguntas: [
+      PREGUNTA_SISTEMAS,
+      {
+        p: '¿Sirve para tratamientos largos como la ortodoncia?',
+        r: 'Sí. El agente recuerda cada control y le avisa a tu equipo cuando un paciente deja de venir.',
+      },
+      {
+        p: '¿Qué pasa si el paciente quiere cambiar la cita?',
+        r: 'La reprograma por WhatsApp con los espacios disponibles, sin pasar por la recepción.',
+      },
+      PREGUNTA_INSTALACION,
+    ],
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex para clínicas odontológicas. Quiero agendar un diagnóstico para mi clínica.',
+    cierre: '¿Cuántos sillones vacíos tiene tu clínica cada semana?',
   },
 ];
 
+/** El nicho de una ruta. Si el slug está mal escrito, el build falla aquí. */
+export function nichoPorSlug(slug: string): Nicho {
+  const nicho = NICHOS.find((n) => n.slug === slug);
+  if (!nicho) throw new Error(`No existe el nicho «${slug}» en NICHOS`);
+  return nicho;
+}
+
 /**
- * La calculadora de cuánto pierde una empresa en tareas repetitivas.
+ * Calculadoras. Hay dos cálculos y los dos usan tres barras:
  *
- * El costo de una hora se calcula como lo hace la ley colombiana: salario
- * mensual dividido entre 210 horas, el divisor vigente desde el 15 de julio
- * de 2026 con la jornada de 42 horas (Ley 2101 de 2021). A eso se le suma el
- * costo de prestaciones y aportes del empleador, estimado en un 52 % del
- * salario. El resultado es una estimación y la calculadora lo dice.
+ * - 'horas' (inicio): personas × horas a la semana × costo de la hora.
+ *   El costo de una hora se calcula como lo hace la ley colombiana: salario
+ *   mensual ÷ 210, el divisor vigente desde el 15 de julio de 2026 con la
+ *   jornada de 42 horas (Ley 2101 de 2021), más un 52 % estimado de
+ *   prestaciones y aportes del empleador.
+ * - 'inasistencia' (nichos): citas al día × días hábiles × porcentaje que
+ *   no llega × valor de la cita.
+ *
+ * Los dos dan una estimación, y la calculadora lo dice.
  */
-export const CALCULADORA = {
+export type CampoCalculadora = {
+  etiqueta: string;
+  min: number;
+  max: number;
+  paso: number;
+  inicial: number;
+  formato: 'conteo' | 'pesos' | 'porcentaje';
+  /** Para 'conteo': la palabra en singular y en plural. */
+  unidad?: [string, string];
+};
+
+export type DatosCalculadora = {
+  tipo: 'horas' | 'inasistencia';
+  titulo: string;
+  subtitulo: string;
+  campos: [CampoCalculadora, CampoCalculadora, CampoCalculadora];
+  /** Solo 'horas'. */
+  divisorHoras?: number;
+  factorPrestacional?: number;
+  semanasPorMes?: number;
+  /** Solo 'inasistencia'. */
+  diasAlMes?: number;
+  resultado: string;
+  sufijo: string;
+  metrica: string;
+  boton: string;
+  nota: string;
+};
+
+export const CALCULADORA: DatosCalculadora = {
+  tipo: 'horas',
   titulo: '¿Cuánto le cuestan a tu empresa las tareas repetitivas?',
   subtitulo: 'Mueve las tres barras. El cálculo es inmediato y no pide datos tuyos.',
+  campos: [
+    { etiqueta: 'Personas que hacen tareas repetitivas', min: 1, max: 50, paso: 1, inicial: 5, formato: 'conteo', unidad: ['persona', 'personas'] },
+    { etiqueta: 'Horas a la semana que cada una les dedica', min: 1, max: 20, paso: 1, inicial: 6, formato: 'conteo', unidad: ['hora', 'horas'] },
+    { etiqueta: 'Salario mensual promedio', min: 1_500_000, max: 8_000_000, paso: 100_000, inicial: 2_500_000, formato: 'pesos' },
+  ],
   divisorHoras: 210,
   factorPrestacional: 1.52,
   semanasPorMes: 4.33,
-  personas: { min: 1, max: 50, paso: 1, inicial: 5 },
-  horas: { min: 1, max: 20, paso: 1, inicial: 6 },
-  salario: { min: 1_500_000, max: 8_000_000, paso: 100_000, inicial: 2_500_000 },
+  resultado: 'Tu empresa pierde cerca de',
+  sufijo: 'al mes',
+  metrica: 'Horas al mes',
   boton: 'Quiero recuperar ese dinero',
   nota:
     'Estimación con el valor legal de la hora (salario ÷ 210) más un 52 % de prestaciones y aportes del empleador.',
-} as const;
+};
 
 /**
  * Resultados. Las cifras van vacías a propósito: no se inventan.
@@ -156,7 +483,10 @@ export const GARANTIA = {
     'Si el diagnóstico no encuentra ahorros que superen lo que pagaste, te devolvemos el 100 %. Y si contratas la implementación, el diagnóstico se descuenta.',
 } as const;
 
-export const PREGUNTAS = [
+/** Una pregunta frecuente. `pendiente` muestra un marcador bajo la respuesta. */
+export type Pregunta = { p: string; r: string; pendiente?: string };
+
+export const PREGUNTAS: Pregunta[] = [
   {
     p: '¿Para qué empresas es?',
     r: 'Para empresas medianas y grandes donde el equipo pierde horas en tareas repetitivas, reprocesos o información dispersa.',
@@ -178,7 +508,7 @@ export const PREGUNTAS = [
     p: '¿Por qué cobran el diagnóstico?',
     r: 'Porque es trabajo real: medimos tu operación y te entregamos un plan con cifras. Si después contratas la implementación, lo que pagaste se descuenta. La primera llamada, de 20 minutos, es gratis.',
   },
-] as const;
+];
 
 export const CIERRE = {
   titulo: '¿Cuánto tiempo y dinero está perdiendo tu empresa?',

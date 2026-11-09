@@ -3,16 +3,29 @@ import Revelar from './Revelar';
 import { CIERRE } from '@/lib/contenido';
 import { MODO_VISTA_PREVIA } from '@/lib/config';
 
-export default function Cierre() {
+/**
+ * Cierre de página. Sin argumentos es el del inicio (lleva al formulario de
+ * diagnóstico); las páginas de nicho le pasan su título y un enlace de
+ * WhatsApp con el mensaje que dice de qué nicho viene la persona.
+ */
+export default function Cierre({
+  titulo = CIERRE.titulo,
+  boton = CIERRE.boton,
+  href = '/diagnostico',
+}: {
+  titulo?: string;
+  boton?: string;
+  href?: string;
+}) {
   return (
     <section id="cierre" className="bloque">
       <div className="lienzo">
         <Revelar>
           <div className="flex flex-col items-center py-4 text-center md:py-10">
-            <h2 className="text-d1 max-w-[26ch]">{CIERRE.titulo}</h2>
+            <h2 className="text-d1 max-w-[26ch]">{titulo}</h2>
             <div className="mt-9">
-              <Boton href="/diagnostico" variante="calma">
-                {CIERRE.boton}
+              <Boton href={href} variante="calma">
+                {boton}
               </Boton>
             </div>
             {MODO_VISTA_PREVIA && (

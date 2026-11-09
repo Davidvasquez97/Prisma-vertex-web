@@ -1,11 +1,13 @@
 import type { MetadataRoute } from 'next';
 import { articulos } from '@/lib/blog';
 import { SITE } from '@/lib/config';
+import { NICHOS } from '@/lib/contenido';
 
-/* Una entrada por página. Los artículos del blog se añaden solos al crear el
-   archivo .md; no hay que tocar esta lista. */
+/* Una entrada por página. Los nichos y los artículos del blog se añaden
+   solos desde NICHOS y desde los archivos .md; no hay que tocar esta lista. */
 const paginas: { ruta: string; prioridad: number }[] = [
   { ruta: '/', prioridad: 1 },
+  ...NICHOS.map((n) => ({ ruta: n.ruta, prioridad: 0.9 })),
   { ruta: '/diagnostico', prioridad: 0.9 },
   { ruta: '/casos', prioridad: 0.8 },
   { ruta: '/consultoria-procesos-popayan', prioridad: 0.8 },
