@@ -615,7 +615,12 @@ export const NOTA_PRECIOS =
  * `linkedin` ← PENDIENTE para los tres. Con la URL puesta, la tarjeta muestra
  * el enlace sola: una foto con credenciales al lado convence más que sola.
  *
- * Sebastián prefiere no aparecer: `foto: null` dibuja una silueta.
+ * Sebastián prefiere no aparecer: `foto: null` dibuja una silueta. Su
+ * trayectoria queda vacía hasta que David la confirme con él.
+ *
+ * `trayectoria` es la hoja de vida en pocas líneas, tal como la dio David.
+ * ← CONFIRMAR la escritura de «Fundetec Medellín» y el nombre exacto del
+ *   título de Juan David en Unimayor.
  */
 export type Integrante = {
   nombre: string;
@@ -623,8 +628,16 @@ export type Integrante = {
   sigla: string;
   rol: string;
   foto: 'david' | 'juan-david' | null;
+  trayectoria: string[];
+  /** Crédito de la foto, cuando la tomó un tercero. */
+  credito: string;
   linkedin: string;
 };
+
+export const EQUIPO_SECCION = {
+  titulo: 'Las personas detrás',
+  texto: 'Quiénes responden por tu proyecto, y de dónde vienen.',
+} as const;
 
 export const EQUIPO: Integrante[] = [
   {
@@ -633,6 +646,14 @@ export const EQUIPO: Integrante[] = [
     sigla: 'CEO',
     rol: 'Estrategia y relación con cada cliente.',
     foto: 'david',
+    trayectoria: [
+      'Ciclista profesional destacado, con 10 años de experiencia',
+      'Asistente jurídico en Fundetec Medellín',
+      'Infoproductor de marketing digital en Academia de Lanzamientos',
+      'Formación en Claude Code e inteligencia artificial',
+      'Bachiller del Colegio Champagnat',
+    ],
+    credito: '',
     linkedin: '',
   },
   {
@@ -641,6 +662,12 @@ export const EQUIPO: Integrante[] = [
     sigla: 'COO',
     rol: 'Operación y entrega de cada proyecto.',
     foto: 'juan-david',
+    trayectoria: [
+      'Desarrollador de software graduado del Colegio Mayor (Unimayor)',
+      'Experiencia en el uso y el desarrollo de inteligencia artificial',
+      'Bachiller del Colegio Champagnat',
+    ],
+    credito: '',
     linkedin: '',
   },
   {
@@ -649,6 +676,8 @@ export const EQUIPO: Integrante[] = [
     sigla: 'CTO',
     rol: 'Arquitectura e implementación técnica.',
     foto: null,
+    trayectoria: [],
+    credito: '',
     linkedin: '',
   },
 ];

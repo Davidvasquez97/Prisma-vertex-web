@@ -1,12 +1,14 @@
-/* El marco de cada retrato. Todos miden lo mismo (4:5), tengan foto o no,
-   para que la silueta no se lea como un hueco en la fila. */
+/* Retrato pequeño en círculo. Todos miden lo mismo, tengan foto o no, para
+   que la silueta no se lea como un hueco en la fila. */
 .marco {
   position: relative;
-  aspect-ratio: 4 / 5;
-  max-width: 100%;
+  flex: none;
+  width: 80px;
+  height: 80px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 50%;
   background: var(--color-perla);
+  box-shadow: 0 0 0 1px var(--color-linea);
 }
 
 .marco img {
@@ -18,32 +20,25 @@
 
 /* Al pasar el mouse el retrato se acerca un pelo. Es el único gesto. */
 .tarjeta:hover .marco img {
-  transform: scale(1.035);
+  transform: scale(1.06);
 }
 
-/* Silueta: el mismo marco, con una figura en azul profundo que se funde
-   hacia abajo. Un halo de luz detrás de la cabeza la separa del fondo. */
+/* Silueta: una figura en azul profundo con un halo de luz detrás. */
 .silueta {
   background:
-    radial-gradient(60% 45% at 50% 34%, rgb(30 91 214 / 0.14), transparent 70%),
+    radial-gradient(60% 50% at 50% 38%, rgb(30 91 214 / 0.16), transparent 70%),
     linear-gradient(180deg, #eef2f8 0%, #e3e9f2 100%);
 }
 
 .silueta svg {
   position: absolute;
-  inset: auto 0 0 0;
+  inset: 0;
   width: 100%;
-  height: 88%;
-  transition: transform 0.6s var(--curva);
-}
-
-.tarjeta:hover .silueta svg {
-  transform: translateY(-4px);
+  height: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tarjeta:hover .marco img,
-  .tarjeta:hover .silueta svg {
+  .tarjeta:hover .marco img {
     transform: none;
   }
 }

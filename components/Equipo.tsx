@@ -2,72 +2,99 @@ import Image from 'next/image';
 import retratoDavid from '@/assets/retrato-derecha.jpg';
 import retratoJuanDavid from '@/assets/retrato-juan-david.jpg';
 import Revelar from './Revelar';
-import { EQUIPO } from '@/lib/contenido';
+import { EQUIPO, EQUIPO_SECCION } from '@/lib/contenido';
 import { MODO_VISTA_PREVIA } from '@/lib/config';
 import estilos from './Equipo.module.css';
 
-/* David sale recortado de la foto de equipo (es el de la derecha); Juan
-   David, de una foto suya aparte. */
-const RETRATOS = { david: retratoDavid, 'juan-david': retratoJuanDavid } as const;
+/* Cada retrato con su encuadre: el punto que queda en el centro del
+   círculo es la cara. Para cambiar una foto basta con cambiar el import. */
+const RETRATOS = {
+  david: { src: retratoDavid, encuadre: '50% 28%' },
+  'juan-david': { src: retratoJuanDavid, encuadre: '45% 30%' },
+} as const;
 
 /** Silueta para quien prefiere no salir en foto. */
 function Silueta() {
   return (
-    <svg viewBox="0 0 200 220" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+    <svg viewBox="0 0 200 200" fill="none" aria-hidden="true">
       <defs>
         <linearGradient id="eq-silueta" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#1E3A8A" stopOpacity="0.92" />
-          <stop offset="0.7" stopColor="#0A2A6B" stopOpacity="0.85" />
-          <stop offset="1" stopColor="#0A2A6B" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#0A2A6B" stopOpacity="0.7" />
         </linearGradient>
       </defs>
-      <circle cx="100" cy="72" r="38" fill="url(#eq-silueta)" />
+      <circle cx="100" cy="78" r="36" fill="url(#eq-silueta)" />
       <path
-        d="M100 120c-46 0-78 26-86 64-2 10-3 22-3 36h178c0-14-1-26-3-36-8-38-40-64-86-64z"
+        d="M100 124c-42 0-70 24-76 60-1 6-1 11-1 16h154c0-5 0-10-1-16-6-36-34-60-76-60z"
         fill="url(#eq-silueta)"
       />
     </svg>
   );
 }
 
+/**
+ * «Las personas detrás», en formato compacto: retrato pequeño en círculo,
+ * cargo y la hoja de vida en pocas líneas. No compite con el resto de la
+ * página; está para que quien decide sepa con quién va a trabajar.
+ */
 export default function Equipo() {
   return (
     <section id="equipo" className="bloque bg-perla">
       <div className="lienzo">
         <Revelar>
-          <h2 className="text-d1">Las personas detrás</h2>
-          <p className="text-guia text-gris medida mt-6">
-            Tres personas, una sola responsabilidad: que tu empresa gane más de
-            lo que invierte en nosotros.
-          </p>
+          <h2 className="text-d2">{EQUIPO_SECCION.titulo}</h2>
+          <p className="text-cuerpo text-gris mt-3">{EQUIPO_SECCION.texto}</p>
         </Revelar>
 
-        <div className="mt-11 grid gap-8 sm:grid-cols-2 md:mt-14 md:grid-cols-3 md:gap-7">
-          {EQUIPO.map((p, i) => (
-            <Revelar key={p.nombre} retraso={i * 90}>
-              <article className={estilos.tarjeta}>
-                <div
-                  className={`${estilos.marco} ${p.foto ? '' : estilos.silueta}`}
-                >
-                  {p.foto ? (
-                    <Image
-                      src={RETRATOS[p.foto]}
-                      alt={`${p.nombre}, ${p.cargo.toLowerCase()} y ${p.sigla} de Prisma Vertex.`}
-                      sizes="(min-width: 768px) 30vw, (min-width: 640px) 45vw, 100vw"
-                      placeholder="blur"
-                    />
-                  ) : (
-                    <Silueta />
-                  )}
-                </div>
+        <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-3">
+          {EQUIPO.map((p, i) => {
+            const retrato = p.foto ? RETRATOS[p.foto] : null;
+            return (
+              <Revelar key={p.nombre} retraso={i * 80} className="h-full">
+                <article className={`tarjeta ${estilos.tarjeta} h-full px-5 py-5`}>
+                  <div className="flex items-center gap-4">
+                    <div className={`${estilos.marco} ${retrato ? '' : estilos.silueta}`}>
+                      {retrato ? (
+                        <Image
+                          src={retrato.src}
+                          alt={`${p.nombre}, ${p.cargo.toLowerCase()} y ${p.sigla} de Prisma Vertex.`}
+                          sizes="80px"
+                          placeholder="blur"
+                          style={{ objectPosition: retrato.encuadre }}
+                        />
+                      ) : (
+                        <Silueta />
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-cuerpo leading-snug font-semibold">{p.nombre}</p>
+                      <p className="text-menudo mt-0.5">
+                        <span className="text-azul font-semibold">{p.sigla}</span>
+                        <span className="text-gris"> · {p.cargo}</span>
+                      </p>
+                    </div>
+                  </div>
 
-                <div className="mt-5">
-                  <p className="text-d3">{p.nombre}</p>
-                  <p className="text-menudo mt-1.5">
-                    <span className="text-azul font-semibold">{p.sigla}</span>
-                    <span className="text-gris"> · {p.cargo}</span>
-                  </p>
-                  <p className="text-cuerpo text-gris mt-3">{p.rol}</p>
+                  <p className="text-menudo text-tinta mt-4">{p.rol}</p>
+
+                  {p.trayectoria.length > 0 && (
+                    <ul className="text-menudo text-gris mt-3 space-y-1.5">
+                      {p.trayectoria.map((linea) => (
+                        <li key={linea} className="flex gap-2.5">
+                          <span
+                            className="bg-azul mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full"
+                            aria-hidden="true"
+                          />
+                          {linea}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {p.credito && (
+                    <p className="text-gris mt-3 text-[0.75rem]">Foto: {p.credito}</p>
+                  )}
+
                   {/* El perfil profesional al lado de la foto es lo que la
                       vuelve creíble. Como es un canal para escribirles, no
                       aparece mientras el sitio sea una vista previa. */}
@@ -84,10 +111,10 @@ export default function Equipo() {
                       LinkedIn de {p.nombre.split(' ')[0]}
                     </a>
                   )}
-                </div>
-              </article>
-            </Revelar>
-          ))}
+                </article>
+              </Revelar>
+            );
+          })}
         </div>
       </div>
     </section>
