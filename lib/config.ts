@@ -108,7 +108,7 @@ export const PENDIENTES = [
   'Caso Panorex: resultado, problema, qué hicimos, cifras y testimonio, más su autorización escrita para nombrarlo.',
   'Revisar los textos de los cuatro nichos y de /otros-sectores; al aprobarlos, poner `revisar: false`.',
   // Equipo (lib/contenido.ts → EQUIPO)
-  'Fotos nuevas del equipo como archivo: Juan David en su grado y David en la etapa ganada.',
+  'Permiso de Ciclismo en Línea para publicar la foto de David en la etapa (ya lleva su crédito).',
   'Trayectoria de Sebastián.',
   'Confirmar «Fundetec Medellín» y el nombre exacto del título de Juan David en Unimayor.',
 ] as const;

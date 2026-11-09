@@ -739,7 +739,9 @@ export const EQUIPO: Integrante[] = [
       'Formación en Claude Code e inteligencia artificial',
       'Bachiller del Colegio Champagnat',
     ],
-    credito: '',
+    // La foto de la etapa es de Ciclismo en Línea: va con su crédito.
+    // ← CONFIRMAR que autorizan publicarla en la web.
+    credito: 'Ciclismo en Línea',
     linkedin: '',
   },
   {

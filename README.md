@@ -142,7 +142,8 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
     autorización escrita para nombrarlo.
 15. **Revisar los textos** de los cuatro nichos y de `/otros-sectores`. Al
     aprobar uno, poner `revisar: false` y deja de mostrar el aviso.
-16. **Fotos nuevas del equipo** como archivo y **trayectoria de Sebastián**.
+16. **Trayectoria de Sebastián**, y el **permiso de Ciclismo en Línea** para
+    publicar la foto de David en la etapa.
 
 Todos están listados también en `PENDIENTES`, dentro de `lib/config.ts`.
 
@@ -209,12 +210,13 @@ solos.
   `mix-blend-mode: multiply` para que el fondo blanco desaparezca.
 - `assets/equipo-prisma.jpg` — Juan David (izquierda) y David (derecha), en
   el hero.
-- `assets/retrato-derecha.jpg` — el retrato de David en la sección del
-  equipo, recortado de la foto anterior.
-- `assets/retrato-juan-david.jpg` — el retrato de Juan David, una foto suya
-  aparte.
-- `assets/retrato-izquierda.jpg` — sin uso desde que Juan David tiene su
-  propia foto; se puede borrar.
+- `assets/retrato-david-etapa.jpg` — David en la etapa que ganó, recortado
+  en cuadrado para el círculo del equipo. La foto es de Ciclismo en Línea y
+  lleva su crédito en la tarjeta.
+- `assets/retrato-juan-david-grado.jpg` — Juan David en su ceremonia de
+  grado en Unimayor, recortado igual.
+- `assets/retrato-derecha.jpg`, `retrato-juan-david.jpg` y
+  `retrato-izquierda.jpg` — retratos anteriores, sin uso; se pueden borrar.
 
 ## Publicar
 

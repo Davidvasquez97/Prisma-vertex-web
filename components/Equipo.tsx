@@ -1,16 +1,18 @@
 import Image from 'next/image';
-import retratoDavid from '@/assets/retrato-derecha.jpg';
-import retratoJuanDavid from '@/assets/retrato-juan-david.jpg';
+import retratoDavid from '@/assets/retrato-david-etapa.jpg';
+import retratoJuanDavid from '@/assets/retrato-juan-david-grado.jpg';
 import Revelar from './Revelar';
 import { EQUIPO, EQUIPO_SECCION } from '@/lib/contenido';
 import { MODO_VISTA_PREVIA } from '@/lib/config';
 import estilos from './Equipo.module.css';
 
 /* Cada retrato con su encuadre: el punto que queda en el centro del
-   círculo es la cara. Para cambiar una foto basta con cambiar el import. */
+   círculo es la cara. Para cambiar una foto basta con cambiar el import.
+   David: la etapa que ganó. Juan David: su ceremonia de grado en Unimayor.
+   Los dos salen recortados en cuadrado de 320 px de las fotos originales. */
 const RETRATOS = {
-  david: { src: retratoDavid, encuadre: '50% 28%' },
-  'juan-david': { src: retratoJuanDavid, encuadre: '45% 30%' },
+  david: { src: retratoDavid, encuadre: '50% 40%' },
+  'juan-david': { src: retratoJuanDavid, encuadre: '48% 45%' },
 } as const;
 
 /** Silueta para quien prefiere no salir en foto. */
