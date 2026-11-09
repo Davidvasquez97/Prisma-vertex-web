@@ -385,6 +385,86 @@ export const NICHOS: Nicho[] = [
   },
 ];
 
+/**
+ * /otros-sectores: los sectores que atendemos sin página propia todavía.
+ * No se muestran en el inicio; solo el botón discreto de «Especialistas en»
+ * y el pie de página llevan aquí.
+ *
+ * ← REVISAR con David: lo que se instala en cada sector sale del encargo; los
+ *   dolores los redactó Claude.
+ */
+export const OTROS_SECTORES_PAGINA = {
+  titulo: 'También trabajamos con estos sectores',
+  subtitulo:
+    'Usamos los mismos sistemas (agenda, turnos, recordatorios y agentes de WhatsApp) adaptados a tu operación.',
+  dolor: 'El problema',
+  instalamos: 'Lo que instalamos',
+  boton: 'Agendar diagnóstico',
+  meta: {
+    titulo: 'Turnos y WhatsApp para otros sectores',
+    descripcion:
+      'Agenda, turnos, recordatorios y agentes de WhatsApp para concesionarios, centros de diagnóstico automotor, inmobiliarias y notarías.',
+  },
+} as const;
+
+export type OtroSector = {
+  slug: string;
+  nombre: string;
+  /** Vacíos en la tarjeta «Otra empresa», que lleva solo `texto`. */
+  dolor: string;
+  instalamos: string;
+  texto?: string;
+  /** Mensaje prellenado de WhatsApp: dice de qué sector viene la persona. */
+  mensaje: string;
+};
+
+export const OTROS_SECTORES: OtroSector[] = [
+  {
+    slug: 'concesionarios',
+    nombre: 'Concesionarios de motos y carros, y su posventa',
+    dolor: 'Leads de WhatsApp que se enfrían sin respuesta y clientes que no vuelven al taller.',
+    instalamos:
+      'Agente que atiende los leads de WhatsApp y pre-califica el crédito, más agenda de taller con recordatorios de mantenimiento.',
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex. Tengo un concesionario de motos o carros y quiero agendar un diagnóstico.',
+  },
+  {
+    slug: 'cda',
+    nombre: 'Centros de diagnóstico automotor (CDA)',
+    dolor: 'Días de filas y días vacíos, y clientes que olvidan cuándo vence su revisión.',
+    instalamos:
+      'Turnero y recordatorio automático del vencimiento de la revisión técnico-mecánica.',
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex. Tengo un centro de diagnóstico automotor y quiero agendar un diagnóstico.',
+  },
+  {
+    slug: 'inmobiliarias',
+    nombre: 'Inmobiliarias',
+    dolor: 'Las mismas preguntas por los mismos inmuebles a toda hora, visitas difíciles de coordinar y cánones atrasados.',
+    instalamos:
+      'Agente que agenda visitas y responde por los inmuebles, más seguimiento de cobranza de cánones.',
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex. Tengo una inmobiliaria y quiero agendar un diagnóstico.',
+  },
+  {
+    slug: 'notarias',
+    nombre: 'Notarías',
+    dolor: 'Filas para preguntar requisitos y trámites que se devuelven por un documento faltante.',
+    instalamos: 'Turnos y respuestas a preguntas frecuentes de trámites por WhatsApp.',
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex. Trabajo en una notaría y quiero agendar un diagnóstico.',
+  },
+  {
+    slug: 'otra',
+    nombre: 'Otra empresa',
+    dolor: '',
+    instalamos: '',
+    texto: '¿Tu sector no aparece? Hagamos un diagnóstico y te decimos si podemos ayudarte.',
+    mensaje:
+      'Hola, vengo de la página de Prisma Vertex. Mi sector no aparece en la página y quiero saber si pueden ayudarme.',
+  },
+];
+
 /** El nicho de una ruta. Si el slug está mal escrito, el build falla aquí. */
 export function nichoPorSlug(slug: string): Nicho {
   const nicho = NICHOS.find((n) => n.slug === slug);
