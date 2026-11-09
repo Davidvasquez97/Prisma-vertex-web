@@ -1,5 +1,6 @@
 import Hero from '@/components/Hero';
 import LoQueGanas from '@/components/LoQueGanas';
+import Nichos from '@/components/Nichos';
 import Calculadora from '@/components/Calculadora';
 import Proceso from '@/components/Proceso';
 import Resultados from '@/components/Resultados';
@@ -32,7 +33,8 @@ const faqJsonLd = {
 
 /*
  * El orden cuenta una historia de venta:
- * la promesa → lo que ganas → cuánto estás perdiendo hoy (calculadora) →
+ * la promesa → lo que ganas → en qué somos especialistas →
+ * cuánto estás perdiendo hoy (calculadora) →
  * cómo lo hacemos → pruebas → garantía → precio → objeciones al precio
  * (preguntas, justo después) → quiénes somos → cierre.
  */
@@ -46,6 +48,7 @@ export default function Inicio() {
       />
       <Hero />
       <LoQueGanas />
+      <Nichos />
       <Calculadora />
       <Proceso />
       <Resultados />

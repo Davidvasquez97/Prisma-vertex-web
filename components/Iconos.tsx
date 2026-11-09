@@ -119,6 +119,49 @@ export function IconoOptimizacion() {
   );
 }
 
+/* ---- Especialidades --------------------------------------------------- */
+
+/** Visor de imagen diagnóstica: esquinas de encuadre y la línea del barrido. */
+export function IconoRadiologia() {
+  return (
+    <svg {...comun}>
+      <path d="M4 8.5v-3A1.5 1.5 0 0 1 5.5 4h3M15.5 4h3A1.5 1.5 0 0 1 20 5.5v3M20 15.5v3a1.5 1.5 0 0 1-1.5 1.5h-3M8.5 20h-3A1.5 1.5 0 0 1 4 18.5v-3" />
+      <circle cx="12" cy="12" r="3.3" />
+      <path d="M6.5 12h2.2M15.3 12h2.2" />
+    </svg>
+  );
+}
+
+/** Matraz con su línea de líquido. */
+export function IconoLaboratorio() {
+  return (
+    <svg {...comun}>
+      <path d="M9 3.5h6" />
+      <path d="M10 3.5v6L5.4 17.8a1.8 1.8 0 0 0 1.6 2.7h10a1.8 1.8 0 0 0 1.6-2.7L14 9.5v-6" />
+      <path d="M7.6 14.5h8.8" />
+    </svg>
+  );
+}
+
+/** Destellos: el resultado que busca quien va a una clínica estética. */
+export function IconoEstetica() {
+  return (
+    <svg {...comun}>
+      <path d="M10.5 3.5l1.6 4.7 4.7 1.6-4.7 1.6-1.6 4.7-1.6-4.7-4.7-1.6 4.7-1.6z" />
+      <path d="M17.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" />
+    </svg>
+  );
+}
+
+/** Un diente. */
+export function IconoOdontologia() {
+  return (
+    <svg {...comun}>
+      <path d="M12 6.2c-1.5-1.3-3.4-1.9-5-1.2-2 .9-2.7 3.6-2 6.2.6 2.2 1.1 4.6 1.4 7 .2 1.6.8 2.8 1.8 2.8 1.4 0 1.6-2.2 1.9-3.8.3-1.4.8-2.3 1.9-2.3s1.6.9 1.9 2.3c.3 1.6.5 3.8 1.9 3.8 1 0 1.6-1.2 1.8-2.8.3-2.4.8-4.8 1.4-7 .7-2.6 0-5.3-2-6.2-1.6-.7-3.5-.1-5 1.2z" />
+    </svg>
+  );
+}
+
 export const ICONOS = {
   tiempo: IconoTiempo,
   dinero: IconoDinero,
@@ -129,4 +172,8 @@ export const ICONOS = {
   automatizacion: IconoAutomatizacion,
   integraciones: IconoIntegraciones,
   optimizacion: IconoOptimizacion,
+  radiologia: IconoRadiologia,
+  laboratorio: IconoLaboratorio,
+  estetica: IconoEstetica,
+  odontologia: IconoOdontologia,
 } as const;

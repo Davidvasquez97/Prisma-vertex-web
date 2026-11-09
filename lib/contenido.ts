@@ -51,6 +51,60 @@ export const GANANCIAS: Ganancia[] = [
 ];
 
 /**
+ * Las especialidades. Cada nicho tiene una tarjeta en el inicio y su propia
+ * página. Para agregar o quitar uno basta con tocar este arreglo (y crear
+ * la carpeta de su ruta en app/, que solo llama a PaginaNicho).
+ */
+export const NICHOS_SECCION = {
+  titulo: 'Especialistas en',
+  verMas: 'Ver cómo lo hacemos',
+  otros: '¿Tu empresa no está aquí? Mira los otros sectores →',
+  otrosRuta: '/otros-sectores',
+} as const;
+
+export type IconoNicho = 'radiologia' | 'laboratorio' | 'estetica' | 'odontologia';
+
+export type Nicho = {
+  slug: string;
+  ruta: string;
+  icono: IconoNicho;
+  nombre: string;
+  /** El dolor en una línea, para la tarjeta del inicio. */
+  dolor: string;
+};
+
+export const NICHOS: Nicho[] = [
+  {
+    slug: 'centros-radiologicos',
+    ruta: '/centros-radiologicos',
+    icono: 'radiologia',
+    nombre: 'Centros radiológicos y de imágenes diagnósticas',
+    dolor: 'Turnos, remisiones de odontólogos y entrega de resultados sin filas.',
+  },
+  {
+    slug: 'laboratorios-clinicos',
+    ruta: '/laboratorios-clinicos',
+    icono: 'laboratorio',
+    nombre: 'Laboratorios clínicos',
+    dolor: 'Preguntas de ayuno, preparación y resultados respondidas por WhatsApp.',
+  },
+  {
+    slug: 'clinicas-esteticas',
+    ruta: '/clinicas-esteticas',
+    icono: 'estetica',
+    nombre: 'Clínicas de estética y cirugía plástica',
+    dolor: 'Cada lead de Instagram y WhatsApp atendido al instante, también en inglés.',
+  },
+  {
+    slug: 'clinicas-odontologicas',
+    ruta: '/clinicas-odontologicas',
+    icono: 'odontologia',
+    nombre: 'Clínicas odontológicas',
+    dolor: 'Citas confirmadas y tratamientos con seguimiento.',
+  },
+];
+
+/**
  * La calculadora de cuánto pierde una empresa en tareas repetitivas.
  *
  * El costo de una hora se calcula como lo hace la ley colombiana: salario
