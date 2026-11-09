@@ -13,8 +13,13 @@ export const HERO = {
   titulo: 'Tu empresa puede ganar más.',
   subtitulo:
     'Te mostramos cómo. Ganas más tiempo y más dinero optimizando tus procesos.',
+  especialidad: 'Especialistas en centros de salud de alto volumen.',
   boton: 'Quiero mi diagnóstico',
   bajoBoton: 'Si no encontramos cómo ahorrarte, te devolvemos tu dinero.',
+  // En la foto, Juan David está a la izquierda y David a la derecha: se
+  // nombran en ese orden.
+  pie: 'Juan David Chaves, cofundador, y David Vásquez, fundador de Prisma Vertex.',
+  alt: 'Juan David Chaves, cofundador, a la izquierda, y David Vásquez, fundador de Prisma Vertex, a la derecha, sosteniendo un prisma atravesado por un haz de luz.',
 } as const;
 
 /**

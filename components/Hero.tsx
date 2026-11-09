@@ -14,8 +14,10 @@ export default function Hero() {
 
   return (
     <section className="border-linea border-b">
-      <div className="lienzo grid items-center gap-11 pt-12 pb-14 md:pt-20 md:pb-24 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
-        <div>
+      {/* Una sola columna: el titular tiene todo el protagonismo. El ancho
+          máximo mantiene «Tu empresa puede / ganar más.» en dos líneas. */}
+      <div className="lienzo pt-12 pb-14 md:pt-20 md:pb-20">
+        <div className="max-w-[44rem]">
           <div className={`${estilos.entra} ${estilos.d1}`}>
             <p
               className="text-tinta text-[0.8125rem] font-semibold uppercase sm:text-[0.875rem]"
@@ -36,11 +38,18 @@ export default function Hero() {
 
           <div className={`${estilos.riel} mt-8 max-w-[22rem]`} aria-hidden="true" />
 
-          <p
-            className={`text-guia text-gris medida mt-7 ${estilos.entra} ${estilos.d3}`}
-          >
-            {HERO.subtitulo}
-          </p>
+          <div className={`${estilos.entra} ${estilos.d3}`}>
+            <p className="text-guia text-gris medida mt-7">{HERO.subtitulo}</p>
+            <p className="text-cuerpo mt-4 flex items-start gap-2.5 font-semibold">
+              {/* El punto se alinea con el primer renglón, no con el centro
+                  del párrafo, para que en celular no quede entre dos líneas. */}
+              <span
+                className="bg-azul mt-[0.6em] size-2 shrink-0 rounded-full"
+                aria-hidden="true"
+              />
+              {HERO.especialidad}
+            </p>
+          </div>
 
           <div className={`mt-9 ${estilos.entra} ${estilos.d4}`}>
             <Boton href="/diagnostico" variante="calma">
@@ -50,20 +59,24 @@ export default function Hero() {
           </div>
         </div>
 
-        <figure className={estilos.foto}>
+        {/* Franja compacta con las personas reales detrás de la empresa: da
+            autoridad sin quitarle espacio al titular. La altura va fija en
+            CSS, así que la foto no empuja nada al cargar (sin salto de
+            diseño). El encuadre al 22 % vertical deja las caras y el prisma. */}
+        <figure
+          className={`${estilos.foto} mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5`}
+        >
           <Image
             src={foto}
-            alt="Juan David Chaves, a la izquierda, y David Vásquez, a la derecha, socios de Prisma Vertex, sosteniendo un prisma atravesado por un haz de luz."
-            sizes="(min-width: 1024px) 40vw, 100vw"
+            alt={HERO.alt}
+            sizes="(min-width: 640px) 360px, 100vw"
             placeholder="blur"
             priority
             fetchPriority="high"
-            className="h-auto w-full rounded-xl"
+            className="h-[180px] w-full rounded-xl object-cover sm:h-[220px] sm:w-[360px] sm:shrink-0"
+            style={{ objectPosition: '50% 22%' }}
           />
-          {/* Nombrados en el orden en que aparecen, de izquierda a derecha. */}
-          <figcaption className="text-menudo text-gris mt-3">
-            Juan David Chaves y David Vásquez, socios de Prisma Vertex.
-          </figcaption>
+          <figcaption className="text-menudo text-gris max-w-[34ch]">{HERO.pie}</figcaption>
         </figure>
       </div>
     </section>
