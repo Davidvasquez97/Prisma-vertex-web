@@ -1,5 +1,4 @@
 import Boton from '@/components/Boton';
-import Pendiente from '@/components/Pendiente';
 import Revelar from '@/components/Revelar';
 import { OTROS_SECTORES, OTROS_SECTORES_PAGINA as P } from '@/lib/contenido';
 import { wa } from '@/lib/config';
@@ -27,9 +26,6 @@ export default function OtrosSectores() {
 
       <section className="border-linea border-b">
         <div className="lienzo pt-12 pb-14 md:pt-16 md:pb-16">
-          <p className="mb-6">
-            <Pendiente>textos de esta página por revisar con David</Pendiente>
-          </p>
           <h1 className="text-d1 max-w-[22ch]">{P.titulo}</h1>
           <p className="text-guia text-gris medida mt-6">{P.subtitulo}</p>
         </div>

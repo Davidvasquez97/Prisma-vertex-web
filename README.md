@@ -140,9 +140,7 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
 13. **Videos demo** de los cuatro nichos (campo `video` en `NICHOS`).
 14. **Caso Panorex**: resultado, problema, qué hicimos, cifras, testimonio y
     autorización escrita para nombrarlo.
-15. **Revisar los textos** de los cuatro nichos y de `/otros-sectores`. Al
-    aprobar uno, poner `revisar: false` y deja de mostrar el aviso.
-16. **Trayectoria de Sebastián**, y el **permiso de Ciclismo en Línea** para
+15. **Trayectoria de Sebastián**, y el **permiso de Ciclismo en Línea** para
     publicar la foto de David en la etapa.
 
 Todos están listados también en `PENDIENTES`, dentro de `lib/config.ts`.
@@ -210,13 +208,15 @@ solos.
   `mix-blend-mode: multiply` para que el fondo blanco desaparezca.
 - `assets/equipo-prisma.jpg` — Juan David (izquierda) y David (derecha), en
   el hero.
-- `assets/retrato-david-etapa.jpg` — David en la etapa que ganó, recortado
-  en cuadrado para el círculo del equipo. La foto es de Ciclismo en Línea y
-  lleva su crédito en la tarjeta.
-- `assets/retrato-juan-david-grado.jpg` — Juan David en su ceremonia de
-  grado en Unimayor, recortado igual.
-- `assets/retrato-derecha.jpg`, `retrato-juan-david.jpg` y
-  `retrato-izquierda.jpg` — retratos anteriores, sin uso; se pueden borrar.
+- `assets/retrato-david.jpg` y `retrato-juan-david-grado.jpg` — los
+  retratos del círculo del equipo, en cuadrado de 320 px. El de David es su
+  foto de estudio; el de Juan David sale de su ceremonia de grado.
+- `assets/perfil-david-etapa.jpg` y `perfil-juan-david-grado.jpg` — las fotos
+  completas que se ven al abrir «Saber más», en 4:5. La de la etapa es de
+  Ciclismo en Línea y lleva su crédito.
+- `assets/retrato-david-etapa.jpg`, `retrato-derecha.jpg`,
+  `retrato-juan-david.jpg` y `retrato-izquierda.jpg` — retratos anteriores,
+  sin uso; se pueden borrar.
 
 ## Publicar
 

@@ -1,0 +1,63 @@
+/* Ventana de «Saber más». Es un <dialog> nativo: el navegador se encarga
+   de atrapar el foco, de cerrarla con Esc y de dejar inerte lo de atrás. */
+.dialogo {
+  width: min(56rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: 14px;
+  background: var(--color-base);
+  color: var(--color-tinta);
+  overflow: auto;
+  box-shadow: 0 30px 80px -30px rgb(10 42 107 / 0.55);
+}
+
+.dialogo::backdrop {
+  background: rgb(10 42 107 / 0.42);
+  backdrop-filter: blur(4px);
+}
+
+/* Entra subiendo y aparece, como todo lo demás en el sitio. */
+.dialogo[open] {
+  animation: entra 0.32s var(--curva);
+}
+
+.dialogo[open]::backdrop {
+  animation: velo 0.32s ease-out;
+}
+
+@keyframes entra {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+}
+
+@keyframes velo {
+  from {
+    opacity: 0;
+  }
+}
+
+/* La foto: arriba en celular (altura contenida), a la izquierda en escritorio. */
+.foto {
+  width: 100%;
+  height: 46dvh;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+@media (min-width: 768px) {
+  .foto {
+    height: 100%;
+    min-height: 34rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialogo[open],
+  .dialogo[open]::backdrop {
+    animation: none;
+  }
+}

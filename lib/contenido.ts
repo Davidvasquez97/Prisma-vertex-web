@@ -140,10 +140,9 @@ const NOTA_INASISTENCIA = (unidad: string, valor: string) =>
   `Estimación: ${unidad} al día × ${DIAS_HABILES} días hábiles × porcentaje que no llega × ${valor}. Los valores iniciales son de ejemplo: pon los de tu negocio.`;
 
 /*
- * ← REVISAR con David: los textos de los cuatro nichos los redactó Claude a
- *   partir del encargo, salvo el titular de radiología, que dio David.
- *   Ninguno tiene cifras ni testimonios; los datos que faltan van como
- *   PENDIENTE.
+ * Textos de los cuatro nichos: redactados por Claude a partir del encargo y
+ * aprobados por David el 9 de noviembre de 2026. Ninguno tiene cifras ni
+ * testimonios inventados; los datos que faltan van como PENDIENTE.
  */
 export const NICHOS: Nicho[] = [
   {
@@ -153,7 +152,7 @@ export const NICHOS: Nicho[] = [
     nombre: 'Centros radiológicos y de imágenes diagnósticas',
     corto: 'Centros radiológicos',
     dolor: 'Turnos, remisiones de odontólogos y entrega de resultados sin filas.',
-    revisar: true,
+    revisar: false,
     meta: {
       titulo: 'Turnos y WhatsApp para centros radiológicos',
       descripcion:
@@ -213,7 +212,7 @@ export const NICHOS: Nicho[] = [
     nombre: 'Laboratorios clínicos',
     corto: 'Laboratorios clínicos',
     dolor: 'Preguntas de ayuno, preparación y resultados respondidas por WhatsApp.',
-    revisar: true,
+    revisar: false,
     meta: {
       titulo: 'Turnos y WhatsApp para laboratorios clínicos',
       descripcion:
@@ -273,7 +272,7 @@ export const NICHOS: Nicho[] = [
     nombre: 'Clínicas de estética y cirugía plástica',
     corto: 'Clínicas estéticas',
     dolor: 'Cada lead de Instagram y WhatsApp atendido al instante, también en inglés.',
-    revisar: true,
+    revisar: false,
     meta: {
       titulo: 'WhatsApp con IA para clínicas estéticas',
       descripcion:
@@ -336,7 +335,7 @@ export const NICHOS: Nicho[] = [
     nombre: 'Clínicas odontológicas',
     corto: 'Clínicas odontológicas',
     dolor: 'Citas confirmadas y tratamientos con seguimiento.',
-    revisar: true,
+    revisar: false,
     meta: {
       titulo: 'Citas y WhatsApp para odontología',
       descripcion:
@@ -396,8 +395,8 @@ export const NICHOS: Nicho[] = [
  * No se muestran en el inicio; solo el botón discreto de «Especialistas en»
  * y el pie de página llevan aquí.
  *
- * ← REVISAR con David: lo que se instala en cada sector sale del encargo; los
- *   dolores los redactó Claude.
+ * Lo que se instala en cada sector sale del encargo; los dolores los redactó
+ * Claude. Aprobados por David el 9 de noviembre de 2026.
  */
 export const OTROS_SECTORES_PAGINA = {
   titulo: 'También trabajamos con estos sectores',
@@ -713,9 +712,13 @@ export type Integrante = {
   cargo: string;
   sigla: string;
   rol: string;
+  /** Retrato pequeño del círculo. */
   foto: 'david' | 'juan-david' | null;
+  /** Foto completa que se ve al abrir «Saber más». */
+  perfil: 'david-etapa' | 'juan-david-grado' | null;
+  /** La hoja de vida. Las dos primeras líneas se ven en la tarjeta; todas, en «Saber más». */
   trayectoria: string[];
-  /** Crédito de la foto, cuando la tomó un tercero. */
+  /** Crédito de la foto de «Saber más», cuando la tomó un tercero. */
   credito: string;
   linkedin: string;
 };
@@ -732,6 +735,7 @@ export const EQUIPO: Integrante[] = [
     sigla: 'CEO',
     rol: 'Estrategia y relación con cada cliente.',
     foto: 'david',
+    perfil: 'david-etapa',
     trayectoria: [
       'Ciclista profesional destacado, con 10 años de experiencia',
       'Asistente jurídico en Fundetec Medellín',
@@ -750,6 +754,7 @@ export const EQUIPO: Integrante[] = [
     sigla: 'COO',
     rol: 'Operación y entrega de cada proyecto.',
     foto: 'juan-david',
+    perfil: 'juan-david-grado',
     trayectoria: [
       'Desarrollador de software graduado del Colegio Mayor (Unimayor)',
       'Experiencia en el uso y el desarrollo de inteligencia artificial',
@@ -764,6 +769,7 @@ export const EQUIPO: Integrante[] = [
     sigla: 'CTO',
     rol: 'Arquitectura e implementación técnica.',
     foto: null,
+    perfil: null,
     trayectoria: [],
     credito: '',
     linkedin: '',

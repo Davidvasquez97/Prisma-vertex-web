@@ -106,7 +106,6 @@ export const PENDIENTES = [
   // Nichos y otros sectores (lib/contenido.ts → NICHOS, OTROS_SECTORES)
   'Videos demo de los cuatro nichos: poner la ruta en `video` de cada uno en NICHOS.',
   'Caso Panorex: resultado, problema, qué hicimos, cifras y testimonio, más su autorización escrita para nombrarlo.',
-  'Revisar los textos de los cuatro nichos y de /otros-sectores; al aprobarlos, poner `revisar: false`.',
   // Equipo (lib/contenido.ts → EQUIPO)
   'Permiso de Ciclismo en Línea para publicar la foto de David en la etapa (ya lleva su crédito).',
   'Trayectoria de Sebastián.',
