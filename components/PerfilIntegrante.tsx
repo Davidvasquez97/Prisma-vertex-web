@@ -54,7 +54,8 @@ export default function PerfilIntegrante({
       <dialog
         ref={ventana}
         aria-labelledby={titulo}
-        className={estilos.dialogo}
+        // Sin foto (Sebastián) la ventana es angosta y de una sola columna.
+        className={`${estilos.dialogo} ${foto ? '' : estilos.angosto}`}
         // Al cerrar, el foco vuelve al botón que la abrió (Safari no lo hace solo).
         onClose={() => boton.current?.focus()}
         // Un clic fuera de la tarjeta (sobre el velo) la cierra.
@@ -62,7 +63,7 @@ export default function PerfilIntegrante({
           if (e.target === ventana.current) ventana.current?.close();
         }}
       >
-        <div className="grid md:grid-cols-[0.95fr_1.05fr]">
+        <div className={foto ? 'grid md:grid-cols-[0.95fr_1.05fr]' : ''}>
           {foto && (
             <div className="relative">
               <Image

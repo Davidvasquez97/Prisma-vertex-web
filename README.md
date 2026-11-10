@@ -125,10 +125,10 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
    sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
 4. **Casos con cifras** — `lib/contenido.ts` → `CASOS`, y las dos cifras de
    `RESULTADOS`. Hay una plantilla para recolectarlos en el estudio de mercado.
-5. **Confirmar la ortografía de los apellidos.** El sitio usa Vásquez y
-   Chaves, como el brief y el usuario de GitHub; en los mensajes aparecen
-   también Vázquez y Chávez.
-6. **LinkedIn** de la empresa y de cada integrante.
+5. **Confirmar el apellido de David.** El sitio usa Vásquez, como el brief
+   y el usuario de GitHub; en los mensajes aparece también Vázquez. Chaves
+   ya está confirmado por la hoja de vida de Juan David.
+6. **LinkedIn** de la empresa, de David y de Juan David.
 7. **Activar Web Analytics** en el panel de Vercel y después poner
    `ANALITICA_ACTIVA` en `true`. Antes de activarla, su script da 404.
 8. **Destino del formulario** — `FORMULARIO_ENDPOINT`. Con un endpoint de
@@ -140,8 +140,8 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
 13. **Videos demo** de los cuatro nichos (campo `video` en `NICHOS`).
 14. **Caso Panorex**: resultado, problema, qué hicimos, cifras, testimonio y
     autorización escrita para nombrarlo.
-15. **Trayectoria de Sebastián**, y el **permiso de Ciclismo en Línea** para
-    publicar la foto de David en la etapa.
+15. **Permiso de Ciclismo en Línea** para publicar la foto de David en la
+    etapa, y confirmar la escritura de «Fundetec Medellín».
 
 Todos están listados también en `PENDIENTES`, dentro de `lib/config.ts`.
 

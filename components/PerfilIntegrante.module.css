@@ -13,6 +13,10 @@
   box-shadow: 0 30px 80px -30px rgb(10 42 107 / 0.55);
 }
 
+.angosto {
+  width: min(38rem, calc(100% - 2rem));
+}
+
 .dialogo::backdrop {
   background: rgb(10 42 107 / 0.42);
   backdrop-filter: blur(4px);

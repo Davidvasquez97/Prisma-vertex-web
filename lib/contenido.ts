@@ -700,12 +700,14 @@ export const NOTA_PRECIOS =
  * `linkedin` ← PENDIENTE para los tres. Con la URL puesta, la tarjeta muestra
  * el enlace sola: una foto con credenciales al lado convence más que sola.
  *
- * Sebastián prefiere no aparecer: `foto: null` dibuja una silueta. Su
- * trayectoria queda vacía hasta que David la confirme con él.
+ * Sebastián va como colaborador, sin foto y solo con su nombre de pila,
+ * como firma su propia hoja de vida: `foto: null` dibuja una silueta.
  *
- * `trayectoria` es la hoja de vida en pocas líneas, tal como la dio David.
- * ← CONFIRMAR la escritura de «Fundetec Medellín» y el nombre exacto del
- *   título de Juan David en Unimayor.
+ * `trayectoria` es la hoja de vida en pocas líneas. La de David es la que él
+ * dictó; las de Juan David y Sebastián salen de sus hojas de vida
+ * (10 de noviembre de 2026). A propósito no van teléfonos, direcciones ni
+ * referencias, ni los trabajos que no tienen que ver con lo que vendemos.
+ * ← CONFIRMAR la escritura de «Fundetec Medellín».
  */
 export type Integrante = {
   nombre: string;
@@ -756,21 +758,31 @@ export const EQUIPO: Integrante[] = [
     foto: 'juan-david',
     perfil: 'juan-david-grado',
     trayectoria: [
-      'Desarrollador de software graduado del Colegio Mayor (Unimayor)',
-      'Experiencia en el uso y el desarrollo de inteligencia artificial',
-      'Bachiller del Colegio Champagnat',
+      'Tecnólogo en Desarrollo de Software de la Universidad Colegio Mayor del Cauca',
+      'Cursa Ingeniería Informática en la misma universidad',
+      'Programación en Java, C y Python, y uso avanzado de inteligencia artificial',
+      'Diplomado en Metodología Scrum (Universidad Colegio Mayor del Cauca, 2026)',
+      'Cursos de Lenguaje C (SENA) y de mantenimiento de equipos de cómputo (Comfacauca)',
+      'Bachiller académico del Colegio Champagnat de Popayán',
     ],
     credito: '',
     linkedin: '',
   },
   {
     nombre: 'Sebastián',
-    cargo: 'Director de tecnología',
-    sigla: 'CTO',
-    rol: 'Arquitectura e implementación técnica.',
+    cargo: 'Software e inteligencia artificial',
+    sigla: 'Colaborador',
+    rol: 'Desarrollo de software y modelos de inteligencia artificial.',
     foto: null,
     perfil: null,
-    trayectoria: [],
+    trayectoria: [
+      'Estudiante de Ingeniería de Sistemas en la Universidad del Cauca (sexto semestre)',
+      'Miembro del Semillero de Investigación en Ciencia de Datos de la Universidad del Cauca',
+      'Desarrollo Full Stack, servicios backend, APIs REST y automatización con agentes inteligentes',
+      'Redes neuronales y aprendizaje automático desde sus fundamentos: backpropagation, optimización y modelos de lenguaje',
+      'Python, JavaScript, SQL, C y Kotlin; PyTorch, React, Next.js, Node.js y Docker',
+      'Ganador en su categoría del Seminario Internacional Nuevas Tendencias de la Ingeniería y Aplicaciones Informáticas (Colegio Mayor del Cauca), ediciones 2023-II y 2024-I',
+    ],
     credito: '',
     linkedin: '',
   },

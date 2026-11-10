@@ -93,9 +93,9 @@ export const PENDIENTES = [
   'Cifras reales de los dos resultados del inicio.',
   'Casos completos para /casos.',
   'Tiempos reales de implementación (pregunta 2 del acordeón).',
-  'URL de LinkedIn de la empresa y de David, Juan David y Sebastián (lib/contenido.ts → EQUIPO).',
+  'URL de LinkedIn de la empresa y de David y Juan David (lib/contenido.ts → EQUIPO).',
   'Aprobar la garantía de devolución del 100 % y los precios nuevos (lib/contenido.ts).',
-  'Confirmar la ortografía de los apellidos: el sitio usa Vásquez y Chaves.',
+  'Confirmar la ortografía del apellido de David: el sitio usa Vásquez (Chaves ya está confirmado por su hoja de vida).',
   'Activar Web Analytics en el panel de Vercel y después poner ANALITICA_ACTIVA en true.',
   'Endpoint del formulario de diagnóstico.',
   'Texto legal de /politica-de-datos revisado por David.',
@@ -108,6 +108,5 @@ export const PENDIENTES = [
   'Caso Panorex: resultado, problema, qué hicimos, cifras y testimonio, más su autorización escrita para nombrarlo.',
   // Equipo (lib/contenido.ts → EQUIPO)
   'Permiso de Ciclismo en Línea para publicar la foto de David en la etapa (ya lleva su crédito).',
-  'Trayectoria de Sebastián.',
-  'Confirmar «Fundetec Medellín» y el nombre exacto del título de Juan David en Unimayor.',
+  'Confirmar la escritura de «Fundetec Medellín».',
 ] as const;
