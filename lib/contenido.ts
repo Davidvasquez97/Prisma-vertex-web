@@ -18,8 +18,8 @@ export const HERO = {
   bajoBoton: 'Si no encontramos cómo ahorrarte, te devolvemos tu dinero.',
   // En la foto, Juan David está a la izquierda y David a la derecha: se
   // nombran en ese orden.
-  pie: 'Juan David Chaves, cofundador, y David Vásquez, fundador de Prisma Vertex.',
-  alt: 'Juan David Chaves, cofundador, a la izquierda, y David Vásquez, fundador de Prisma Vertex, a la derecha, sosteniendo un prisma atravesado por un haz de luz.',
+  pie: 'Juan David Chaves, cofundador, y David Alejandro Vásquez, fundador de Prisma Vertex.',
+  alt: 'Juan David Chaves, cofundador, a la izquierda, y David Alejandro Vásquez, fundador de Prisma Vertex, a la derecha, sosteniendo un prisma atravesado por un haz de luz.',
 } as const;
 
 /**
@@ -75,24 +75,9 @@ export const NICHO_TEXTOS = {
   turnero: 'Turnero inteligente',
   agente: 'Agente de WhatsApp con IA',
   conectamos: 'No reemplazamos tu facturador ni tu historia clínica: los conectamos.',
-  casoPreparacion: 'Caso en preparación',
-  casoPreparacionTexto:
-    'Estamos documentando los resultados con un cliente de este sector. No publicamos cifras hasta poder sostenerlas.',
+  caso: 'Caso de éxito',
   revisar: 'textos de esta página por revisar con David',
 } as const;
-
-/**
- * Caso publicado en una página de nicho. Los campos vacíos se muestran como
- * PENDIENTE: no se publica ninguna cifra que David no haya entregado.
- */
-export type CasoNicho = {
-  cliente: string;
-  resultado: string;
-  problema: string;
-  hicimos: string;
-  cifras: string;
-  cita: string;
-};
 
 export type Nicho = {
   slug: string;
@@ -113,8 +98,6 @@ export type Nicho = {
   video: string;
   turnero: string;
   agente: string;
-  /** null = «Caso en preparación». */
-  caso: CasoNicho | null;
   calculadora: DatosCalculadora;
   preguntas: Pregunta[];
   /** Mensaje prellenado de WhatsApp: dice de qué nicho viene la persona. */
@@ -172,7 +155,6 @@ export const NICHOS: Nicho[] = [
       'Asigna turnos por tipo de estudio y por equipo, reparte la demanda a lo largo del día y le avisa a cada paciente a qué hora llegar.',
     agente:
       'Atiende el WhatsApp de día y de noche: recibe la remisión del odontólogo, agenda el estudio, explica la preparación y avisa cuando el resultado está listo.',
-    caso: { cliente: 'Panorex', resultado: '', problema: '', hicimos: '', cifras: '', cita: '' },
     calculadora: {
       tipo: 'inasistencia',
       titulo: '¿Cuánto pierde tu centro por los pacientes que no llegan?',
@@ -232,7 +214,6 @@ export const NICHOS: Nicho[] = [
       'Reparte las tomas de muestra en franjas para que no se concentren a primera hora, y le recuerda a cada paciente su turno y su preparación.',
     agente:
       'Responde a cualquier hora las preguntas de ayuno y preparación según el examen, recibe la orden médica y avisa por WhatsApp cuando el resultado está listo.',
-    caso: null,
     calculadora: {
       tipo: 'inasistencia',
       titulo: '¿Cuánto pierde tu laboratorio en tomas que se reprograman?',
@@ -292,7 +273,6 @@ export const NICHOS: Nicho[] = [
       'Agenda las valoraciones según la disponibilidad de cada especialista, confirma la cita y la recuerda el día anterior.',
     agente:
       'Responde al instante en Instagram y WhatsApp, en español y en inglés: resuelve dudas de los procedimientos y agenda la valoración.',
-    caso: null,
     calculadora: {
       tipo: 'inasistencia',
       titulo: '¿Cuánto pierde tu clínica en valoraciones que no se cumplen?',
@@ -355,7 +335,6 @@ export const NICHOS: Nicho[] = [
       'Organiza la agenda por profesional y por sillón, confirma cada cita el día anterior y llena los huecos con pacientes en lista de espera.',
     agente:
       'Confirma y reprograma citas por WhatsApp, recuerda los controles de cada tratamiento y responde las dudas frecuentes a cualquier hora.',
-    caso: null,
     calculadora: {
       tipo: 'inasistencia',
       titulo: '¿Cuánto pierde tu clínica por las citas que no se cumplen?',
@@ -539,17 +518,6 @@ export const CALCULADORA: DatosCalculadora = {
     'Estimación con el valor legal de la hora (salario ÷ 210) más un 52 % de prestaciones y aportes del empleador.',
 };
 
-/**
- * Resultados. Las cifras van vacías a propósito: no se inventan.
- * Al llenar `cifra` y `texto`, la tarjeta deja de mostrar el marcador sola.
- */
-export type Resultado = { cifra: string; texto: string; pendiente: string };
-
-export const RESULTADOS: Resultado[] = [
-  { cifra: '', texto: '', pendiente: '−XX horas por semana en empresa del sector X' },
-  { cifra: '', texto: '', pendiente: '+XX % de margen en empresa del sector Y' },
-];
-
 export const PASOS = [
   { titulo: 'Diagnóstico', texto: 'encontramos dónde se va tu tiempo y tu dinero.' },
   { titulo: 'Plan', texto: 'te mostramos cuánto puedes ganar.' },
@@ -601,22 +569,132 @@ export const CIERRE = {
 } as const;
 
 /**
- * Casos publicados. Vacío a propósito: cuando David entregue los reales, se
- * agregan aquí y /casos deja de mostrar la plantilla sola.
- * Orden de la ficha: resultado primero, cifras al final. `tiempo` y `cita`
- * son opcionales, pero un caso con la frase del cliente convence más.
+ * Casos de éxito destacados. De aquí salen la sección del inicio, /casos y
+ * el caso de cada página de nicho (por `nicho`). Una especialidad sin caso
+ * no muestra esa sección.
+ *
+ * Decisión de David (10 de noviembre de 2026): por ahora solo Panorex y
+ * Lucas Vázquez. El caso de Panorex, con su cifra, es el que entregó David
+ * ese día. El de Lucas Vázquez es la frase que dio David: sin cifras.
+ * `cifra` y `cita` son opcionales y aparecen solos al llenarlos.
+ * ← PENDIENTE: autorización escrita de Panorex para usar su nombre y su logo.
  */
+export type PuntoCaso = { titulo: string; texto: string };
+
 export type Caso = {
-  resultado: string;
+  /** Ancla en /casos: /casos#panorex. */
+  id: string;
+  cliente: string;
   sector: string;
-  problema: string;
-  hicimos: string;
-  cifras: string;
-  tiempo?: string;
+  /** Slug de la página de nicho donde también aparece. */
+  nicho: string;
+  /** Logo del cliente (ver LOGOS en CasoDestacado.tsx); null = iniciales. */
+  logo: 'panorex' | null;
+  titulo: string;
+  resumen: string;
+  cifra?: { valor: string; texto: string };
+  hicimos: PuntoCaso[];
+  resultados: PuntoCaso[];
   cita?: string;
 };
 
-export const CASOS: Caso[] = [];
+export const CASOS_SECCION = {
+  titulo: 'Casos de éxito destacados',
+  texto: 'Clientes del sector salud que ya trabajan con lo que construimos.',
+  boton: 'Ver casos completos',
+  hicimos: 'Lo que hicimos',
+  resultados: 'Resultados',
+  verCaso: 'Ver el caso completo',
+  verNicho: 'Ver la solución para',
+} as const;
+
+export const CASOS: Caso[] = [
+  {
+    id: 'panorex',
+    cliente: 'Panorex',
+    sector: 'Radiología oral · Popayán, Cauca',
+    nicho: 'centros-radiologicos',
+    logo: 'panorex',
+    titulo: 'Toda la operación de un centro de imagenología oral, en un solo sistema',
+    resumen:
+      'Panorex llevaba caja, turnos, pacientes y odontólogos remitentes a mano y en lugares distintos. Lo unificamos todo y automatizamos la operación diaria.',
+    cifra: {
+      valor: '≈ 3 h',
+      texto: 'ahorradas al día en turnos, cuadres de caja, envíos y registros contables.',
+    },
+    hicimos: [
+      {
+        titulo: 'Sistema de gestión a la medida',
+        texto: 'Caja y arqueo, técnicos, catálogo de procedimientos, pacientes, odontólogos y créditos por cobrar en un solo lugar.',
+      },
+      {
+        titulo: 'Turnero inteligente',
+        texto: 'Los pacientes gestionan su propio turno, más rápido y sin filas ni llamadas.',
+      },
+      {
+        titulo: 'Envíos automatizados',
+        texto: 'Resultados y notificaciones llegan solos a pacientes y odontólogos.',
+      },
+      {
+        titulo: 'Conexiones contables automáticas vía MCP',
+        texto: 'La información de ventas y facturación pasa a contabilidad sin digitarla dos veces.',
+      },
+      {
+        titulo: 'Control de caja confiable',
+        texto: 'Cierre ciego, confirmación del medio de pago y reportes por rango de fechas.',
+      },
+      {
+        titulo: 'Base comercial de odontólogos',
+        texto: 'Más de 400 remitentes de Popayán y el Cauca, listos para campañas de crecimiento.',
+      },
+      {
+        titulo: 'Blindaje legal',
+        texto: 'Términos y condiciones, consentimiento informado y política de tratamiento de datos (Ley 1581 de 2012).',
+      },
+    ],
+    resultados: [
+      {
+        titulo: 'Aprox. 3 horas ahorradas al día',
+        texto: 'En turnos, cuadres de caja, envíos y registros contables.',
+      },
+      {
+        titulo: 'Listo para escalar',
+        texto: 'Atiende más pacientes y más remitentes sin aumentar el personal administrativo.',
+      },
+      {
+        titulo: 'Cliente muy satisfecho',
+        texto: 'Operación más ágil, ordenada y con claridad total del negocio.',
+      },
+    ],
+  },
+  {
+    id: 'lucas-vazquez',
+    cliente: 'Lucas Vázquez',
+    sector: 'Odontología',
+    nicho: 'clinicas-odontologicas',
+    logo: null,
+    titulo: 'Un gestor de historias clínicas a su medida',
+    resumen:
+      'Le creamos un gestor de historias clínicas donde lleva el registro digital de todos sus pacientes.',
+    hicimos: [
+      {
+        titulo: 'Gestor de historias clínicas',
+        texto: 'El registro digital de todos sus pacientes, en un solo lugar.',
+      },
+    ],
+    resultados: [
+      {
+        titulo: 'Historias 100 % al día',
+        texto: 'Todas las historias de sus pacientes en digital y actualizadas.',
+      },
+    ],
+  },
+];
+
+/** El caso de una especialidad, si lo tiene. */
+export function casoDeNicho(slug: string): Caso | undefined {
+  return CASOS.find((c) => c.nicho === slug);
+}
 
 /** La conversación previa al diagnóstico. Filtra antes de cobrar. */
 export const LLAMADA_INICIAL = {
@@ -697,17 +775,16 @@ export const NOTA_PRECIOS =
  * Juan David es el de la izquierda (gafas, barba) y David el de la derecha.
  * Juan David lleva además una foto suya aparte, que entregó David.
  *
- * `linkedin` ← PENDIENTE para los tres. Con la URL puesta, la tarjeta muestra
- * el enlace sola: una foto con credenciales al lado convence más que sola.
+ * `linkedin` queda vacío: David decidió que solo la empresa tiene LinkedIn
+ * (CONTACTO.linkedin). Si algún día lo llevan, la tarjeta muestra el enlace sola.
  *
- * Sebastián va como colaborador, sin foto y solo con su nombre de pila,
- * como firma su propia hoja de vida: `foto: null` dibuja una silueta.
+ * Nombres completos confirmados por David el 10 de noviembre de 2026.
+ * Sebastián va como colaborador y sin foto: `foto: null` dibuja una silueta.
  *
  * `trayectoria` es la hoja de vida en pocas líneas. La de David es la que él
  * dictó; las de Juan David y Sebastián salen de sus hojas de vida
  * (10 de noviembre de 2026). A propósito no van teléfonos, direcciones ni
  * referencias, ni los trabajos que no tienen que ver con lo que vendemos.
- * ← CONFIRMAR la escritura de «Fundetec Medellín».
  */
 export type Integrante = {
   nombre: string;
@@ -732,7 +809,7 @@ export const EQUIPO_SECCION = {
 
 export const EQUIPO: Integrante[] = [
   {
-    nombre: 'David Vásquez',
+    nombre: 'David Alejandro Vásquez',
     cargo: 'Fundador',
     sigla: 'CEO',
     rol: 'Estrategia y relación con cada cliente.',
@@ -769,7 +846,7 @@ export const EQUIPO: Integrante[] = [
     linkedin: '',
   },
   {
-    nombre: 'Sebastián',
+    nombre: 'Sebastián Molano',
     cargo: 'Software e inteligencia artificial',
     sigla: 'Colaborador',
     rol: 'Desarrollo de software y modelos de inteligencia artificial.',

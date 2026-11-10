@@ -1,28 +1,17 @@
 import Boton from '@/components/Boton';
-import Pendiente from '@/components/Pendiente';
+import CasoDestacado from '@/components/CasoDestacado';
 import Revelar from '@/components/Revelar';
 import { CASOS } from '@/lib/contenido';
 import { metaDe, migasJsonLd } from '@/lib/seo';
 
 export const metadata = metaDe({
-  titulo: 'Casos de optimización de procesos',
+  titulo: 'Casos de éxito en el sector salud',
   descripcion:
-    'Resultados medidos en empresas que optimizaron sus procesos con Prisma Vertex: cuánto tiempo y cuánto dinero ganaron.',
+    'Casos de éxito de Prisma Vertex: el sistema de gestión y el turnero de Panorex Radiología Oral y el gestor de historias clínicas de Lucas Vázquez.',
   ruta: '/casos',
 });
 
 const migas = migasJsonLd([{ nombre: 'Casos', ruta: '/casos' }]);
-
-/* El orden de la ficha no es decorativo: primero el resultado, porque es lo
-   único que le interesa a quien está decidiendo. Después el contexto. */
-const RANURAS = [
-  { clave: 'resultado', etiqueta: 'Resultado' },
-  { clave: 'problema', etiqueta: 'El problema' },
-  { clave: 'hicimos', etiqueta: 'Qué hicimos' },
-  { clave: 'cifras', etiqueta: 'Las cifras' },
-  { clave: 'tiempo', etiqueta: 'En cuánto tiempo' },
-  { clave: 'cita', etiqueta: 'La frase del cliente' },
-] as const;
 
 export default function Casos() {
   return (
@@ -33,80 +22,24 @@ export default function Casos() {
       />
 
       <div className="lienzo">
-        <h1 className="text-d1">Resultados reales</h1>
+        <h1 className="text-d1">Casos de éxito</h1>
         <p className="text-guia text-gris medida mt-6">
-          Cada caso empieza por el resultado y termina por las cifras con las que
-          lo medimos.
+          Lo que construimos con nuestros clientes y lo que cambió en su día a día.
         </p>
 
-        {CASOS.length === 0 ? (
-          <Revelar retraso={60}>
-            <div className="mt-11 md:mt-14">
-              <div className="tarjeta px-6 py-9 md:px-10 md:py-11">
-                <p className="text-d3">Los casos están en preparación.</p>
-                <p className="text-cuerpo text-gris mt-3 max-w-[58ch]">
-                  No publicamos cifras que no podamos sostener, y los nombres de
-                  nuestros clientes solo se divulgan con su autorización escrita.
-                  Esta es la estructura que va a tener cada ficha:
-                </p>
+        <div className="mt-11 grid gap-6 md:mt-14 md:gap-8">
+          {CASOS.map((c, i) => (
+            <Revelar key={c.id} retraso={i * 80}>
+              <CasoDestacado caso={c} completo Titulo="h2" enlaceNicho />
+            </Revelar>
+          ))}
+        </div>
 
-                <dl className="mt-8 grid gap-5 sm:grid-cols-2">
-                  {RANURAS.map((r) => (
-                    <div key={r.clave}>
-                      <dt className="text-menudo font-semibold">{r.etiqueta}</dt>
-                      <dd className="mt-2">
-                        <Pendiente>{r.etiqueta.toLowerCase()} del caso</Pendiente>
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-
-              <div className="mt-9">
-                <Boton href="/diagnostico" variante="calma">
-                  Quiero mi diagnóstico
-                </Boton>
-              </div>
-            </div>
-          </Revelar>
-        ) : (
-          <div className="mt-11 grid gap-6 md:mt-14">
-            {CASOS.map((c, i) => (
-              <Revelar key={c.resultado} retraso={i * 80}>
-                <article className="tarjeta px-6 py-9 md:px-10 md:py-11">
-                  <h2 className="text-d2 text-azul">{c.resultado}</h2>
-                  <p className="text-menudo text-gris mt-2">
-                    {c.sector}
-                    {c.tiempo && ` · en ${c.tiempo}`}
-                  </p>
-
-                  {/* La frase del cliente va antes del detalle: es lo que más
-                      convence, y en sus palabras, no en las nuestras. */}
-                  {c.cita && (
-                    <blockquote className="text-guia border-azul mt-6 border-l-2 pl-5">
-                      «{c.cita}»
-                    </blockquote>
-                  )}
-
-                  <dl className="mt-7 grid gap-6 sm:grid-cols-3">
-                    <div>
-                      <dt className="text-menudo font-semibold">El problema</dt>
-                      <dd className="text-cuerpo text-gris mt-2">{c.problema}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-menudo font-semibold">Qué hicimos</dt>
-                      <dd className="text-cuerpo text-gris mt-2">{c.hicimos}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-menudo font-semibold">Las cifras</dt>
-                      <dd className="text-cuerpo text-gris mt-2">{c.cifras}</dd>
-                    </div>
-                  </dl>
-                </article>
-              </Revelar>
-            ))}
-          </div>
-        )}
+        <div className="mt-10">
+          <Boton href="/diagnostico" variante="calma">
+            Quiero mi diagnóstico
+          </Boton>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import Boton from './Boton';
 import Calculadora from './Calculadora';
+import CasoDestacado from './CasoDestacado';
 import Cierre from './Cierre';
 import Faq from './Faq';
 import Garantia from './Garantia';
@@ -7,7 +8,7 @@ import Pendiente from './Pendiente';
 import Precios from './Precios';
 import Revelar from './Revelar';
 import { ICONOS, IconoIa, IconoTiempo } from './Iconos';
-import { NICHO_TEXTOS as T, type Nicho } from '@/lib/contenido';
+import { NICHO_TEXTOS as T, casoDeNicho, type Nicho } from '@/lib/contenido';
 import { wa } from '@/lib/config';
 import { migasJsonLd } from '@/lib/seo';
 
@@ -16,12 +17,13 @@ import { migasJsonLd } from '@/lib/seo';
  * plantilla solo decide el orden y la forma:
  *
  * 1. titular · 2. ¿te pasa esto? · 3. cómo funciona (video) ·
- * 4. lo que instalamos · 5. caso · 6. calculadora · 7. preguntas ·
+ * 4. lo que instalamos · 5. caso de éxito (si lo hay, de CASOS) · 6. calculadora · 7. preguntas ·
  * 8. garantía y precio · 9. cierre con WhatsApp que dice de qué nicho viene.
  */
 export default function PaginaNicho({ nicho }: { nicho: Nicho }) {
   const Icono = ICONOS[nicho.icono];
   const whatsapp = wa(nicho.mensaje);
+  const caso = casoDeNicho(nicho.slug);
 
   const migas = migasJsonLd([{ nombre: nicho.nombre, ruta: nicho.ruta }]);
   const faqJsonLd = {
@@ -156,55 +158,17 @@ export default function PaginaNicho({ nicho }: { nicho: Nicho }) {
         </div>
       </section>
 
-      {/* 5. Caso y testimonio */}
-      <section className="bloque filete">
-        <div className="lienzo">
-          <Revelar>
-            {nicho.caso ? (
-              <article className="tarjeta px-6 py-8 md:px-10 md:py-10">
-                <h2 className="text-d2">Caso {nicho.caso.cliente}</h2>
-                <dl className="mt-7 grid gap-6 sm:grid-cols-2">
-                  {(
-                    [
-                      ['Resultado', nicho.caso.resultado],
-                      ['El problema', nicho.caso.problema],
-                      ['Qué hicimos', nicho.caso.hicimos],
-                      ['Las cifras', nicho.caso.cifras],
-                    ] as const
-                  ).map(([etiqueta, valor]) => (
-                    <div key={etiqueta}>
-                      <dt className="text-menudo font-semibold">{etiqueta}</dt>
-                      <dd className="text-cuerpo text-gris mt-2">
-                        {valor || (
-                          <Pendiente>
-                            {etiqueta.toLowerCase()} del caso {nicho.caso?.cliente}
-                          </Pendiente>
-                        )}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-                <div className="filete mt-8 pt-6">
-                  {nicho.caso.cita ? (
-                    <blockquote className="text-guia border-azul border-l-2 pl-5">
-                      «{nicho.caso.cita}»
-                    </blockquote>
-                  ) : (
-                    <Pendiente>testimonio de {nicho.caso.cliente}</Pendiente>
-                  )}
-                </div>
-              </article>
-            ) : (
-              <div className="tarjeta px-6 py-8 md:px-10">
-                <h2 className="text-d3">{T.casoPreparacion}</h2>
-                <p className="text-cuerpo text-gris mt-2 max-w-[60ch]">
-                  {T.casoPreparacionTexto}
-                </p>
-              </div>
-            )}
-          </Revelar>
-        </div>
-      </section>
+      {/* 5. Caso de éxito: solo en las especialidades que lo tienen. */}
+      {caso && (
+        <section className="bloque filete">
+          <div className="lienzo">
+            <Revelar>
+              <p className="text-azul text-menudo mb-5 font-semibold">{T.caso}</p>
+              <CasoDestacado caso={caso} completo Titulo="h2" />
+            </Revelar>
+          </div>
+        </section>
+      )}
 
       {/* 6. Calculadora del nicho */}
       <Calculadora datos={nicho.calculadora} href={whatsapp} />

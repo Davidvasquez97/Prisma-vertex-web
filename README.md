@@ -26,8 +26,7 @@ npm start        # sirve el build para revisarlo
 | Garantía | `lib/contenido.ts` → `GARANTIA` |
 | Supuestos de la calculadora | `lib/contenido.ts` → `CALCULADORA` |
 | Preguntas frecuentes | `lib/contenido.ts` → `PREGUNTAS` |
-| Cifras de resultados | `lib/contenido.ts` → `RESULTADOS` |
-| Casos publicados | `lib/contenido.ts` → `CASOS` |
+| Casos de éxito (inicio, /casos y nichos) | `lib/contenido.ts` → `CASOS` |
 | Equipo, cargos, trayectoria y LinkedIn | `lib/contenido.ts` → `EQUIPO` |
 | Especialidades y sus páginas | `lib/contenido.ts` → `NICHOS` |
 | Otros sectores | `lib/contenido.ts` → `OTROS_SECTORES` |
@@ -51,7 +50,7 @@ objeciones al precio → quiénes somos → cierre.
 | Especialistas en (cuatro nichos) | `Nichos` |
 | Calculadora de cuánto pierde la empresa | `Calculadora` |
 | Cómo trabajamos y con qué | `Proceso`, `Herramientas` |
-| Resultados | `Resultados` |
+| Casos de éxito destacados | `Resultados`, `CasoDestacado` |
 | Garantía | `Garantia` |
 | Precios | `Precios`, `Billetes` |
 | Preguntas frecuentes | `Faq` |
@@ -123,12 +122,13 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
 2. **Aprobar los precios**: USD 95 y USD 190 (antes 65 y 120).
 3. **Revisión legal** de `/terminos` y `/politica-de-datos`. Son borradores
    sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
-4. **Casos con cifras** — `lib/contenido.ts` → `CASOS`, y las dos cifras de
-   `RESULTADOS`. Hay una plantilla para recolectarlos en el estudio de mercado.
-5. **Confirmar el apellido de David.** El sitio usa Vásquez, como el brief
-   y el usuario de GitHub; en los mensajes aparece también Vázquez. Chaves
-   ya está confirmado por la hoja de vida de Juan David.
-6. **LinkedIn** de la empresa, de David y de Juan David.
+4. **Autorización escrita de Panorex** para usar su nombre y su logo, y
+   las frases de Panorex y de Lucas Vázquez si quieren dar una (campo `cita`).
+5. **Más casos**: hoy solo hay dos, por decisión de David. Se agregan en
+   `CASOS` con el slug de su especialidad y aparecen solos en el inicio,
+   en /casos y en la página del nicho.
+6. **URL del LinkedIn de Prisma Vertex** (`CONTACTO.linkedin`). Los
+   integrantes no llevan LinkedIn propio.
 7. **Activar Web Analytics** en el panel de Vercel y después poner
    `ANALITICA_ACTIVA` en `true`. Antes de activarla, su script da 404.
 8. **Destino del formulario** — `FORMULARIO_ENDPOINT`. Con un endpoint de
@@ -138,10 +138,8 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
 11. **Dominio propio**, y con él apagar el modo vista previa.
 12. **Usuario real de Instagram.**
 13. **Videos demo** de los cuatro nichos (campo `video` en `NICHOS`).
-14. **Caso Panorex**: resultado, problema, qué hicimos, cifras, testimonio y
-    autorización escrita para nombrarlo.
-15. **Permiso de Ciclismo en Línea** para publicar la foto de David en la
-    etapa, y confirmar la escritura de «Fundetec Medellín».
+14. **Permiso de Ciclismo en Línea** para publicar la foto de David en la
+    etapa.
 
 Todos están listados también en `PENDIENTES`, dentro de `lib/config.ts`.
 
@@ -206,6 +204,8 @@ solos.
   que gira en la entrada.
 - `assets/logo-marca.jpg` — la pirámide del encabezado y el pie, mostrada con
   `mix-blend-mode: multiply` para que el fondo blanco desaparezca.
+- `assets/logo-panorex.png` — el logo de Panorex que entregó David, recortado;
+  se muestra con `mix-blend-mode: multiply` sobre la tarjeta de su caso.
 - `assets/equipo-prisma.jpg` — Juan David (izquierda) y David (derecha), en
   el hero.
 - `assets/retrato-david.jpg` y `retrato-juan-david-grado.jpg` — los

@@ -90,12 +90,9 @@ export const MENSAJES = {
  * Se lista en el README y se marca en pantalla con el componente Pendiente.
  */
 export const PENDIENTES = [
-  'Cifras reales de los dos resultados del inicio.',
-  'Casos completos para /casos.',
   'Tiempos reales de implementación (pregunta 2 del acordeón).',
-  'URL de LinkedIn de la empresa y de David y Juan David (lib/contenido.ts → EQUIPO).',
+  'URL del LinkedIn de Prisma Vertex (CONTACTO.linkedin). Los integrantes no llevan LinkedIn propio.',
   'Aprobar la garantía de devolución del 100 % y los precios nuevos (lib/contenido.ts).',
-  'Confirmar la ortografía del apellido de David: el sitio usa Vásquez (Chaves ya está confirmado por su hoja de vida).',
   'Activar Web Analytics en el panel de Vercel y después poner ANALITICA_ACTIVA en true.',
   'Endpoint del formulario de diagnóstico.',
   'Texto legal de /politica-de-datos revisado por David.',
@@ -105,8 +102,8 @@ export const PENDIENTES = [
   'Revisar la tasa TASA_COP cada tanto: los precios en pesos salen de ahí.',
   // Nichos y otros sectores (lib/contenido.ts → NICHOS, OTROS_SECTORES)
   'Videos demo de los cuatro nichos: poner la ruta en `video` de cada uno en NICHOS.',
-  'Caso Panorex: resultado, problema, qué hicimos, cifras y testimonio, más su autorización escrita para nombrarlo.',
+  'Autorización escrita de Panorex para usar su nombre y su logo (lib/contenido.ts → CASOS).',
+  'Frase de Panorex y de Lucas Vázquez para sus casos (campo cita, opcional).',
   // Equipo (lib/contenido.ts → EQUIPO)
   'Permiso de Ciclismo en Línea para publicar la foto de David en la etapa (ya lleva su crédito).',
-  'Confirmar la escritura de «Fundetec Medellín».',
 ] as const;
