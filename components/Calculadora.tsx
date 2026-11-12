@@ -11,6 +11,9 @@ import {
 import estilos from './Calculadora.module.css';
 
 const pesos = (n: number) => '$' + Math.round(n).toLocaleString('es-CO');
+/* La pérdida se escribe en negativo («−$2.350.000») para que nadie la lea
+   como un precio. Es el signo menos tipográfico, no un guion. */
+const perdida = (n: number) => (n > 0 ? '−' : '') + pesos(n);
 const redondeo = (n: number) => Math.round(n / 10_000) * 10_000;
 
 /** El valor de una barra, escrito como se lee: «5 personas», «$2.500.000», «15 %». */
@@ -107,7 +110,7 @@ export default function Calculadora({
         </Revelar>
 
         <Revelar retraso={80}>
-          <div className="mt-11 grid gap-5 md:mt-14 md:grid-cols-[1.1fr_0.9fr] md:gap-6">
+          <div className="mt-11 grid gap-5 md:mt-14 md:grid-cols-2 md:gap-6">
             <div className="tarjeta grid gap-8 px-6 py-8 md:px-9 md:py-10">
               {datos.campos.map((campo, i) => (
                 <Barra
@@ -121,14 +124,24 @@ export default function Calculadora({
             </div>
 
             <div
-              className="tarjeta border-azul flex flex-col px-6 py-8 md:px-9 md:py-10"
+              className={`tarjeta flex flex-col px-6 py-8 md:px-9 md:py-10 ${estilos.resultado}`}
               aria-live="polite"
             >
-              <p className="text-menudo text-gris">{datos.resultado}</p>
-              <p className={`text-d0 text-azul mt-2 leading-none font-semibold ${estilos.cifra}`}>
-                {pesos(mes)}
+              <p className="text-rojo text-menudo flex items-center gap-2 font-semibold uppercase" style={{ letterSpacing: '0.08em' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M3 6l6 6 4-4 8 8" />
+                  <path d="M21 10v6h-6" />
+                </svg>
+                Pérdida estimada
               </p>
-              <p className="text-cuerpo text-gris mt-2">{datos.sufijo}</p>
+              <p className="text-d2 mt-3 font-semibold">{datos.resultado}</p>
+              <p
+                className={`text-rojo mt-4 leading-none font-semibold whitespace-nowrap ${estilos.cifra} ${estilos.monto}`}
+                style={{ '--largo': perdida(mes).length } as React.CSSProperties}
+              >
+                {perdida(mes)}
+              </p>
+              <p className="text-cuerpo text-gris mt-3">{datos.sufijo}</p>
 
               <dl className="filete mt-7 grid grid-cols-2 gap-5 pt-6">
                 <div>
@@ -139,7 +152,9 @@ export default function Calculadora({
                 </div>
                 <div>
                   <dt className="text-menudo text-gris">Al año</dt>
-                  <dd className={`text-d3 mt-1 ${estilos.cifra}`}>{pesos(anio)}</dd>
+                  <dd className={`text-d3 text-rojo mt-1 whitespace-nowrap ${estilos.cifra}`}>
+                    {perdida(anio)}
+                  </dd>
                 </div>
               </dl>
 

@@ -1,5 +1,6 @@
 import Billetes, { cuantosBilletes } from './Billetes';
 import Boton from './Boton';
+import { IconoEdificio } from './Iconos';
 import Revelar from './Revelar';
 import { enPesos, TASA_COP } from '@/lib/config';
 import { LLAMADA_INICIAL, NOTA_PRECIOS, PLANES } from '@/lib/contenido';
@@ -58,12 +59,17 @@ export default function Precios() {
 
                 <div className="mt-6 min-h-[72px]">
                   {p.usd === null ? (
-                    <>
-                      <p className="text-d3 text-azul">Más información</p>
-                      <p className="text-menudo text-gris mt-1.5">
-                        Lo cotizamos según el alcance
-                      </p>
-                    </>
+                    <div className="flex items-center gap-4">
+                      <span className="text-azul shrink-0">
+                        <IconoEdificio tam={68} />
+                      </span>
+                      <div>
+                        <p className="text-d3 text-azul">Más información</p>
+                        <p className="text-menudo text-gris mt-1.5">
+                          Lo cotizamos según el alcance
+                        </p>
+                      </div>
+                    </div>
                   ) : (
                     <>
                       <p className="flex items-center gap-2.5">

@@ -16,6 +16,9 @@
   --color-hondo: #0a2a6b;
   --color-linea: #dce3ec;
   --color-trazo: #c9d3e0;
+  /* Solo para lo que el cliente pierde (la calculadora). Contraste 6,5:1
+     sobre blanco: se lee bien aun en letra pequeña. */
+  --color-rojo: #c4202b;
 
   /* Escala 1.25. El mínimo del H1 es 40 px: el brief pide 32 como piso
      en móvil y conviene tener margen por encima. */

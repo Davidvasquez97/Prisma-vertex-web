@@ -18,10 +18,12 @@ const RETRATOS = {
 } as const;
 
 /* Fotos completas de «Saber más»: David en la etapa que ganó (de Ciclismo en
-   Línea, con su crédito) y Juan David en su grado. */
+   Línea, con su crédito) y Juan David en su grado. `encuadre` es el punto
+   que se queda a la vista si hay que recortar: en la de David, arriba, para
+   que nunca se corten la cara ni los brazos levantados. */
 const PERFILES = {
-  'david-etapa': perfilDavid,
-  'juan-david-grado': perfilJuanDavid,
+  'david-etapa': { src: perfilDavid, encuadre: '50% 4%' },
+  'juan-david-grado': { src: perfilJuanDavid, encuadre: '50% 30%' },
 } as const;
 
 /** Cuántas líneas de la trayectoria se ven en la tarjeta; el resto, en «Saber más». */
@@ -114,7 +116,8 @@ export default function Equipo() {
                         sigla={p.sigla}
                         rol={p.rol}
                         trayectoria={p.trayectoria}
-                        foto={p.perfil ? PERFILES[p.perfil] : null}
+                        foto={p.perfil ? PERFILES[p.perfil].src : null}
+                        encuadre={p.perfil ? PERFILES[p.perfil].encuadre : undefined}
                         credito={p.credito}
                       />
                     )}

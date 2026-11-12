@@ -19,6 +19,31 @@ const comun = {
   'aria-hidden': true,
 };
 
+/* ---- Precios ------------------------------------------------------ */
+
+/**
+ * Un edificio grande con dos más bajos al lado, para el plan de empresa
+ * grande: ocupa el lugar donde los otros planes llevan sus billetes.
+ */
+export function IconoEdificio({ tam = 56 }: { tam?: number }) {
+  return (
+    <svg {...comun} width={tam} height={tam} strokeWidth={1.2}>
+      <path d="M2.5 21.5h19" />
+      {/* Torre central, con antena */}
+      <path d="M8.5 21.5V4h7v17.5" />
+      <path d="M12 4V1.8" />
+      {/* Edificios laterales, más bajos */}
+      <path d="M15.5 10H20v11.5" />
+      <path d="M8.5 13H4v8.5" />
+      {/* Ventanas */}
+      <path d="M10.6 7h.01M13.4 7h.01M10.6 10h.01M13.4 10h.01M10.6 13h.01M13.4 13h.01M10.6 16h.01M13.4 16h.01" strokeWidth={1.6} />
+      <path d="M17.75 13h.01M17.75 16h.01M17.75 19h.01M6.25 16h.01M6.25 19h.01" strokeWidth={1.6} />
+      {/* Puerta */}
+      <path d="M11 21.5v-2.6h2v2.6" />
+    </svg>
+  );
+}
+
 /* ---- Lo que ganas ------------------------------------------------- */
 
 export function IconoTiempo() {

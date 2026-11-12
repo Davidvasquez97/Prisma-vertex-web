@@ -81,3 +81,20 @@
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
+
+/* Tarjeta del resultado: borde y franja superior en rojo suave, porque lo
+   que muestra es dinero que se está perdiendo. */
+.resultado {
+  container-type: inline-size;
+  border-color: color-mix(in srgb, var(--color-rojo) 32%, var(--color-base));
+  box-shadow: inset 0 4px 0 var(--color-rojo);
+}
+
+/* La cifra es lo más grande de la tarjeta y nunca se sale de ella: el
+   tamaño sale del ancho de la tarjeta dividido entre cuántos caracteres
+   tiene el número (--largo), con un tope de 4,5 rem. Así «−$2.350.000» se
+   ve enorme y «−$880.000.000» se encoge lo justo para caber. */
+.monto {
+  --largo: 11;
+  font-size: min(4.5rem, calc(100cqi / (var(--largo) * 0.62)));
+}

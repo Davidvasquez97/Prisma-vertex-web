@@ -16,6 +16,7 @@ export default function PerfilIntegrante({
   rol,
   trayectoria,
   foto,
+  encuadre = '50% 30%',
   credito,
 }: {
   nombre: string;
@@ -24,6 +25,8 @@ export default function PerfilIntegrante({
   rol: string;
   trayectoria: string[];
   foto: StaticImageData | null;
+  /** Qué punto de la foto se queda a la vista cuando hay que recortarla. */
+  encuadre?: string;
   credito: string;
 }) {
   const ventana = useRef<HTMLDialogElement>(null);
@@ -72,6 +75,7 @@ export default function PerfilIntegrante({
                 sizes="(min-width: 768px) 440px, 100vw"
                 placeholder="blur"
                 className={estilos.foto}
+                style={{ objectPosition: encuadre }}
               />
               {credito && (
                 <p className="absolute right-3 bottom-3 rounded bg-black/55 px-2 py-0.5 text-[0.75rem] text-white">
