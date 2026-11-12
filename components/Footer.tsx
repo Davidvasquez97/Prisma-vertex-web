@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Logo from './Logo';
-import { CONTACTO, MODO_VISTA_PREVIA, SITE } from '@/lib/config';
+import { CONTACTO, EMPRESA, MODO_VISTA_PREVIA, SITE } from '@/lib/config';
 import { NICHOS, NICHOS_SECCION } from '@/lib/contenido';
 
 /* Los nichos y «Otros sectores»: este es el único lugar del sitio, aparte
@@ -13,7 +13,19 @@ const sectores = [
 const legal = [
   { texto: 'Política de datos', href: '/politica-de-datos' },
   { texto: 'Términos y condiciones', href: '/terminos' },
+  { texto: 'Cookies', href: '/politica-de-datos#cookies' },
+  { texto: 'Peticiones, quejas y reclamos', href: '/terminos#pqr' },
 ];
+
+/* Identidad de quien vende (Ley 1480, art. 50): razón social, NIT y
+   dirección. Solo se muestran los datos que ya están en EMPRESA. */
+const identidad = [
+  EMPRESA.razonSocial || SITE.nombre,
+  EMPRESA.nit && `NIT ${EMPRESA.nit}`,
+  EMPRESA.direccion,
+  `${SITE.ciudad}, ${SITE.departamento}`,
+  `Tel. ${CONTACTO.whatsappVisible}`,
+].filter(Boolean);
 
 const canales = [
   { texto: `WhatsApp ${CONTACTO.whatsappVisible}`, href: `https://wa.me/${CONTACTO.whatsapp}` },
@@ -91,8 +103,20 @@ export default function Footer() {
       <div className="filete">
         <div className="lienzo py-6">
           <p className="text-menudo text-gris">
-            &copy; {anio} {SITE.nombre} · {SITE.pais}
+            &copy; {anio} {identidad.join(' · ')}
             {MODO_VISTA_PREVIA && ' · Sitio en construcción'}
+          </p>
+          <p className="text-menudo text-gris mt-2">
+            Autoridad de protección al consumidor:{' '}
+            <a
+              href="https://www.sic.gov.co"
+              target="_blank"
+              rel="noopener"
+              className="hover:text-azul underline underline-offset-4"
+            >
+              Superintendencia de Industria y Comercio
+            </a>
+            .
           </p>
         </div>
       </div>

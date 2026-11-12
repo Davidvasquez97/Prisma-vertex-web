@@ -1,6 +1,12 @@
-// BORRADOR LEGAL — pendiente de revisión por David Vásquez antes de publicar.
-// Redactado sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
-import { CONTACTO, SITE } from '@/lib/config';
+// Política de tratamiento de datos personales.
+// Redactada sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013 (hoy en el
+// Decreto 1074 de 2015, arts. 2.2.2.25.*), con los contenidos mínimos del
+// art. 13 del Decreto 1377. ← REVISAR con un abogado antes de lanzar.
+// Lo que se dice de cookies y almacenamiento se verificó el 12 de noviembre
+// de 2026: el sitio no crea cookies ni llama a servicios externos.
+import Link from 'next/link';
+import { Apartado, Correo, Identidad, Lista } from '@/components/Legal';
+import { ANALITICA_ACTIVA, CONTACTO, EMPRESA, SITE, VERSION_LEGAL } from '@/lib/config';
 import { metaDe, migasJsonLd } from '@/lib/seo';
 
 export const metadata = metaDe({
@@ -10,39 +16,9 @@ export const metadata = metaDe({
   ruta: '/politica-de-datos',
 });
 
-const migas = migasJsonLd([
-  { nombre: 'Política de datos', ruta: '/politica-de-datos' },
-]);
+const migas = migasJsonLd([{ nombre: 'Política de datos', ruta: '/politica-de-datos' }]);
 
-const ACTUALIZADO = '7 de noviembre de 2026';
-
-const apartados = [
-  {
-    titulo: '2. Qué datos recogemos',
-    texto:
-      'Este sitio no usa cookies de analítica ni de publicidad. Tratamos únicamente los datos que usted nos entrega de forma voluntaria: los que escribe en el formulario de diagnóstico —nombre, empresa, número de WhatsApp y la descripción de lo que le quita tiempo a su equipo— y los que comparta si nos escribe por WhatsApp o por correo.',
-  },
-  {
-    titulo: '3. Para qué los usamos',
-    texto:
-      'Para responder su solicitud, agendar y prestar la consultoría, elaborar los documentos contratados, emitir la facturación correspondiente y mantener el contacto comercial. No vendemos, arrendamos ni compartimos sus datos con terceros para fines publicitarios.',
-  },
-  {
-    titulo: '5. Conservación y seguridad',
-    texto:
-      'Conservamos los datos mientras dure la relación comercial y durante el término necesario para cumplir las obligaciones legales y contables aplicables. Adoptamos medidas técnicas y administrativas razonables para proteger la información contra acceso o uso no autorizado.',
-  },
-  {
-    titulo: '6. Servicios de terceros',
-    texto:
-      'Las conversaciones iniciadas desde este sitio se realizan a través de WhatsApp, servicio operado por un tercero y sujeto a sus propias políticas de privacidad. El alojamiento del sitio está a cargo de Vercel, que puede registrar datos técnicos de la conexión, como la dirección IP, con fines de seguridad y disponibilidad. Para saber qué páginas se visitan usamos Vercel Web Analytics: el componente instalado no guarda cookies ni datos en su navegador, y lo que se registra se consulta de forma agregada (página visitada, país, navegador, tipo de dispositivo y sitio desde el que llegó). No lo usamos para identificarlo a usted. La calculadora del inicio funciona en su propio navegador: las cifras que usted mueve no se envían a ningún lado.',
-  },
-  {
-    titulo: '7. Cambios',
-    texto:
-      'Cualquier cambio en esta política se publicará en esta misma página con la fecha de actualización correspondiente.',
-  },
-];
+const correo = <Correo />;
 
 export default function PoliticaDeDatos() {
   return (
@@ -52,60 +28,203 @@ export default function PoliticaDeDatos() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(migas) }}
       />
       <div className="lienzo max-w-[68ch]">
-        <h1 className="text-d1">Política de tratamiento de datos</h1>
+        <h1 className="text-d1">Política de tratamiento de datos personales</h1>
         <p className="text-menudo text-gris mt-4">
-          Última actualización: {ACTUALIZADO}
+          Vigente desde el {VERSION_LEGAL}. Esta es la versión que acepta quien
+          envía el formulario de diagnóstico.
         </p>
 
-        <div className="text-cuerpo mt-10 space-y-8">
-          <div>
-            <h2 className="text-d3">1. Responsable del tratamiento</h2>
-            <p className="text-gris mt-3">
-              {SITE.nombre}, con domicilio en {SITE.ciudad},{' '}
-              {SITE.departamento}, {SITE.pais}, correo{' '}
-              <a href={`mailto:${CONTACTO.correo}`} className="text-azul">
-                {CONTACTO.correo}
-              </a>
-              , es responsable del tratamiento de los datos personales
-              recolectados a través de este sitio y de los canales de contacto
-              asociados.
+        <div className="text-cuerpo mt-10 space-y-9">
+          <Apartado titulo="1. Quién es el responsable">
+            <Identidad />
+            <p>
+              Somos responsables de los datos personales que recibimos por este
+              sitio ({SITE.dominio.replace('https://', '')}) y por los canales de
+              contacto que aparecen en él.
             </p>
-          </div>
+          </Apartado>
 
-          {apartados.slice(0, 2).map((a) => (
-            <div key={a.titulo}>
-              <h2 className="text-d3">{a.titulo}</h2>
-              <p className="text-gris mt-3">{a.texto}</p>
-            </div>
-          ))}
-
-          <div>
-            <h2 className="text-d3">4. Sus derechos</h2>
-            <p className="text-gris mt-3">
-              Conforme a la Ley 1581 de 2012, usted puede conocer, actualizar y
-              rectificar sus datos personales; solicitar prueba de la
-              autorización otorgada; ser informado sobre el uso que se ha dado a
-              sus datos; presentar quejas ante la Superintendencia de Industria
-              y Comercio; y revocar la autorización o solicitar la supresión de
-              sus datos cuando no exista un deber legal o contractual que lo
-              impida.
+          <Apartado titulo="2. Qué datos tratamos">
+            <Lista
+              items={[
+                'Los que usted escribe en el formulario de diagnóstico: nombre, empresa, número de WhatsApp y la descripción de lo que le quita tiempo a su equipo.',
+                'Los que comparta al escribirnos por WhatsApp o por correo, y los que necesitemos para contratar y facturar si se vuelve cliente.',
+                'Datos técnicos de la conexión, como la dirección IP, que el servicio de alojamiento registra por seguridad.',
+              ]}
+            />
+            <p>
+              <span className="text-tinta font-semibold">
+                Por favor no incluya datos de pacientes ni información de salud
+              </span>{' '}
+              en el formulario ni en el primer mensaje: no los necesitamos para
+              el diagnóstico. Si llega a incluirlos, entregarlos es facultativo y
+              los eliminaremos.
             </p>
-            <p className="text-gris mt-3">
-              Para ejercer cualquiera de estos derechos, escriba a{' '}
-              <a href={`mailto:${CONTACTO.correo}`} className="text-azul">
-                {CONTACTO.correo}
-              </a>
-              . Respondemos las consultas en un plazo máximo de diez días
-              hábiles y los reclamos en un plazo máximo de quince días hábiles.
+            <p>
+              Este sitio está dirigido a empresas y a sus representantes. No
+              recogemos a sabiendas datos de niños, niñas ni adolescentes.
             </p>
-          </div>
+          </Apartado>
 
-          {apartados.slice(2).map((a) => (
-            <div key={a.titulo}>
-              <h2 className="text-d3">{a.titulo}</h2>
-              <p className="text-gris mt-3">{a.texto}</p>
-            </div>
-          ))}
+          <Apartado titulo="3. Para qué los usamos">
+            <Lista
+              items={[
+                'Responder su solicitud y agendar la llamada o el diagnóstico.',
+                'Hacer el diagnóstico, preparar la propuesta y su cotización.',
+                'Contratar, facturar y cumplir nuestras obligaciones legales y contables.',
+                'Enviarle información de nuestros servicios. Puede pedirnos que no lo hagamos más en cualquier momento.',
+                'Proteger el sitio contra usos indebidos.',
+              ]}
+            />
+            <p>
+              No vendemos, arrendamos ni entregamos sus datos a terceros para
+              publicidad.
+            </p>
+          </Apartado>
+
+          <Apartado titulo="4. Su autorización">
+            <p>
+              Usted nos autoriza al marcar la casilla del formulario. Al enviarlo,
+              el mensaje que recibimos por WhatsApp incluye la aceptación de esta
+              política con su fecha de versión: así queda constancia de cuándo y
+              cómo la dio. Nunca entendemos el silencio como autorización.
+            </p>
+          </Apartado>
+
+          <Apartado titulo="5. Sus derechos">
+            <p>Conforme al artículo 8 de la Ley 1581 de 2012, usted puede:</p>
+            <Lista
+              items={[
+                'Conocer, actualizar y rectificar sus datos.',
+                'Pedir prueba de la autorización que nos dio.',
+                'Saber qué uso le hemos dado a sus datos.',
+                'Revocar la autorización o pedir que borremos sus datos, cuando no haya un deber legal o contractual de conservarlos.',
+                'Consultar sus datos de forma gratuita.',
+                'Presentar quejas ante la Superintendencia de Industria y Comercio, después de haber acudido primero a nosotros.',
+              ]}
+            />
+          </Apartado>
+
+          <Apartado id="consultas" titulo="6. Cómo ejercerlos">
+            <p>
+              Escríbanos a {correo} o al WhatsApp {CONTACTO.whatsappVisible}. Atiende
+              estas solicitudes {EMPRESA.responsableDatos}. Incluya su nombre, su
+              número de identificación, qué pide y cómo le respondemos.
+            </p>
+            <Lista
+              items={[
+                <>
+                  <span className="text-tinta font-semibold">Consultas</span> (qué
+                  datos tenemos y cómo los usamos): respondemos en máximo 10 días
+                  hábiles. Si no alcanzamos, le avisamos el motivo y respondemos en
+                  máximo 5 días hábiles más.
+                </>,
+                <>
+                  <span className="text-tinta font-semibold">Reclamos</span>{' '}
+                  (corregir, actualizar o borrar, o un incumplimiento): respondemos
+                  en máximo 15 días hábiles, prorrogables 8 más avisándole. Si falta
+                  información, se la pedimos dentro de los 5 días siguientes; si no
+                  llega en 2 meses, entendemos que desistió. Mientras se resuelve,
+                  marcamos el dato como «reclamo en trámite».
+                </>,
+              ]}
+            />
+          </Apartado>
+
+          <Apartado titulo="7. Quién nos ayuda a tratarlos">
+            <p>
+              Usamos proveedores que guardan o transportan los datos por nosotros,
+              como encargados. Están en Estados Unidos, país que la Superintendencia
+              de Industria y Comercio reconoce con un nivel adecuado de protección,
+              y sus contratos los obligan a proteger la información:
+            </p>
+            <Lista
+              items={[
+                'Vercel: aloja este sitio.',
+                'WhatsApp (Meta): el formulario y nuestras conversaciones pasan por WhatsApp, sujeto también a sus propias políticas de privacidad.',
+                'Google (Gmail): recibe los correos que nos escribe.',
+              ]}
+            />
+            <p>Si sumamos otro proveedor, lo informaremos aquí antes de usarlo.</p>
+          </Apartado>
+
+          <Apartado id="cookies" titulo="8. Cookies y almacenamiento en su navegador">
+            <p>
+              <span className="text-tinta font-semibold">Este sitio no usa cookies</span>{' '}
+              ni herramientas de publicidad o de seguimiento de terceros (como Google
+              Analytics o el píxel de Meta). Por eso no le mostramos un aviso de
+              cookies.
+            </p>
+            <p>
+              Solo guardamos una marca técnica en el almacenamiento de la pestaña
+              (sessionStorage), llamada <code className="text-tinta">pv-entrada</code>,
+              para que la animación de entrada no se repita mientras navega. No lo
+              identifica y se borra sola al cerrar la pestaña.
+            </p>
+            <p>
+              {ANALITICA_ACTIVA
+                ? 'Para saber qué páginas se visitan usamos Vercel Web Analytics, que no usa cookies: cuenta visitas de forma agregada (página, país, navegador y tipo de dispositivo) y no permite identificarlo.'
+                : 'Si más adelante medimos las visitas, usaremos Vercel Web Analytics, que no usa cookies y solo cuenta visitas de forma agregada; lo informaremos aquí.'}{' '}
+              La calculadora funciona en su propio navegador: las cifras que mueve
+              no se envían a ningún lado.
+            </p>
+            <p>
+              Si algún día usamos cookies que no sean estrictamente necesarias, le
+              pediremos su autorización antes de activarlas.
+            </p>
+          </Apartado>
+
+          <Apartado titulo="9. Cuánto tiempo los guardamos">
+            <Lista
+              items={[
+                'Solicitudes que no terminan en contrato: hasta 12 meses después del último contacto.',
+                'Clientes: mientras dure la relación y, después, el tiempo que exigen las normas contables y tributarias para los documentos de soporte.',
+              ]}
+            />
+            <p>
+              Protegemos la información con medidas técnicas y administrativas
+              razonables contra el acceso, el uso o la pérdida no autorizados.
+            </p>
+          </Apartado>
+
+          <Apartado titulo="10. Datos de los pacientes de nuestros clientes">
+            <p>
+              Cuando instalamos sistemas en centros de salud podemos tener acceso a
+              datos de sus pacientes. En ese caso el centro es el responsable y
+              nosotros actuamos como encargados: solo tratamos esos datos según sus
+              instrucciones, con un contrato de transmisión de datos firmado,
+              guardando la reserva de la historia clínica y sin usarlos para nada
+              más.
+            </p>
+          </Apartado>
+
+          <Apartado titulo="11. Cómo y cuándo lo contactamos">
+            <p>
+              Le respondemos por el canal que usted eligió. Los mensajes de
+              seguimiento comercial los enviamos de lunes a viernes de 7:00 a. m. a
+              7:00 p. m. y los sábados de 8:00 a. m. a 3:00 p. m., nunca en
+              domingos ni festivos, y como máximo una vez al día (Ley 2300 de 2023).
+              Basta con que nos diga «no quiero más mensajes» para dejar de
+              enviarlos.
+            </p>
+          </Apartado>
+
+          <Apartado titulo="12. Cambios y vigencia">
+            <p>
+              Si cambiamos algo importante de esta política, se lo avisaremos por
+              el canal que tengamos registrado antes de aplicarlo, y publicaremos
+              aquí la nueva versión con su fecha. Esta política rige desde el{' '}
+              {VERSION_LEGAL}, y las bases de datos se mantienen mientras la
+              empresa esté en operación.
+            </p>
+            <p>
+              Consulte también nuestros{' '}
+              <Link href="/terminos" className="text-azul underline underline-offset-4">
+                términos y condiciones
+              </Link>
+              .
+            </p>
+          </Apartado>
         </div>
       </div>
     </section>

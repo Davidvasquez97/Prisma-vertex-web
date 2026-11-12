@@ -40,6 +40,12 @@ export default function Diagnostico() {
               <div className="bg-hondo rounded-xl px-6 py-8 md:px-8">
                 <p className="text-d3 text-white">{GARANTIA.titulo}</p>
                 <p className="text-cuerpo mt-3 text-white/75">{GARANTIA.texto}</p>
+                <Link
+                  href="/terminos#garantia"
+                  className="text-menudo mt-5 inline-block py-1 font-semibold text-white underline underline-offset-4 hover:text-white/80"
+                >
+                  Condiciones de la garantía
+                </Link>
               </div>
 
               <div className="filete mt-8 pt-8">

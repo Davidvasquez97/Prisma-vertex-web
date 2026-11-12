@@ -17,6 +17,8 @@ npm start        # sirve el build para revisarlo
 | --- | --- |
 | WhatsApp, correo, Instagram, LinkedIn de la empresa | `lib/config.ts` → `CONTACTO` |
 | Dominio final | `lib/config.ts` → `SITE.dominio` |
+| Razón social, NIT y dirección | `lib/config.ts` → `EMPRESA` |
+| Fecha de la versión legal | `lib/config.ts` → `VERSION_LEGAL` |
 | Apagar el modo vista previa | `lib/config.ts` → `MODO_VISTA_PREVIA` |
 | Encender la analítica | `lib/config.ts` → `ANALITICA_ACTIVA` |
 | Tasa dólar a pesos de los precios | `lib/config.ts` → `TASA_COP` |
@@ -116,12 +118,19 @@ que tocar ningún componente.
 Tres son compromisos públicos con dinero de por medio y necesitan la
 aprobación de David y Juan David: la garantía, los precios y los términos.
 
-1. **Aprobar la garantía**: devolución del 100 % si el diagnóstico no encuentra
-   ahorros mayores a lo pagado. Falta definir el plazo para pedirla
-   (`app/terminos/page.tsx` lo marca).
-2. **Aprobar los precios**: USD 95 y USD 190 (antes 65 y 120).
-3. **Revisión legal** de `/terminos` y `/politica-de-datos`. Son borradores
-   sobre la Ley 1581 de 2012 y el Decreto 1377 de 2013.
+1. **Datos legales de la empresa** en `lib/config.ts` → `EMPRESA`: razón social,
+   NIT y dirección de notificación, tal cual el RUT y la Cámara de Comercio.
+   Salen en el pie (Ley 1480, art. 50) y en las páginas legales, que hoy los
+   marcan como PENDIENTE.
+2. **IVA y factura electrónica**: confirmar en el RUT si son responsables de
+   IVA (los precios publicados son el valor final) y habilitarse como
+   facturadores electrónicos ante la DIAN antes de cobrar, si su régimen lo
+   exige. Consultar con un contador.
+3. **Revisión legal** de `/terminos` y `/politica-de-datos` por un abogado.
+   Están redactados sobre la Ley 1581 de 2012, el Decreto 1377 de 2013, la
+   Ley 1480 de 2011, la Ley 527 de 1999 y la Ley 2300 de 2023. La garantía ya
+   tiene condiciones: 30 días para pedirla, ahorros estimados a 12 meses y
+   devolución en 15 días. Al cambiar algo, actualizar `VERSION_LEGAL`.
 4. **Autorización escrita de Panorex** para usar su nombre y su logo, y
    las frases de Panorex y de Lucas Vázquez si quieren dar una (campo `cita`).
 5. **Más casos**: hoy solo hay dos, por decisión de David. Se agregan en

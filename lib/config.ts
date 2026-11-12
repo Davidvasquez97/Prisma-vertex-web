@@ -25,6 +25,26 @@ export const SITE = {
   pais: 'Colombia',
 } as const;
 
+/**
+ * Identidad legal de quien vende. La Ley 1480 de 2011 (art. 50) obliga a
+ * publicarla en todo sitio que ofrece servicios: sale en el pie de página,
+ * en los términos y en la política de datos.
+ * ← PENDIENTE: copiarlos tal cual del RUT y del certificado de Cámara de
+ *   Comercio. Mientras estén vacíos, las páginas legales lo marcan.
+ */
+export const EMPRESA = {
+  /** Nombre o razón social exacta del RUT. */
+  razonSocial: '',
+  nit: '',
+  /** Dirección de notificación judicial del certificado de Cámara de Comercio. */
+  direccion: '',
+  /** Quién atiende consultas y reclamos de datos personales. */
+  responsableDatos: 'David Alejandro Vásquez, fundador y CEO',
+} as const;
+
+/** Fecha de la versión vigente de la política de datos y de los términos. */
+export const VERSION_LEGAL = '12 de noviembre de 2026';
+
 export const CONTACTO = {
   whatsapp: '573177359686',
   whatsappVisible: '+57 317 735 9686',
@@ -92,9 +112,15 @@ export const MENSAJES = {
 export const PENDIENTES = [
   'Tiempos reales de implementación (pregunta 2 del acordeón).',
   'URL del LinkedIn de Prisma Vertex (CONTACTO.linkedin). Los integrantes no llevan LinkedIn propio.',
-  'Aprobar la garantía de devolución del 100 % y los precios nuevos (lib/contenido.ts).',
   'Activar Web Analytics en el panel de Vercel y después poner ANALITICA_ACTIVA en true.',
-  'Texto legal de /politica-de-datos revisado por David.',
+  // Legal (ver /politica-de-datos y /terminos, versión VERSION_LEGAL)
+  'Razón social, NIT y dirección de notificación en EMPRESA, copiados del RUT y de la Cámara de Comercio.',
+  'Revisar en el RUT si son responsables de IVA: los precios publicados deben ser el valor final con impuestos.',
+  'Habilitarse como facturadores electrónicos ante la DIAN antes de cobrar, si el régimen lo exige (consultar con un contador).',
+  'Revisión de /politica-de-datos y /terminos por un abogado.',
+  'Autorización escrita de Lucas Vázquez para su caso.',
+  'Plantilla de contrato de transmisión de datos para clientes de salud.',
+  'Cambiar la fecha VERSION_LEGAL cada vez que cambien la política o los términos.',
   'Código de verificación de Google Search Console.',
   'Dominio propio y apagar MODO_VISTA_PREVIA.',
   'Logo en SVG (hoy es JPG con fondo blanco).',

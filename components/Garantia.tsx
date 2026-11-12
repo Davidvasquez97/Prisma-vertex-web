@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Revelar from './Revelar';
 import { GARANTIA } from '@/lib/contenido';
 
@@ -12,6 +13,14 @@ export default function Garantia() {
             <p className="text-guia mt-6 max-w-[52ch] text-white/75">
               {GARANTIA.texto}
             </p>
+            {/* Lo publicado obliga (Ley 1480, art. 29): las condiciones
+                exactas están a un clic. */}
+            <Link
+              href="/terminos#garantia"
+              className="text-menudo mt-7 inline-block py-1 font-semibold text-white underline underline-offset-4 hover:text-white/80"
+            >
+              Condiciones de la garantía
+            </Link>
           </div>
         </Revelar>
       </div>

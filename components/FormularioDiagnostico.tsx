@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import { FORMULARIO_ENDPOINT, MODO_VISTA_PREVIA, wa } from '@/lib/config';
+import { FORMULARIO_ENDPOINT, MODO_VISTA_PREVIA, VERSION_LEGAL, wa } from '@/lib/config';
 import { IconoWhatsapp } from './Iconos';
 import estilos from './FormularioDiagnostico.module.css';
 
@@ -44,6 +44,10 @@ export function mensajeSolicitud(c: Pick<Campos, 'nombre' | 'empresa' | 'whatsap
     `*Empresa:* ${c.empresa.trim()}`,
     `*Mi WhatsApp:* ${c.whatsapp.trim()}`,
     `*Lo que más tiempo nos quita:* ${c.reto.trim()}`,
+    '',
+    // Constancia de la autorización (Decreto 1377 de 2013, art. 7): queda
+    // escrita en el chat, con la versión de la política que se aceptó.
+    `Autorizo el tratamiento de mis datos según la Política de datos de Prisma Vertex (versión del ${VERSION_LEGAL}).`,
   ].join('\n');
 }
 
@@ -178,6 +182,7 @@ export default function FormularioDiagnostico() {
         <Campo
           nombre="reto"
           etiqueta="¿Qué le quita más tiempo a tu equipo?"
+          ayuda="No incluyas datos de pacientes ni información de salud."
           area
           valor={campos.reto}
           error={errores.reto}
@@ -195,16 +200,21 @@ export default function FormularioDiagnostico() {
               aria-describedby={errores.autoriza ? 'error-autoriza' : undefined}
               className="accent-azul mt-1 h-[18px] w-[18px] shrink-0"
             />
+            {/* Aviso de privacidad (Ley 1581, art. 12): quién, para qué, por
+                dónde pasan los datos y dónde ejercer los derechos. */}
             <span>
-              Autorizo a Prisma Vertex a tratar mis datos para contactarme, según la
-              Ley 1581 de 2012.{' '}
+              Autorizo a Prisma Vertex a tratar mis datos para responder mi
+              solicitud, hacer el diagnóstico y enviarme información de sus
+              servicios. Sé que mi solicitud se envía por WhatsApp y que puedo
+              conocer, corregir o pedir que borren mis datos en cualquier momento,
+              según la{' '}
               <Link
                 href="/politica-de-datos"
                 className="text-azul underline underline-offset-4"
               >
                 Política de datos
-              </Link>
-              .
+              </Link>{' '}
+              (Ley 1581 de 2012).
             </span>
           </label>
           {errores.autoriza && (
@@ -251,6 +261,7 @@ function Campo({
   onChange,
   tipo = 'text',
   marcador,
+  ayuda,
   area = false,
   autoComplete,
 }: {
@@ -261,10 +272,14 @@ function Campo({
   onChange: (v: string) => void;
   tipo?: string;
   marcador?: string;
+  /** Una línea de ayuda bajo la etiqueta, que también lee el lector de pantalla. */
+  ayuda?: string;
   area?: boolean;
   autoComplete?: string;
 }) {
   const idError = 'error-' + nombre;
+  const idAyuda = 'ayuda-' + nombre;
+  const descrito = [ayuda && idAyuda, error && idError].filter(Boolean).join(' ');
   const comun = {
     id: nombre,
     name: nombre,
@@ -272,7 +287,7 @@ function Campo({
     placeholder: marcador,
     autoComplete,
     'aria-invalid': error ? true : undefined,
-    'aria-describedby': error ? idError : undefined,
+    'aria-describedby': descrito || undefined,
     onChange: (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       onChange(ev.target.value),
   };
@@ -282,6 +297,11 @@ function Campo({
       <label htmlFor={nombre} className="text-menudo block font-semibold">
         {etiqueta}
       </label>
+      {ayuda && (
+        <p id={idAyuda} className="text-menudo text-gris mt-1">
+          {ayuda}
+        </p>
+      )}
       <div className="mt-2">
         {area ? (
           <textarea {...comun} rows={4} className={estilos.campo + ' ' + estilos.area} />

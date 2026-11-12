@@ -71,26 +71,25 @@ export default function Precios() {
                       </div>
                     </div>
                   ) : (
+                    // El precio principal va en pesos con impuestos incluidos
+                    // (Ley 1480, art. 26); el dólar queda como referencia.
                     <>
                       <p className="flex items-center gap-2.5">
                         <span className="text-azul">
-                          <Billetes n={cuantosBilletes(p.usd, BILLETE_USD)} />
+                          <Billetes n={cuantosBilletes(p.usd * TASA_COP, BILLETE_COP)} />
                         </span>
                         <span className="text-d2 cifra leading-none">
-                          USD {p.usd}
+                          {enPesos(p.usd)}
                         </span>
+                        <span className="text-menudo text-gris self-end">COP</span>
                       </p>
                       <p className="text-menudo text-gris mt-2.5 flex items-center gap-2">
                         <span className="text-trazo">
-                          <Billetes
-                            n={cuantosBilletes(p.usd * TASA_COP, BILLETE_COP)}
-                            escala={0.72}
-                          />
+                          <Billetes n={cuantosBilletes(p.usd, BILLETE_USD)} escala={0.72} />
                         </span>
-                        <span className="cifra">
-                          {enPesos(p.usd)} COP aprox.
-                        </span>
+                        <span className="cifra whitespace-nowrap">USD {p.usd} de referencia</span>
                       </p>
+                      <p className="text-menudo text-gris mt-1">Precio final, impuestos incluidos.</p>
                     </>
                   )}
                 </div>
