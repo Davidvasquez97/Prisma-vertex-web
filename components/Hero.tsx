@@ -6,16 +6,15 @@ import { HERO } from '@/lib/contenido';
 import estilos from './Hero.module.css';
 
 export default function Hero() {
-  // La última palabra viaja pegada al prisma: así el dibujo nunca cae
-  // solo en una línea nueva.
-  const corte = HERO.titulo.lastIndexOf(' ');
+  // Las dos últimas palabras («lo arreglamos.») viajan juntas y pegadas al
+  // prisma: así ni el dibujo ni el «lo» quedan sueltos en otra línea.
+  const corte = HERO.titulo.lastIndexOf(' ', HERO.titulo.lastIndexOf(' ') - 1);
   const inicio = HERO.titulo.slice(0, corte + 1);
   const final = HERO.titulo.slice(corte + 1);
 
   return (
     <section className="border-linea border-b">
-      {/* Una sola columna: el titular tiene todo el protagonismo. El ancho
-          máximo mantiene «Tu empresa puede / ganar más.» en dos líneas. */}
+      {/* Una sola columna: el titular tiene todo el protagonismo. */}
       <div className="lienzo pt-12 pb-14 md:pt-20 md:pb-20">
         <div className="max-w-[44rem]">
           <div className={`${estilos.entra} ${estilos.d1}`}>

@@ -7,12 +7,14 @@
  */
 
 export const HERO = {
-  rotulo: 'Consultoría en automatización e inteligencia artificial para empresas',
+  // Gancho en palabras que entienda cualquiera, «como para un niño de 10
+  // años» (David, 12 de noviembre de 2026): encontramos el problema y lo
+  // resolvemos con un programa.
+  rotulo: 'Creamos programas y sistemas para negocios',
   lugar: 'Colombia',
-  // El titular se corta en el punto: la promesa sola, sin nada detrás.
-  titulo: 'Tu empresa puede ganar más.',
+  titulo: 'Encontramos lo que frena tu negocio y lo arreglamos.',
   subtitulo:
-    'Te mostramos cómo. Ganas más tiempo y más dinero optimizando tus procesos.',
+    'Vemos dónde se pierde tiempo y dinero, y creamos el programa que hace ese trabajo por ti.',
   especialidad: 'Especialistas en centros de salud de alto volumen.',
   boton: 'Quiero mi diagnóstico',
   bajoBoton: 'Si no encontramos cómo ahorrarte, te devolvemos tu dinero.',
