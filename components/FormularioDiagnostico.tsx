@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import { FORMULARIO_ENDPOINT, MODO_VISTA_PREVIA } from '@/lib/config';
+import { FORMULARIO_ENDPOINT, MODO_VISTA_PREVIA, wa } from '@/lib/config';
+import { IconoWhatsapp } from './Iconos';
 import estilos from './FormularioDiagnostico.module.css';
 
 type Campos = {
@@ -22,11 +23,29 @@ const VACIO: Campos = {
 };
 
 /**
- * El formulario está apagado si no hay a dónde enviar, o si el sitio todavía
- * es una maqueta. Nunca finge: si no puede enviar, lo dice antes de que
- * alguien se tome el trabajo de llenarlo.
+ * La solicitud llega por WhatsApp: al enviar se abre el chat de Prisma Vertex
+ * con los datos ya escritos y la persona solo toca «Enviar». No necesita
+ * servidor ni cuentas, y queda en el mismo canal donde se responde.
+ *
+ * Si además se define FORMULARIO_ENDPOINT (Notion, correo…), se envía una
+ * copia ahí en silencio, como respaldo: si falla, WhatsApp sigue igual.
+ *
+ * Mientras el sitio sea una vista previa el formulario está apagado, y lo
+ * dice antes de que alguien se tome el trabajo de llenarlo.
  */
-const ACTIVO = !MODO_VISTA_PREVIA && FORMULARIO_ENDPOINT !== '';
+const ACTIVO = !MODO_VISTA_PREVIA;
+
+/** El mensaje que llega al WhatsApp de Prisma Vertex. */
+export function mensajeSolicitud(c: Pick<Campos, 'nombre' | 'empresa' | 'whatsapp' | 'reto'>) {
+  return [
+    'Hola, vengo de la página de Prisma Vertex y quiero mi diagnóstico.',
+    '',
+    `*Nombre:* ${c.nombre.trim()}`,
+    `*Empresa:* ${c.empresa.trim()}`,
+    `*Mi WhatsApp:* ${c.whatsapp.trim()}`,
+    `*Lo que más tiempo nos quita:* ${c.reto.trim()}`,
+  ].join('\n');
+}
 
 function validar(c: Campos): Partial<Record<keyof Campos, string>> {
   const e: Partial<Record<keyof Campos, string>> = {};
@@ -49,7 +68,10 @@ function validar(c: Campos): Partial<Record<keyof Campos, string>> {
 export default function FormularioDiagnostico() {
   const [campos, setCampos] = useState<Campos>(VACIO);
   const [errores, setErrores] = useState<Partial<Record<keyof Campos, string>>>({});
-  const [estado, setEstado] = useState<'quieto' | 'enviando' | 'listo' | 'falla'>('quieto');
+  const [estado, setEstado] = useState<'quieto' | 'listo'>('quieto');
+  // El enlace de WhatsApp de la última solicitud, por si el navegador no
+  // abrió la ventana sola: la confirmación lo ofrece como botón.
+  const [enlace, setEnlace] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
 
   function cambia<K extends keyof Campos>(clave: K, valor: Campos[K]) {
@@ -58,7 +80,7 @@ export default function FormularioDiagnostico() {
     if (errores[clave]) setErrores((e) => ({ ...e, [clave]: undefined }));
   }
 
-  async function enviar(ev: React.FormEvent) {
+  function enviar(ev: React.FormEvent) {
     ev.preventDefault();
 
     const e = validar(campos);
@@ -72,10 +94,14 @@ export default function FormularioDiagnostico() {
       return;
     }
 
-    setEstado('enviando');
-    try {
-      const r = await fetch(FORMULARIO_ENDPOINT, {
+    const url = wa(mensajeSolicitud(campos));
+
+    // Copia de respaldo, solo si hay un destino configurado. `keepalive`
+    // deja que termine aunque la persona se vaya a WhatsApp.
+    if (FORMULARIO_ENDPOINT) {
+      fetch(FORMULARIO_ENDPOINT, {
         method: 'POST',
+        keepalive: true,
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nombre: campos.nombre,
@@ -83,22 +109,34 @@ export default function FormularioDiagnostico() {
           whatsapp: campos.whatsapp,
           reto: campos.reto,
         }),
-      });
-      if (!r.ok) throw new Error(String(r.status));
-      setEstado('listo');
-      setCampos(VACIO);
-    } catch {
-      setEstado('falla');
+      }).catch(() => {});
     }
+
+    // Se abre dentro del clic: así el navegador no lo trata como ventana
+    // emergente. En el celular abre la app de WhatsApp.
+    window.open(url, '_blank', 'noopener');
+    setEnlace(url);
+    setEstado('listo');
+    setCampos(VACIO);
   }
 
   if (estado === 'listo') {
     return (
       <div className={'tarjeta ' + estilos.confirma + ' px-6 py-9 md:px-9'} role="status">
-        <p className="text-d3">Recibimos tu solicitud.</p>
-        <p className="text-cuerpo text-gris mt-3">
-          Te escribimos por WhatsApp para coordinar el diagnóstico.
+        <p className="text-d3">Ya casi: envía el mensaje en WhatsApp.</p>
+        <p className="text-cuerpo text-gris mt-3 max-w-[46ch]">
+          Se abrió WhatsApp con tu solicitud escrita. Solo falta tocar «Enviar» y
+          te respondemos para coordinar el diagnóstico.
         </p>
+        <a
+          href={enlace}
+          target="_blank"
+          rel="noopener"
+          className="boton boton-solido mt-6 inline-flex items-center gap-2.5"
+        >
+          <IconoWhatsapp />
+          Abrir WhatsApp otra vez
+        </a>
       </div>
     );
   }
@@ -179,24 +217,24 @@ export default function FormularioDiagnostico() {
         <div className="mt-1">
           <button
             type="submit"
-            className={'boton w-full sm:w-auto ' + (ACTIVO ? 'boton-solido' : 'boton-espera')}
+            className={
+              'boton inline-flex w-full items-center justify-center gap-2.5 sm:w-auto ' +
+              (ACTIVO ? 'boton-solido' : 'boton-espera')
+            }
           >
-            {estado === 'enviando' ? 'Enviando…' : 'Enviar solicitud'}
+            <IconoWhatsapp />
+            Enviar por WhatsApp
           </button>
+          <p className="text-menudo text-gris mt-3">
+            Se abre WhatsApp con tus datos ya escritos; solo tocas «Enviar».
+          </p>
         </div>
       </fieldset>
 
-      {estado === 'falla' && (
-        <p role="alert" className="text-cuerpo mt-5 text-[#c0392b]">
-          No pudimos enviar la solicitud. Inténtalo otra vez o escríbenos por WhatsApp.
-        </p>
-      )}
-
       {!ACTIVO && (
         <p className="text-menudo text-gris mt-5 max-w-[44ch]">
-          {MODO_VISTA_PREVIA
-            ? 'El formulario está completo pero apagado: el sitio es una vista previa y todavía no recibe solicitudes.'
-            : 'Falta conectar el destino del formulario. Se habilita al definir el endpoint de envío.'}
+          El formulario está completo pero apagado: el sitio es una vista previa y
+          todavía no recibe solicitudes.
         </p>
       )}
     </form>

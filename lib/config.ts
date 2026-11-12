@@ -36,10 +36,10 @@ export const CONTACTO = {
 } as const;
 
 /**
- * Destino del formulario de diagnóstico.
- * ← PENDIENTE: pegar aquí el endpoint de Formspree (o equivalente).
- * Mientras esté vacío, el formulario valida y avisa que el envío no está
- * conectado, en vez de mentirle a quien lo llena.
+ * Copia de respaldo del formulario de diagnóstico (opcional).
+ * La solicitud ya llega por WhatsApp: el formulario abre el chat con los
+ * datos escritos. Si aquí se pone un endpoint (Formspree, Notion, correo…),
+ * además se le envía una copia en JSON por POST. Vacío = solo WhatsApp.
  */
 export const FORMULARIO_ENDPOINT = '';
 
@@ -94,7 +94,6 @@ export const PENDIENTES = [
   'URL del LinkedIn de Prisma Vertex (CONTACTO.linkedin). Los integrantes no llevan LinkedIn propio.',
   'Aprobar la garantía de devolución del 100 % y los precios nuevos (lib/contenido.ts).',
   'Activar Web Analytics en el panel de Vercel y después poner ANALITICA_ACTIVA en true.',
-  'Endpoint del formulario de diagnóstico.',
   'Texto legal de /politica-de-datos revisado por David.',
   'Código de verificación de Google Search Console.',
   'Dominio propio y apagar MODO_VISTA_PREVIA.',

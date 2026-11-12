@@ -26,8 +26,8 @@ export default function Diagnostico() {
           <div>
             <h1 className="text-d1">Agenda tu diagnóstico</h1>
             <p className="text-guia text-gris medida mt-6">
-              Cuatro datos y te escribimos. No hay compromiso ni cobro por
-              conversar.
+              Cuatro datos y tu solicitud nos llega por WhatsApp. No hay
+              compromiso ni cobro por conversar.
             </p>
 
             <div className="mt-10">

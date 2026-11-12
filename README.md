@@ -20,7 +20,7 @@ npm start        # sirve el build para revisarlo
 | Apagar el modo vista previa | `lib/config.ts` → `MODO_VISTA_PREVIA` |
 | Encender la analítica | `lib/config.ts` → `ANALITICA_ACTIVA` |
 | Tasa dólar a pesos de los precios | `lib/config.ts` → `TASA_COP` |
-| Destino del formulario | `lib/config.ts` → `FORMULARIO_ENDPOINT` |
+| Copia de respaldo del formulario | `lib/config.ts` → `FORMULARIO_ENDPOINT` |
 | Textos del inicio | `lib/contenido.ts` |
 | Precios, planes y llamada inicial | `lib/contenido.ts` → `PLANES`, `LLAMADA_INICIAL` |
 | Garantía | `lib/contenido.ts` → `GARANTIA` |
@@ -131,8 +131,9 @@ aprobación de David y Juan David: la garantía, los precios y los términos.
    integrantes no llevan LinkedIn propio.
 7. **Activar Web Analytics** en el panel de Vercel y después poner
    `ANALITICA_ACTIVA` en `true`. Antes de activarla, su script da 404.
-8. **Destino del formulario** — `FORMULARIO_ENDPOINT`. Con un endpoint de
-   Formspree basta: el formulario ya envía JSON por POST.
+8. **Copia de las solicitudes (opcional).** El formulario ya envía por
+   WhatsApp. Si se quiere un registro aparte (Notion, correo), se pone el
+   endpoint en `FORMULARIO_ENDPOINT` y llega una copia en JSON.
 9. **Tiempos reales de implementación** — segunda pregunta del acordeón.
 10. **Código de verificación de Google Search Console.**
 11. **Dominio propio**, y con él apagar el modo vista previa.

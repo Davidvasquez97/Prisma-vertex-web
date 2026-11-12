@@ -781,7 +781,8 @@ export const NOTA_PRECIOS =
  * (CONTACTO.linkedin). Si algún día lo llevan, la tarjeta muestra el enlace sola.
  *
  * Nombres completos confirmados por David el 10 de noviembre de 2026.
- * Sebastián va como colaborador y sin foto: `foto: null` dibuja una silueta.
+ * Sebastián es el CTO (David, 12 de noviembre de 2026) y va sin foto:
+ * `foto: null` dibuja una silueta.
  *
  * `trayectoria` es la hoja de vida en pocas líneas. La de David es la que él
  * dictó; las de Juan David y Sebastián salen de sus hojas de vida
@@ -849,8 +850,8 @@ export const EQUIPO: Integrante[] = [
   },
   {
     nombre: 'Sebastián Molano',
-    cargo: 'Software e inteligencia artificial',
-    sigla: 'Colaborador',
+    cargo: 'Chief Technology Officer',
+    sigla: 'CTO',
     rol: 'Desarrollo de software y modelos de inteligencia artificial.',
     foto: null,
     perfil: null,

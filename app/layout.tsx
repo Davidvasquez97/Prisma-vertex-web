@@ -73,11 +73,12 @@ const negocio = {
   ],
   sameAs: [CONTACTO.instagram, ...(CONTACTO.linkedin ? [CONTACTO.linkedin] : [])],
   // Personas con nombre y cargo: Google las usa como señal de quién responde
-  // por el negocio. Sebastián no va: es colaborador, no socio.
+  // por el negocio. Sebastián (CTO) no es fundador: va aparte, como empleado.
   founder: [
     { '@type': 'Person', name: 'David Alejandro Vásquez', jobTitle: 'Fundador y CEO' },
     { '@type': 'Person', name: 'Juan David Chaves', jobTitle: 'Cofundador y COO' },
   ],
+  employee: [{ '@type': 'Person', name: 'Sebastián Molano', jobTitle: 'Chief Technology Officer (CTO)' }],
 };
 
 export default function RootLayout({
