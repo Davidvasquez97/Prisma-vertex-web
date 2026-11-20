@@ -16,7 +16,7 @@ import { migasJsonLd } from '@/lib/seo';
  * Página de un nicho. Todo lo que dice sale de su entrada en NICHOS; esta
  * plantilla solo decide el orden y la forma:
  *
- * 1. titular · 2. ¿te pasa esto? · 3. cómo funciona (video) ·
+ * 1. titular · 2. ¿te pasa esto? · 3. cómo funciona (si hay video) ·
  * 4. lo que instalamos · 5. caso de éxito (si lo hay, de CASOS) · 6. calculadora · 7. preguntas ·
  * 8. garantía y precio · 9. cierre con WhatsApp que dice de qué nicho viene.
  */
@@ -96,16 +96,16 @@ export default function PaginaNicho({ nicho }: { nicho: Nicho }) {
         </div>
       </section>
 
-      {/* 3. Cómo funciona */}
-      <section className="bloque bg-perla">
-        <div className="lienzo">
-          <Revelar>
-            <h2 className="text-d1">{T.comoFunciona}</h2>
-            <p className="text-guia text-gris medida mt-6">{T.comoFuncionaTexto}</p>
-          </Revelar>
-          <Revelar retraso={80}>
-            <div className="mt-10 max-w-[52rem] md:mt-12">
-              {nicho.video ? (
+      {/* 3. Cómo funciona: solo cuando el nicho tiene su video demo. */}
+      {nicho.video && (
+        <section className="bloque bg-perla">
+          <div className="lienzo">
+            <Revelar>
+              <h2 className="text-d1">{T.comoFunciona}</h2>
+              <p className="text-guia text-gris medida mt-6">{T.comoFuncionaTexto}</p>
+            </Revelar>
+            <Revelar retraso={80}>
+              <div className="mt-10 max-w-[52rem] md:mt-12">
                 <video
                   src={nicho.video}
                   controls
@@ -113,20 +113,11 @@ export default function PaginaNicho({ nicho }: { nicho: Nicho }) {
                   playsInline
                   className="aspect-video w-full rounded-xl bg-black"
                 />
-              ) : (
-                <div className="tarjeta flex aspect-video w-full flex-col items-center justify-center gap-4">
-                  <span className="border-azul text-azul flex h-14 w-14 items-center justify-center rounded-full border">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M8 5.5v13l10.5-6.5z" />
-                    </svg>
-                  </span>
-                  <Pendiente>video demo</Pendiente>
-                </div>
-              )}
-            </div>
-          </Revelar>
-        </div>
-      </section>
+              </div>
+            </Revelar>
+          </div>
+        </section>
+      )}
 
       {/* 4. Lo que instalamos */}
       <section className="bloque">

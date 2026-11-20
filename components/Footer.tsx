@@ -20,7 +20,8 @@ const legal = [
 /* Identidad de quien vende (Ley 1480, art. 50): razón social, NIT y
    dirección. Solo se muestran los datos que ya están en EMPRESA. */
 const identidad = [
-  EMPRESA.razonSocial || SITE.nombre,
+  SITE.nombre,
+  EMPRESA.razonSocial,
   EMPRESA.nit && `NIT ${EMPRESA.nit}`,
   EMPRESA.direccion,
   `${SITE.ciudad}, ${SITE.departamento}`,

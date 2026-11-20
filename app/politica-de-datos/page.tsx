@@ -6,7 +6,7 @@
 // de 2026: el sitio no crea cookies ni llama a servicios externos.
 import Link from 'next/link';
 import { Apartado, Correo, Identidad, Lista } from '@/components/Legal';
-import { ANALITICA_ACTIVA, CONTACTO, EMPRESA, SITE, VERSION_LEGAL } from '@/lib/config';
+import { ALOJAMIENTO, ANALITICA_ACTIVA, CONTACTO, EMPRESA, SITE, VERSION_LEGAL } from '@/lib/config';
 import { metaDe, migasJsonLd } from '@/lib/seo';
 
 export const metadata = metaDe({
@@ -135,12 +135,15 @@ export default function PoliticaDeDatos() {
             <p>
               Usamos proveedores que guardan o transportan los datos por nosotros,
               como encargados. Están en Estados Unidos, país que la Superintendencia
-              de Industria y Comercio reconoce con un nivel adecuado de protección,
-              y sus contratos los obligan a proteger la información:
+              de Industria y Comercio reconoce con un nivel adecuado de protección.
+              Sus contratos de procesamiento de datos los obligan a seguir nuestras
+              instrucciones, a proteger la información y a guardar
+              confidencialidad (artículo 25 del Decreto 1377 de 2013 y Circular
+              Externa 003 de 2025 de la SIC):
             </p>
             <Lista
               items={[
-                'Vercel: aloja este sitio.',
+                `${ALOJAMIENTO}: aloja este sitio.`,
                 'WhatsApp (Meta): el formulario y nuestras conversaciones pasan por WhatsApp, sujeto también a sus propias políticas de privacidad.',
                 'Google (Gmail): recibe los correos que nos escribe.',
               ]}
@@ -164,7 +167,7 @@ export default function PoliticaDeDatos() {
             <p>
               {ANALITICA_ACTIVA
                 ? 'Para saber qué páginas se visitan usamos Vercel Web Analytics, que no usa cookies: cuenta visitas de forma agregada (página, país, navegador y tipo de dispositivo) y no permite identificarlo.'
-                : 'Si más adelante medimos las visitas, usaremos Vercel Web Analytics, que no usa cookies y solo cuenta visitas de forma agregada; lo informaremos aquí.'}{' '}
+                : 'Si más adelante medimos las visitas, usaremos una herramienta que no use cookies y solo cuente visitas de forma agregada, y la nombraremos aquí antes de activarla.'}{' '}
               La calculadora funciona en su propio navegador: las cifras que mueve
               no se envían a ningún lado.
             </p>

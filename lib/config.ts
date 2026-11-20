@@ -29,29 +29,47 @@ export const SITE = {
  * Identidad legal de quien vende. La Ley 1480 de 2011 (art. 50) obliga a
  * publicarla en todo sitio que ofrece servicios: sale en el pie de página,
  * en los términos y en la política de datos.
- * ← PENDIENTE: copiarlos tal cual del RUT y del certificado de Cámara de
- *   Comercio. Mientras estén vacíos, las páginas legales lo marcan.
+ *
+ * Datos del RUT que entregó David el 20 de noviembre de 2026: persona
+ * natural (casilla 24), dueña del establecimiento de comercio Prisma Vertex,
+ * actividad principal 6201 (desarrollo de sistemas informáticos) y
+ * secundaria 6202 (consultoría informática). En responsabilidades solo
+ * figura la 05 (renta, régimen ordinario): no la 48 (IVA) ni la 52
+ * (facturador electrónico). Por eso el sitio dice que no se cobra IVA.
+ * Si la DIAN agrega la 48, cambiar `responsableIva` a true.
  */
 export const EMPRESA = {
-  /** Nombre o razón social exacta del RUT. */
-  razonSocial: '',
-  nit: '',
-  /** Dirección de notificación judicial del certificado de Cámara de Comercio. */
-  direccion: '',
+  /** Nombre del titular como aparece en el RUT (casillas 31 a 34). */
+  razonSocial: 'David Alejandro Vásquez Dorado',
+  /** Persona natural o sociedad, dicho como se lee en la página. */
+  tipo: 'persona natural',
+  /** NIT con dígito de verificación (casillas 5 y 6). */
+  nit: '1.059.237.407-8',
+  /** Dirección principal del RUT (casilla 41), escrita completa. */
+  direccion: 'Carrera 2 # 21 DN-100, Conjunto Portal del Cerro, casa C20',
+  /** Casilla 53 del RUT: ¿aparece la responsabilidad 48 (IVA)? */
+  responsableIva: false,
   /** Quién atiende consultas y reclamos de datos personales. */
   responsableDatos: 'David Alejandro Vásquez, fundador y CEO',
 } as const;
 
+/**
+ * Quién aloja el sitio; la política de datos lo nombra como encargado.
+ * ← Al pasar el sitio a Cloudflare, cambiar a 'Cloudflare' (también en EE. UU.).
+ */
+export const ALOJAMIENTO = 'Vercel';
+
 /** Fecha de la versión vigente de la política de datos y de los términos. */
-export const VERSION_LEGAL = '12 de noviembre de 2026';
+export const VERSION_LEGAL = '20 de noviembre de 2026';
 
 export const CONTACTO = {
   whatsapp: '573177359686',
   whatsappVisible: '+57 317 735 9686',
   correo: 'roboticlab6@gmail.com',
-  instagram: 'https://instagram.com/prismavertex', // ← REEMPLAZAR
+  // Confirmado por David el 20 de noviembre de 2026.
+  instagram: 'https://instagram.com/prismavertex',
   instagramVisible: '@prismavertex',
-  /** ← PENDIENTE: URL del perfil de LinkedIn de la empresa. */
+  /** URL del LinkedIn de la empresa. Vacío = no se muestra. */
   linkedin: '',
 } as const;
 
@@ -106,29 +124,24 @@ export const MENSAJES = {
 } as const;
 
 /**
- * Todo lo que falta por definir, en un solo lugar.
- * Se lista en el README y se marca en pantalla con el componente Pendiente.
+ * Lo que queda por hacer después del 20 de noviembre de 2026. Ninguno se ve
+ * en la página: el sitio ya no muestra marcadores PENDIENTE.
  */
 export const PENDIENTES = [
-  'Tiempos reales de implementación (pregunta 2 del acordeón).',
-  'URL del LinkedIn de Prisma Vertex (CONTACTO.linkedin). Los integrantes no llevan LinkedIn propio.',
-  'Activar Web Analytics en el panel de Vercel y después poner ANALITICA_ACTIVA en true.',
-  // Legal (ver /politica-de-datos y /terminos, versión VERSION_LEGAL)
-  'Razón social, NIT y dirección de notificación en EMPRESA, copiados del RUT y de la Cámara de Comercio.',
-  'Revisar en el RUT si son responsables de IVA: los precios publicados deben ser el valor final con impuestos.',
-  'Habilitarse como facturadores electrónicos ante la DIAN antes de cobrar, si el régimen lo exige (consultar con un contador).',
-  'Revisión de /politica-de-datos y /terminos por un abogado.',
-  'Autorización escrita de Lucas Vázquez para su caso.',
-  'Plantilla de contrato de transmisión de datos para clientes de salud.',
-  'Cambiar la fecha VERSION_LEGAL cada vez que cambien la política o los términos.',
+  // Para publicar
+  'Dominio propio en Cloudflare: poner la URL en SITE.dominio y elegir dónde se aloja (cambiar ALOJAMIENTO si deja de ser Vercel).',
+  'Apagar MODO_VISTA_PREVIA el día del lanzamiento.',
   'Código de verificación de Google Search Console.',
-  'Dominio propio y apagar MODO_VISTA_PREVIA.',
-  'Logo en SVG (hoy es JPG con fondo blanco).',
+  'Medición de visitas sin cookies (Vercel o Cloudflare Web Analytics) y luego ANALITICA_ACTIVA en true.',
+  // Legal y tributario
+  'Contador: confirmar que cumplen los requisitos de no responsable de IVA (art. 437 E.T.) y, si es así, pedir a la DIAN que agregue la responsabilidad 49 al RUT. Si pasan a ser responsables, poner EMPRESA.responsableIva en true y habilitar la factura electrónica.',
+  'Revisión de /politica-de-datos y /terminos por un abogado.',
+  'Plantilla de contrato de transmisión de datos para clientes de salud.',
+  'Cambiar VERSION_LEGAL cada vez que cambien la política o los términos.',
+  // Para sumar después
+  'Videos demo de los nichos: al poner la ruta en video de NICHOS aparece la sección «Cómo funciona».',
+  'Frases de Panorex y de Lucas Vázquez para sus casos (campo cita, opcional).',
+  'URL del LinkedIn de Prisma Vertex (CONTACTO.linkedin).',
   'Revisar la tasa TASA_COP cada tanto: los precios en pesos salen de ahí.',
-  // Nichos y otros sectores (lib/contenido.ts → NICHOS, OTROS_SECTORES)
-  'Videos demo de los cuatro nichos: poner la ruta en `video` de cada uno en NICHOS.',
-  'Autorización escrita de Panorex para usar su nombre y su logo (lib/contenido.ts → CASOS).',
-  'Frase de Panorex y de Lucas Vázquez para sus casos (campo cita, opcional).',
-  // Equipo (lib/contenido.ts → EQUIPO)
-  'Permiso de Ciclismo en Línea para publicar la foto de David en la etapa (ya lleva su crédito).',
+  'Logo en SVG (hoy es JPG con fondo blanco).',
 ] as const;

@@ -52,14 +52,14 @@ export function Dato({ valor, falta }: { valor: string; falta: string }) {
 export function Identidad() {
   return (
     <p>
+      {SITE.nombre} es un establecimiento de comercio de{' '}
       <span className="text-tinta font-semibold">
-        <Dato valor={EMPRESA.razonSocial} falta="razón social como aparece en el RUT" />
-      </span>{' '}
-      ({SITE.nombre}), NIT <Dato valor={EMPRESA.nit} falta="NIT" />, con domicilio en{' '}
-      {SITE.ciudad}, {SITE.departamento}, {SITE.pais}. Dirección:{' '}
-      <Dato valor={EMPRESA.direccion} falta="dirección de notificación" />. Teléfono y WhatsApp:{' '}
-      {CONTACTO.whatsappVisible}. Correo:{' '}
-      <Correo />.
+        <Dato valor={EMPRESA.razonSocial} falta="nombre del titular como aparece en el RUT" />
+      </span>
+      , {EMPRESA.tipo}, NIT <Dato valor={EMPRESA.nit} falta="NIT" />, con domicilio en{' '}
+      {SITE.ciudad}, {SITE.departamento}, {SITE.pais}. Dirección de notificación:{' '}
+      <Dato valor={EMPRESA.direccion} falta="dirección de notificación" />, {SITE.ciudad}.
+      Teléfono y WhatsApp: {CONTACTO.whatsappVisible}. Correo: <Correo />.
     </p>
   );
 }

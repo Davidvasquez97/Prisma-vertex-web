@@ -2,7 +2,7 @@ import Billetes, { cuantosBilletes } from './Billetes';
 import Boton from './Boton';
 import { IconoEdificio } from './Iconos';
 import Revelar from './Revelar';
-import { enPesos, TASA_COP } from '@/lib/config';
+import { EMPRESA, enPesos, TASA_COP } from '@/lib/config';
 import { LLAMADA_INICIAL, NOTA_PRECIOS, PLANES } from '@/lib/contenido';
 
 /* Los billetes se cuentan de a 50 dólares y de a 100.000 pesos. Con los
@@ -71,7 +71,7 @@ export default function Precios() {
                       </div>
                     </div>
                   ) : (
-                    // El precio principal va en pesos con impuestos incluidos
+                    // El precio principal va en pesos y es el valor final
                     // (Ley 1480, art. 26); el dólar queda como referencia.
                     <>
                       <p className="flex items-center gap-2.5">
@@ -89,7 +89,11 @@ export default function Precios() {
                         </span>
                         <span className="cifra whitespace-nowrap">USD {p.usd} de referencia</span>
                       </p>
-                      <p className="text-menudo text-gris mt-1">Precio final, impuestos incluidos.</p>
+                      <p className="text-menudo text-gris mt-1">
+                        {EMPRESA.responsableIva
+                          ? 'Precio final, IVA incluido.'
+                          : 'Precio final: no se cobra IVA.'}
+                      </p>
                     </>
                   )}
                 </div>

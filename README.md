@@ -113,45 +113,39 @@ Con el interruptor en `true`:
 **Para lanzarlo de verdad**: cambiar esa línea a `false` y `git push`. No hay
 que tocar ningún componente.
 
-## Pendiente antes de publicar
+## Lo que queda (20 de noviembre de 2026)
 
-Tres son compromisos públicos con dinero de por medio y necesitan la
-aprobación de David y Juan David: la garantía, los precios y los términos.
+El sitio ya no muestra ningún marcador PENDIENTE: los datos legales están
+completos (persona natural, NIT 1.059.237.407-8, dirección del RUT), las
+autorizaciones de Panorex, Lucas Vázquez y Ciclismo en Línea están
+confirmadas, y la sección de video de los nichos se oculta mientras no haya
+video.
 
-1. **Datos legales de la empresa** en `lib/config.ts` → `EMPRESA`: razón social,
-   NIT y dirección de notificación, tal cual el RUT y la Cámara de Comercio.
-   Salen en el pie (Ley 1480, art. 50) y en las páginas legales, que hoy los
-   marcan como PENDIENTE.
-2. **IVA y factura electrónica**: confirmar en el RUT si son responsables de
-   IVA (los precios publicados son el valor final) y habilitarse como
-   facturadores electrónicos ante la DIAN antes de cobrar, si su régimen lo
-   exige. Consultar con un contador.
-3. **Revisión legal** de `/terminos` y `/politica-de-datos` por un abogado.
-   Están redactados sobre la Ley 1581 de 2012, el Decreto 1377 de 2013, la
-   Ley 1480 de 2011, la Ley 527 de 1999 y la Ley 2300 de 2023. La garantía ya
-   tiene condiciones: 30 días para pedirla, ahorros estimados a 12 meses y
-   devolución en 15 días. Al cambiar algo, actualizar `VERSION_LEGAL`.
-4. **Autorización escrita de Panorex** para usar su nombre y su logo, y
-   las frases de Panorex y de Lucas Vázquez si quieren dar una (campo `cita`).
-5. **Más casos**: hoy solo hay dos, por decisión de David. Se agregan en
-   `CASOS` con el slug de su especialidad y aparecen solos en el inicio,
-   en /casos y en la página del nicho.
-6. **URL del LinkedIn de Prisma Vertex** (`CONTACTO.linkedin`). Los
-   integrantes no llevan LinkedIn propio.
-7. **Activar Web Analytics** en el panel de Vercel y después poner
-   `ANALITICA_ACTIVA` en `true`. Antes de activarla, su script da 404.
-8. **Copia de las solicitudes (opcional).** El formulario ya envía por
-   WhatsApp. Si se quiere un registro aparte (Notion, correo), se pone el
-   endpoint en `FORMULARIO_ENDPOINT` y llega una copia en JSON.
-9. **Tiempos reales de implementación** — segunda pregunta del acordeón.
-10. **Código de verificación de Google Search Console.**
-11. **Dominio propio**, y con él apagar el modo vista previa.
-12. **Usuario real de Instagram.**
-13. **Videos demo** de los cuatro nichos (campo `video` en `NICHOS`).
-14. **Permiso de Ciclismo en Línea** para publicar la foto de David en la
-    etapa.
+**Para publicar**
+1. **Dominio propio** (está en Cloudflare): poner la URL en `SITE.dominio` y
+   decidir dónde se aloja. Si deja de ser Vercel, cambiar `ALOJAMIENTO` en
+   `lib/config.ts`: la política de datos lo nombra.
+2. **Apagar `MODO_VISTA_PREVIA`** el día del lanzamiento.
+3. **Google Search Console** y **medición de visitas sin cookies**.
 
-Todos están listados también en `PENDIENTES`, dentro de `lib/config.ts`.
+**Legal y tributario**
+4. **Contador:** según el RUT solo tienen la responsabilidad 05 (renta), sin
+   la 48 (IVA) ni la 52 (factura electrónica). El sitio dice que no se cobra
+   IVA. Conviene confirmar que cumplen los requisitos de no responsable
+   (art. 437 del Estatuto Tributario) y pedir que agreguen la 49 al RUT. Si
+   pasan a ser responsables: `EMPRESA.responsableIva = true` y factura
+   electrónica.
+5. **Abogado:** revisar `/politica-de-datos` y `/terminos`. Están redactados
+   sobre la Ley 1581 de 2012, el Decreto 1377 de 2013, la Circular Externa 003
+   de 2025 de la SIC, la Ley 1480 de 2011, la Ley 527 de 1999 y la Ley 2300 de
+   2023. Al cambiar algo, actualizar `VERSION_LEGAL`.
+6. **Contrato de transmisión de datos** para los clientes de salud.
+
+**Para sumar después**
+7. Videos demo (campo `video` de cada nicho), frases de los clientes
+   (campo `cita`), LinkedIn de la empresa, logo en SVG.
+
+Todos están también en `PENDIENTES`, dentro de `lib/config.ts`.
 
 ## Medición
 

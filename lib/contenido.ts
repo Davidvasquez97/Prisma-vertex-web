@@ -96,7 +96,7 @@ export type Nicho = {
   titular: string;
   subtitulo: string;
   dolores: string[];
-  /** Ruta del video demo dentro de /public. Vacío = marcador PENDIENTE. */
+  /** Ruta del video demo dentro de /public. Vacío = la sección «Cómo funciona» no aparece. */
   video: string;
   turnero: string;
   agente: string;
@@ -107,11 +107,10 @@ export type Nicho = {
   cierre: string;
 };
 
-/** Pregunta de instalación, igual en los cuatro nichos hasta tener tiempos reales. */
+/** Pregunta de instalación, igual en los cuatro nichos. */
 const PREGUNTA_INSTALACION: Pregunta = {
   p: '¿Cuánto tarda la instalación?',
   r: 'Depende del tamaño de tu operación y de lo que haya que conectar; lo definimos con fecha en el diagnóstico.',
-  pendiente: 'tiempo real de instalación',
 };
 
 const PREGUNTA_SISTEMAS: Pregunta = {
@@ -530,7 +529,8 @@ export const PASOS = [
  * La garantía, dicha en concreto: una devolución del 100 % con una condición
  * que se puede verificar. Una garantía específica convence más que una
  * general («nuestro pago va ligado a tus resultados»).
- * ← APROBAR antes del lanzamiento: es un compromiso con dinero de por medio.
+ * Aprobada por David el 12 de noviembre de 2026, con sus condiciones en
+ * /terminos#garantia (30 días, ahorros a 12 meses, devolución en 15 días).
  */
 export const GARANTIA = {
   titulo: 'Si tú no ganas, nosotros no cobramos.',
@@ -549,7 +549,6 @@ export const PREGUNTAS: Pregunta[] = [
   {
     p: '¿Cuándo veo resultados?',
     r: 'El diagnóstico te muestra oportunidades concretas desde la primera semana.',
-    pendiente: 'ajustar tiempos reales de implementación',
   },
   {
     p: '¿Cómo miden lo que gano?',
@@ -579,7 +578,8 @@ export const CIERRE = {
  * Lucas Vázquez. El caso de Panorex, con su cifra, es el que entregó David
  * ese día. El de Lucas Vázquez es la frase que dio David: sin cifras.
  * `cifra` y `cita` son opcionales y aparecen solos al llenarlos.
- * ← PENDIENTE: autorización escrita de Panorex para usar su nombre y su logo.
+ * Autorizaciones: David confirmó el 20 de noviembre de 2026 que tienen el
+ * permiso de Panorex (nombre, logo y cifras) y de Lucas Vázquez.
  */
 export type PuntoCaso = { titulo: string; texto: string };
 
@@ -711,7 +711,7 @@ export const LLAMADA_INICIAL = {
  * Revisados en noviembre de 2026 contra el mercado colombiano: un consultor
  * con experiencia cobra entre $200.000 y $400.000 la hora, y estos planes
  * incluyen además el diagnóstico, la propuesta y la cotización.
- * ← APROBAR antes del lanzamiento.
+ * Aprobados por David el 12 de noviembre de 2026.
  *
  * `usd` en null significa que el plan no tiene precio de lista.
  * `etiqueta` dice «Recomendado» y no «El más pedido»: esa frase solo puede
@@ -825,8 +825,8 @@ export const EQUIPO: Integrante[] = [
       'Formación en Claude Code e inteligencia artificial',
       'Bachiller del Colegio Champagnat',
     ],
-    // La foto de la etapa es de Ciclismo en Línea: va con su crédito.
-    // ← CONFIRMAR que autorizan publicarla en la web.
+    // La foto de la etapa es de Ciclismo en Línea: va con su crédito y con
+    // su permiso (confirmado por David el 20 de noviembre de 2026).
     credito: 'Ciclismo en Línea',
     linkedin: '',
   },

@@ -7,7 +7,7 @@
 // la aprobó David el 12 de noviembre de 2026.
 import Link from 'next/link';
 import { Apartado, Correo, Identidad, Lista } from '@/components/Legal';
-import { CONTACTO, SITE, VERSION_LEGAL } from '@/lib/config';
+import { CONTACTO, EMPRESA, SITE, VERSION_LEGAL } from '@/lib/config';
 import { metaDe, migasJsonLd } from '@/lib/seo';
 
 export const metadata = metaDe({
@@ -80,14 +80,18 @@ export default function Terminos() {
 
           <Apartado id="precios" titulo="4. Precios y pagos">
             <p>
-              El precio que publicamos es el precio final en pesos colombianos,
-              con los impuestos incluidos. El valor en dólares aparece solo como
+              El precio que publicamos es el precio final en pesos colombianos:
+              no se le suma nada al pagar. El valor en dólares aparece solo como
               referencia. Antes de pagar le confirmamos el valor por escrito.
             </p>
             <p>
-              El diagnóstico se paga antes de la sesión, salvo que acordemos otra
-              cosa por escrito. Le entregamos el soporte de pago que corresponda a
-              nuestro régimen tributario.
+              {EMPRESA.responsableIva
+                ? 'Somos responsables del IVA: el precio publicado ya lo incluye y le entregamos factura electrónica.'
+                : 'Prestamos el servicio como persona natural no responsable del IVA (artículo 437 del Estatuto Tributario), por eso nuestros precios no llevan IVA. Le entregamos el documento de cobro y el soporte de pago que corresponden a ese régimen.'}
+            </p>
+            <p>
+              El diagnóstico se paga antes de la sesión, por transferencia o por el
+              medio que acordemos, salvo que pactemos otra cosa por escrito.
             </p>
           </Apartado>
 
