@@ -3,6 +3,10 @@ import { articulos } from '@/lib/blog';
 import { SITE } from '@/lib/config';
 import { NICHOS } from '@/lib/contenido';
 
+// Se genera una sola vez en el build: así funciona también como archivo
+// estático en Cloudflare.
+export const dynamic = 'force-static';
+
 /* Una entrada por página. Los nichos y los artículos del blog se añaden
    solos desde NICHOS y desde los archivos .md; no hay que tocar esta lista. */
 const paginas: { ruta: string; prioridad: number }[] = [

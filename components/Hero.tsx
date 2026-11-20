@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import foto from '@/assets/equipo-prisma.jpg';
+import foto from '@/assets/equipo-prisma.webp';
 import Boton from './Boton';
 import PrismaLuz from './PrismaLuz';
 import { HERO } from '@/lib/contenido';

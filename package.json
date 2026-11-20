@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:estatico": "node scripts/build-estatico.mjs"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",

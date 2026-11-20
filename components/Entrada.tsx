@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import logo from '@/assets/prisma-logo.png';
+import logo from '@/assets/prisma-logo.webp';
 import estilos from './Entrada.module.css';
 
 /**

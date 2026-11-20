@@ -1,6 +1,10 @@
 import type { MetadataRoute } from 'next';
 import { MODO_VISTA_PREVIA, SITE } from '@/lib/config';
 
+// Se genera una sola vez en el build: así funciona también como archivo
+// estático en Cloudflare.
+export const dynamic = 'force-static';
+
 export default function robots(): MetadataRoute.Robots {
   // Mientras sea una maqueta no se deja rastrear nada, ni siquiera el sitemap.
   if (MODO_VISTA_PREVIA) {

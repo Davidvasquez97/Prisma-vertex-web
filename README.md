@@ -122,9 +122,9 @@ confirmadas, y la sección de video de los nichos se oculta mientras no haya
 video.
 
 **Para publicar**
-1. **Dominio propio** (está en Cloudflare): poner la URL en `SITE.dominio` y
-   decidir dónde se aloja. Si deja de ser Vercel, cambiar `ALOJAMIENTO` en
-   `lib/config.ts`: la política de datos lo nombra.
+1. **Cloudflare Pages**: crear el proyecto y conectar `prismavertex.com.co`
+   (pasos abajo, en «Publicar»). `SITE.dominio` y `ALOJAMIENTO` ya están
+   puestos.
 2. **Apagar `MODO_VISTA_PREVIA`** el día del lanzamiento.
 3. **Google Search Console** y **medición de visitas sin cookies**.
 
@@ -203,6 +203,13 @@ solos.
 
 ## Las imágenes de la marca
 
+**El sitio usa las versiones `.webp`** de prisma-logo, logo-marca,
+logo-panorex, equipo-prisma y los dos perfiles: van al tamaño en que se
+muestran y pesan entre 2 y 72 KB, porque en Cloudflare no hay optimizador de
+imágenes. Los archivos `.png` y `.jpg` del mismo nombre son los originales:
+si se cambia una foto, se reemplaza el original y se vuelve a sacar su
+`.webp` con sharp (ancho de 800 px para fotos, 300 para el logo).
+
 - `assets/prisma-logo.png` — el logo con fondo transparente, sacado del
   «SVG» que entregó David (por dentro era una imagen PNG, no vectores). Es el
   que gira en la entrada.
@@ -224,13 +231,34 @@ solos.
 
 ## Publicar
 
-El proyecto está enlazado con Vercel (`david-vasquez-97/prisma-vertex`) y con
-el repositorio de GitHub. Hay dos caminos y los dos sirven:
+El sitio se publica en **Cloudflare Pages**, en la misma cuenta donde está
+el dominio `prismavertex.com.co`. Todas las páginas son estáticas: no hace
+falta servidor. Cada `git push` a la rama de producción se publica solo.
 
-```bash
-git push                        # Vercel publica solo
-npx vercel@latest --prod --yes  # publicar desde esta carpeta, sin pasar por GitHub
-```
+**Configuración del proyecto en Cloudflare** (Workers & Pages → Crear →
+Pages → Conectar con Git → repositorio `Prisma-vertex-web`):
 
-Al conectar el dominio propio, actualizar `SITE.dominio` en `lib/config.ts`:
-el sitemap, el robots, las canónicas y las tarjetas de Open Graph leen de ahí.
+| Campo | Valor |
+| --- | --- |
+| Rama de producción | `main` |
+| Framework | Ninguno (None) |
+| Comando de build | `npm run build:estatico` |
+| Carpeta de salida | `out` |
+| Variable de entorno | `NODE_VERSION` = `22` |
+
+Después, en el proyecto: **Dominios personalizados** → agregar
+`prismavertex.com.co` y `www.prismavertex.com.co`. Cloudflare crea los
+registros DNS y el certificado solo.
+
+Detalles que conviene saber:
+- `npm run build:estatico` compila como lo hace Cloudflare y además corrige
+  una falla de Next.js 16 con las precargas (ver `scripts/build-estatico.mjs`).
+  Para mirarlo aquí: `npx serve out`.
+- `public/_redirects` y `public/_headers` son las redirecciones y los
+  encabezados de Cloudflare (caché de un año para `/_next/static` y
+  seguridad básica).
+- Las imágenes van en WebP ya del tamaño en que se muestran, porque sin
+  servidor no hay optimizador de imágenes.
+- Vercel (`david-vasquez-97/prisma-vertex`) sigue conectado al mismo
+  repositorio. Cuando el dominio funcione en Cloudflare, conviene
+  desconectarlo para no tener dos copias publicadas.

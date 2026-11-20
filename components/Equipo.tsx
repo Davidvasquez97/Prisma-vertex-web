@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import retratoDavid from '@/assets/retrato-david.jpg';
 import retratoJuanDavid from '@/assets/retrato-juan-david-grado.jpg';
-import perfilDavid from '@/assets/perfil-david-etapa.jpg';
-import perfilJuanDavid from '@/assets/perfil-juan-david-grado.jpg';
+import perfilDavid from '@/assets/perfil-david-etapa.webp';
+import perfilJuanDavid from '@/assets/perfil-juan-david-grado.webp';
 import PerfilIntegrante from './PerfilIntegrante';
 import Revelar from './Revelar';
 import { EQUIPO, EQUIPO_SECCION } from '@/lib/contenido';

@@ -1,0 +1,13 @@
+# Encabezados de Cloudflare Pages.
+
+# Los archivos de /_next/static llevan una huella en el nombre: si cambian,
+# cambia el nombre. Por eso se pueden guardar un año en el navegador.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Seguridad básica para todas las páginas.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()

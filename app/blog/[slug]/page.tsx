@@ -4,10 +4,21 @@ import { articulo, articulos, fechaLarga } from '@/lib/blog';
 import { SITE } from '@/lib/config';
 import { metaDe, migasJsonLd } from '@/lib/seo';
 
-/** Una página estática por archivo .md. Sin artículos, no genera ninguna. */
+/**
+ * Una página estática por archivo .md.
+ *
+ * El build estático de Cloudflare exige al menos una ruta: mientras no haya
+ * artículos se genera /blog/sin-articulos, que muestra la página de «no
+ * encontrada». Nadie la enlaza y no está en el sitemap. Desaparece sola con
+ * el primer artículo.
+ */
 export function generateStaticParams() {
-  return articulos().map((a) => ({ slug: a.slug }));
+  const lista = articulos().map((a) => ({ slug: a.slug }));
+  return lista.length > 0 ? lista : [{ slug: 'sin-articulos' }];
 }
+
+/** Solo existen las rutas de los artículos; cualquier otra es 404. */
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,

@@ -1,0 +1,3 @@
+# Redirecciones de Cloudflare Pages (en Vercel las hace next.config.ts).
+# La política de datos vivía en /privacidad.
+/privacidad /politica-de-datos 301

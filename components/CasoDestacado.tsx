@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import logoPanorex from '@/assets/logo-panorex.png';
+import logoPanorex from '@/assets/logo-panorex.webp';
 import { CASOS_SECCION as T, NICHOS, type Caso, type PuntoCaso } from '@/lib/contenido';
 
 /* Logos de los clientes, con su permiso. El fondo blanco del archivo se

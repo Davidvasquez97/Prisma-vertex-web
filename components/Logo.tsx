@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import marca from '@/assets/logo-marca.jpg';
+import marca from '@/assets/logo-marca.webp';
 
 /**
  * Lockup de Prisma Vertex: la pirámide original de la marca junto al nombre

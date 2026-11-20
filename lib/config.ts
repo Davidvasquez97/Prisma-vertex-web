@@ -19,7 +19,7 @@ export const SITE = {
   nombre: 'Prisma Vertex',
   // ← REEMPLAZAR con el dominio final. sitemap, robots, canónicas y Open
   //   Graph leen de aquí; cambiando esta línea se actualizan todos.
-  dominio: 'https://prisma-vertex.vercel.app',
+  dominio: 'https://prismavertex.com.co',
   ciudad: 'Popayán',
   departamento: 'Cauca',
   pais: 'Colombia',
@@ -55,9 +55,9 @@ export const EMPRESA = {
 
 /**
  * Quién aloja el sitio; la política de datos lo nombra como encargado.
- * ← Al pasar el sitio a Cloudflare, cambiar a 'Cloudflare' (también en EE. UU.).
+ * Desde el 20 de noviembre de 2026 es Cloudflare Pages (EE. UU.).
  */
-export const ALOJAMIENTO = 'Vercel';
+export const ALOJAMIENTO = 'Cloudflare';
 
 /** Fecha de la versión vigente de la política de datos y de los términos. */
 export const VERSION_LEGAL = '20 de noviembre de 2026';
@@ -129,7 +129,7 @@ export const MENSAJES = {
  */
 export const PENDIENTES = [
   // Para publicar
-  'Dominio propio en Cloudflare: poner la URL en SITE.dominio y elegir dónde se aloja (cambiar ALOJAMIENTO si deja de ser Vercel).',
+  'Crear el proyecto en Cloudflare Pages y conectar prismavertex.com.co (pasos en el README, «Publicar»).',
   'Apagar MODO_VISTA_PREVIA el día del lanzamiento.',
   'Código de verificación de Google Search Console.',
   'Medición de visitas sin cookies (Vercel o Cloudflare Web Analytics) y luego ANALITICA_ACTIVA en true.',
