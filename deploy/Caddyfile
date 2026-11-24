@@ -37,7 +37,16 @@
 	}
 }
 
-# Mientras el dominio no apunte aquí, el sitio se ve por la IP.
-:80 {
+# El sitio. Caddy saca y renueva solo el certificado HTTPS.
+prismavertex.com.co {
 	import sitio
+}
+
+# www y la IP sola llevan a la dirección principal.
+www.prismavertex.com.co {
+	redir https://prismavertex.com.co{uri} permanent
+}
+
+:80 {
+	redir https://prismavertex.com.co{uri} permanent
 }
