@@ -1,0 +1,43 @@
+# Caddy en el VPS de Contabo (185.176.253.22): sirve la carpeta estática
+# que genera `npm run build:estatico`. Se instala en /etc/caddy/Caddyfile
+# con scripts/publicar-vps.sh. Cloudflare está delante (proxy naranja).
+
+(sitio) {
+	root * /var/www/prismavertex
+	encode zstd gzip
+
+	# La política de datos vivía en /privacidad.
+	redir /privacidad /politica-de-datos 301
+
+	# Los archivos de /_next/static llevan una huella en el nombre:
+	# se pueden guardar un año en el navegador.
+	@estaticos path /_next/static/*
+	header @estaticos Cache-Control "public, max-age=31536000, immutable"
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options DENY
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		-Server
+	}
+
+	# Los archivos de configuración de Cloudflare Pages no se publican.
+	@internos path /_headers /_redirects
+	respond @internos 404
+
+	# /terminos → terminos.html, como lo exporta Next.js.
+	try_files {path} {path}.html {path}/index.html
+	file_server
+
+	handle_errors 404 {
+		root * /var/www/prismavertex
+		rewrite * /404.html
+		file_server
+	}
+}
+
+# Mientras el dominio no apunte aquí, el sitio se ve por la IP.
+:80 {
+	import sitio
+}

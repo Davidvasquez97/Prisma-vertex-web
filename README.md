@@ -122,9 +122,8 @@ confirmadas, y la sección de video de los nichos se oculta mientras no haya
 video.
 
 **Para publicar**
-1. **Cloudflare Pages**: crear el proyecto y conectar `prismavertex.com.co`
-   (pasos abajo, en «Publicar»). `SITE.dominio` y `ALOJAMIENTO` ya están
-   puestos.
+1. **Dominio**: registros de `prismavertex.com.co` y `www` en Cloudflare
+   hacia el VPS, y HTTPS (pasos abajo, en «Publicar»).
 2. **Apagar `MODO_VISTA_PREVIA`** el día del lanzamiento.
 3. **Google Search Console** y **medición de visitas sin cookies**.
 
@@ -231,34 +230,47 @@ si se cambia una foto, se reemplaza el original y se vuelve a sacar su
 
 ## Publicar
 
-El sitio se publica en **Cloudflare Pages**, en la misma cuenta donde está
-el dominio `prismavertex.com.co`. Todas las páginas son estáticas: no hace
-falta servidor. Cada `git push` a la rama de producción se publica solo.
+El sitio vive en el **VPS de Contabo** (Ubuntu 24.04, IP `185.176.253.22`,
+región Unión Europea) y el dominio `prismavertex.com.co` está en
+**Cloudflare**, que va delante como proxy. Todas las páginas son estáticas:
+el servidor solo entrega archivos.
 
-**Configuración del proyecto en Cloudflare** (Workers & Pages → Crear →
-Pages → Conectar con Git → repositorio `Prisma-vertex-web`):
+**Publicar un cambio** (desde esta carpeta, en Git Bash):
 
-| Campo | Valor |
-| --- | --- |
-| Rama de producción | `main` |
-| Framework | Ninguno (None) |
-| Comando de build | `npm run build:estatico` |
-| Carpeta de salida | `out` |
-| Variable de entorno | `NODE_VERSION` = `22` |
+```bash
+bash scripts/publicar-vps.sh
+```
 
-Después, en el proyecto: **Dominios personalizados** → agregar
-`prismavertex.com.co` y `www.prismavertex.com.co`. Cloudflare crea los
-registros DNS y el certificado solo.
+Compila con `npm run build:estatico`, sube `out/` a una carpeta nueva en
+`/var/www/versiones/`, cambia el enlace `/var/www/prismavertex` de golpe y
+recarga Caddy. Se guardan las 5 versiones más recientes: para volver a una
+anterior basta con apuntar el enlace a ella.
 
-Detalles que conviene saber:
-- `npm run build:estatico` compila como lo hace Cloudflare y además corrige
-  una falla de Next.js 16 con las precargas (ver `scripts/build-estatico.mjs`).
-  Para mirarlo aquí: `npx serve out`.
-- `public/_redirects` y `public/_headers` son las redirecciones y los
-  encabezados de Cloudflare (caché de un año para `/_next/static` y
-  seguridad básica).
-- Las imágenes van en WebP ya del tamaño en que se muestran, porque sin
-  servidor no hay optimizador de imágenes.
-- Vercel (`david-vasquez-97/prisma-vertex`) sigue conectado al mismo
-  repositorio. Cuando el dominio funcione en Cloudflare, conviene
-  desconectarlo para no tener dos copias publicadas.
+**El servidor**
+- **Caddy** sirve el sitio. Su configuración es `deploy/Caddyfile`, que el
+  script instala en `/etc/caddy/Caddyfile` después de validarla.
+- **Firewall (ufw)** abierto solo para SSH, 80 y 443.
+- **Acceso** con la llave `~/.ssh/prismavertex_vps` de este computador, sin
+  contraseña. En Contabo está guardada como *Secret* «prisma vertex web
+  deploy».
+- Las actualizaciones de seguridad se instalan solas
+  (`unattended-upgrades`).
+
+**El dominio (una sola vez)**
+1. En Cloudflare → `prismavertex.com.co` → **DNS → Records**, crear dos
+   registros **A**: `@` y `www`, ambos hacia `185.176.253.22`, primero con
+   el proxy **apagado** (nube gris, «DNS only»).
+2. Agregar los bloques del dominio a `deploy/Caddyfile` y publicar: Caddy
+   saca solo el certificado HTTPS.
+3. Encender el proxy (nube naranja) en los dos registros y poner
+   **SSL/TLS → Full (strict)**.
+
+**Detalles**
+- `npm run build:estatico` también corrige una falla de Next.js 16 con las
+  precargas (ver `scripts/build-estatico.mjs`).
+- `public/_redirects` y `public/_headers` son para Cloudflare Pages; en el
+  VPS hace lo mismo el `Caddyfile`, que además no los publica.
+- Las imágenes van en WebP ya del tamaño en que se muestran.
+- Vercel (`david-vasquez-97/prisma-vertex`) sigue conectado al repositorio
+  y publica `main` en prisma-vertex.vercel.app. Cuando el dominio funcione,
+  conviene desconectarlo para no tener dos copias.

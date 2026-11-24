@@ -55,9 +55,11 @@ export const EMPRESA = {
 
 /**
  * Quién aloja el sitio; la política de datos lo nombra como encargado.
- * Desde el 20 de noviembre de 2026 es Cloudflare Pages (EE. UU.).
+ * Desde el 24 de noviembre de 2026: VPS de Contabo en la Unión Europea
+ * (185.176.253.22), con Cloudflare delante para el dominio y la protección.
+ * Se publica con `bash scripts/publicar-vps.sh`.
  */
-export const ALOJAMIENTO = 'Cloudflare';
+export const ALOJAMIENTO = 'Contabo, en un servidor de la Unión Europea';
 
 /** Fecha de la versión vigente de la política de datos y de los términos. */
 export const VERSION_LEGAL = '20 de noviembre de 2026';
@@ -129,7 +131,7 @@ export const MENSAJES = {
  */
 export const PENDIENTES = [
   // Para publicar
-  'Crear el proyecto en Cloudflare Pages y conectar prismavertex.com.co (pasos en el README, «Publicar»).',
+  'Registros DNS de prismavertex.com.co y www hacia el VPS 185.176.253.22, y HTTPS (pasos en el README, «Publicar»).',
   'Apagar MODO_VISTA_PREVIA el día del lanzamiento.',
   'Código de verificación de Google Search Console.',
   'Medición de visitas sin cookies (Vercel o Cloudflare Web Analytics) y luego ANALITICA_ACTIVA en true.',

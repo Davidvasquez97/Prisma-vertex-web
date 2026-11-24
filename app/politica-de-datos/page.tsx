@@ -134,8 +134,9 @@ export default function PoliticaDeDatos() {
           <Apartado titulo="7. Quién nos ayuda a tratarlos">
             <p>
               Usamos proveedores que guardan o transportan los datos por nosotros,
-              como encargados. Están en Estados Unidos, país que la Superintendencia
-              de Industria y Comercio reconoce con un nivel adecuado de protección.
+              como encargados. Están en Estados Unidos y en la Unión Europea, que
+              la Superintendencia de Industria y Comercio reconoce con un nivel
+              adecuado de protección.
               Sus contratos de procesamiento de datos los obligan a seguir nuestras
               instrucciones, a proteger la información y a guardar
               confidencialidad (artículo 25 del Decreto 1377 de 2013 y Circular
@@ -144,6 +145,7 @@ export default function PoliticaDeDatos() {
             <Lista
               items={[
                 `${ALOJAMIENTO}: aloja este sitio.`,
+                'Cloudflare: administra el dominio y protege el sitio contra ataques; ve los datos técnicos de cada visita, como la dirección IP.',
                 'WhatsApp (Meta): el formulario y nuestras conversaciones pasan por WhatsApp, sujeto también a sus propias políticas de privacidad.',
                 'Google (Gmail): recibe los correos que nos escribe.',
               ]}
