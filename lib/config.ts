@@ -132,7 +132,6 @@ export const MENSAJES = {
  */
 export const PENDIENTES = [
   // Para publicar
-  'Desconectar Vercel (prisma-vertex.vercel.app) y después pasar nichos-y-portada a main.',
   'Código de verificación de Google Search Console.',
   'Medición de visitas sin cookies (Vercel o Cloudflare Web Analytics) y luego ANALITICA_ACTIVA en true.',
   // Legal y tributario

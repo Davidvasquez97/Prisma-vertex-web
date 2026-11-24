@@ -287,6 +287,6 @@ regla de caché «Prisma Vertex: sitio estático».
 - `public/_redirects` y `public/_headers` son para Cloudflare Pages; en el
   VPS hace lo mismo el `Caddyfile`, que además no los publica.
 - Las imágenes van en WebP ya del tamaño en que se muestran.
-- Vercel (`david-vasquez-97/prisma-vertex`) sigue conectado al repositorio
-  y publica `main` en prisma-vertex.vercel.app. Cuando el dominio funcione,
-  conviene desconectarlo para no tener dos copias.
+- Vercel (`david-vasquez-97/prisma-vertex`) quedó **pausado** el 24 de
+  noviembre de 2026: prisma-vertex.vercel.app ya no muestra el sitio. Se
+  puede reactivar desde su panel si algún día hace falta.
