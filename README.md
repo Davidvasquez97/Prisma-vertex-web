@@ -246,6 +246,18 @@ Compila con `npm run build:estatico`, sube `out/` a una carpeta nueva en
 recarga Caddy. Se guardan las 5 versiones más recientes: para volver a una
 anterior basta con apuntar el enlace a ella.
 
+**Después de publicar, purgar la caché de Cloudflare.** Una regla de caché
+guarda las páginas en Cloudflare 4 horas, cerca de cada visitante: el
+servidor está en Europa y así responde en unos 90 ms en lugar de 600.
+Para que el cambio se vea al instante: Cloudflare → `prismavertex.com.co` →
+**Caching → Configuration → Purge Everything**. Si no se purga, el cambio
+aparece solo en máximo 4 horas.
+
+**Lanzado el 24 de noviembre de 2026** con `MODO_VISTA_PREVIA = false`:
+formulario por WhatsApp, botón flotante, enlaces de contacto e indexación en
+Google activos. Lighthouse en el dominio real: rendimiento 80–91,
+accesibilidad 100, buenas prácticas 100, SEO 100.
+
 **El servidor**
 - **Caddy** sirve el sitio. Su configuración es `deploy/Caddyfile`, que el
   script instala en `/etc/caddy/Caddyfile` después de validarla.
@@ -264,6 +276,10 @@ anterior basta con apuntar el enlace a ella.
    saca solo el certificado HTTPS.
 3. Encender el proxy (nube naranja) en los dos registros y poner
    **SSL/TLS → Full (strict)**.
+
+Hecho el 24 de noviembre de 2026: registros `@` y `www` con proxy, SSL en
+Full (strict), certificado de Let's Encrypt en Caddy (se renueva solo) y la
+regla de caché «Prisma Vertex: sitio estático».
 
 **Detalles**
 - `npm run build:estatico` también corrige una falla de Next.js 16 con las

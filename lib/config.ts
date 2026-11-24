@@ -13,7 +13,8 @@
  *
  * Al pasar a `false` todo se activa solo. No hay que tocar ningún componente.
  */
-export const MODO_VISTA_PREVIA = true;
+// Lanzamiento: David lo aprobó el 24 de noviembre de 2026.
+export const MODO_VISTA_PREVIA = false;
 
 export const SITE = {
   nombre: 'Prisma Vertex',
@@ -131,8 +132,7 @@ export const MENSAJES = {
  */
 export const PENDIENTES = [
   // Para publicar
-  'Registros DNS de prismavertex.com.co y www hacia el VPS 185.176.253.22, y HTTPS (pasos en el README, «Publicar»).',
-  'Apagar MODO_VISTA_PREVIA el día del lanzamiento.',
+  'Desconectar Vercel (prisma-vertex.vercel.app) y después pasar nichos-y-portada a main.',
   'Código de verificación de Google Search Console.',
   'Medición de visitas sin cookies (Vercel o Cloudflare Web Analytics) y luego ANALITICA_ACTIVA en true.',
   // Legal y tributario
